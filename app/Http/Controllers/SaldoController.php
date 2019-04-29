@@ -27,7 +27,8 @@ class SaldoController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-			$saldo = DB::table('saldos')
+			if(auth()->user()->role == 0) {
+				$saldo = DB::table('saldos')
 				->select(
 					'saldos.id',
 					'members.first_name',
@@ -49,15 +50,49 @@ class SaldoController extends Controller
                 ->orWhere('saldos.no_rek', 'LIKE', "%$keyword%")
                 ->orWhere('saldos.status', 'LIKE', "%$keyword%")
 				->orderBy('saldos.created_at', 'desc')->paginate($perPage);
-            // $saldo = Saldo::where('user_id', '=', auth()->user()->id)
-                // ->orWhere('admin_id', 'LIKE', "%$keyword%")
-                // ->orWhere('saldo', 'LIKE', "%$keyword%")
-                // ->orWhere('jumlah_transfer', 'LIKE', "%$keyword%")
-                // ->orWhere('no_rek', 'LIKE', "%$keyword%")
-                // ->orWhere('status', 'LIKE', "%$keyword%")
-                // ->latest()->paginate($perPage);
+			} else {
+				$saldo = DB::table('saldos')
+				->select(
+					'saldos.id',
+					'members.first_name',
+					'members.last_name',
+					'saldos.user_id',
+					'saldos.admin_id',
+					'saldos.saldo',
+					'saldos.saldo',
+					'saldos.no_rek',
+					'saldos.jumlah_transfer',
+					'saldos.status',
+					'saldos.created_at',
+					'saldos.updated_at')
+				->join('members', 'saldos.user_id', '=', 'members.id')
+				->orWhere('saldos.admin_id', 'LIKE', "%$keyword%")
+                ->orWhere('saldos.saldo', 'LIKE', "%$keyword%")
+                ->orWhere('saldos.jumlah_transfer', 'LIKE', "%$keyword%")
+                ->orWhere('saldos.no_rek', 'LIKE', "%$keyword%")
+                ->orWhere('saldos.status', 'LIKE', "%$keyword%")
+				->orderBy('saldos.created_at', 'desc')->paginate($perPage);
+			}
         } else {
-			$saldo = DB::table('saldos')
+			if(auth()->user()->role == 0) {
+				$saldo = DB::table('saldos')
+				->select(
+					'saldos.id',
+					'members.first_name',
+					'members.last_name',
+					'saldos.user_id',
+					'saldos.admin_id',
+					'saldos.saldo',
+					'saldos.saldo',
+					'saldos.no_rek',
+					'saldos.jumlah_transfer',
+					'saldos.status',
+					'saldos.created_at',
+					'saldos.updated_at')
+				->where('saldos.user_id', '=', auth()->user()->id)
+				->join('members', 'saldos.user_id', '=', 'members.id')->orderBy('saldos.created_at', 'desc')->paginate($perPage);
+			} else {
+				$saldo = DB::table('saldos')
 				->select(
 					'saldos.id',
 					'members.first_name',
@@ -72,7 +107,7 @@ class SaldoController extends Controller
 					'saldos.created_at',
 					'saldos.updated_at')
 				->join('members', 'saldos.user_id', '=', 'members.id')->orderBy('saldos.created_at', 'desc')->paginate($perPage);
-            // $saldo = Saldo::latest()->paginate($perPage);
+			}
         }
 
         return view('saldo.index', compact('saldo'));
