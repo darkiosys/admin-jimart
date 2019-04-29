@@ -1,12 +1,5 @@
-<div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
-    <label for="user_id" class="control-label">{{ 'User Id' }}</label>
-    <input class="form-control" name="user_id" type="text" id="user_id" value="{{ isset($saldo->user_id) ? $saldo->user_id : ''}}" >
-    {!! $errors->first('user_id', '<p class="help-block">:message</p>') !!}
-</div>
-<div class="form-group {{ $errors->has('admin_id') ? 'has-error' : ''}}">
-    <label for="admin_id" class="control-label">{{ 'Admin Id' }}</label>
-    <input class="form-control" name="admin_id" type="text" id="admin_id" value="{{ isset($saldo->admin_id) ? $saldo->admin_id : ''}}" >
-    {!! $errors->first('admin_id', '<p class="help-block">:message</p>') !!}
+<div class="form-group">
+    <input class="form-control" name="user_id" type="hidden" id="user_id" value="{{ Auth::user()->id }}" >
 </div>
 <div class="form-group {{ $errors->has('saldo') ? 'has-error' : ''}}">
     <label for="saldo" class="control-label">{{ 'Saldo' }}</label>
@@ -23,12 +16,6 @@
     <input class="form-control" name="no_rek" type="text" id="no_rek" value="{{ isset($saldo->no_rek) ? $saldo->no_rek : ''}}" >
     {!! $errors->first('no_rek', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
-    <label for="status" class="control-label">{{ 'Status' }}</label>
-    <input class="form-control" name="status" type="text" id="status" value="{{ isset($saldo->status) ? $saldo->status : ''}}" >
-    {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
-</div>
-
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
