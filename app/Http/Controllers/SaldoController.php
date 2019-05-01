@@ -211,4 +211,5 @@ class SaldoController extends Controller
 
         return redirect('saldo')->with('flash_message', 'Saldo deleted!');
     }
+	
 }

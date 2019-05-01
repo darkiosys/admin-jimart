@@ -20,4 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('saldo', 'SaldoController');
+Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');
 Route::post('/saldo/verifikasi/{id}', 'SaldoController@verifikasiTopup');
