@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'saldo'
+        'first_name', 'last_name', 'sponsor', 'username', 'password', 'email', 'phone', 'tgl_lahir', 'jenis_kelamin', 'photo', 'saldo', 'points', 'subdistrict_id', 'ip_address', 'last_login', 'status', 'token', 'upline', 'posisi', 'bank', 'norek', 'an', 'adminrp', 'tgl', 'tglaktif', 'paket', 'blokir', 'membership', 'fo', 'stocklist', 'reward1', 'reward2', 'reward3', 'reward4', 'reward5', 'reward6', 'jabatan'
     ];
 
     /**

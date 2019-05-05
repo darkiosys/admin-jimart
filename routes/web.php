@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('api/login', 'ApiUserController@login');
 
 Route::resource('saldo', 'SaldoController');
 Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');
