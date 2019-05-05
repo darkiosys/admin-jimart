@@ -42,7 +42,7 @@
                                 @foreach($saldo as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->no_rek }}</td><td>{{ $item->saldo }}</td><td>{{ $item->jumlah_transfer }}</td>
+                                        <td>{{ $item->no_rek }}</td><td>Rp. {{ number_format($item->saldo) }}</td><td>Rp. {{ number_format($item->jumlah_transfer) }}</td>
 										@if(Auth::user()->role == 1)
                                         <td>
                                             <a href="{{ url('/saldo/' . $item->id) }}" title="View Saldo"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
@@ -87,8 +87,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->first_name }} {{ $item->last_name }}</td>
-										<td>{{ $item->saldo }}</td>
-										<td>{{ $item->jumlah_transfer }}</td>
+										<td>Rp. {{ number_format($item->saldo) }}</td>
+										<td>Rp. {{ number_format($item->jumlah_transfer) }}</td>
 										<td>{{ $item->no_rek }}</td>
 										@if(Auth::user()->role == 1)
                                         <td>
