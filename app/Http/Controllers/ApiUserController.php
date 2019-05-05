@@ -96,7 +96,7 @@ class ApiUserController extends Controller
 				if($user->username) {
 					$userPayload['username'] = $user->username;
 				}
-				if($user->password) {
+				if($requestData['password']) {
 					$userPayload['password'] = Hash::make($requestData['password']);
 				}
 				if($user->email) {
