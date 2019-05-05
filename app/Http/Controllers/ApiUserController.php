@@ -85,49 +85,115 @@ class ApiUserController extends Controller
 		} else {
 			$user = OldUser::where('email', '=', $requestData['email'])->where('pass', '=', md5($requestData['password']))->first();
 			if($user) {
-				// $timetgl = strtotime('10/16/2003');
-				// $timetglaktif = strtotime('10/16/2003');
-				// $newformat = date('Y-m-d',$time);
-				$userPayload = array(
-					"first_name" => $user->nama,
-					"last_name" => $user->nama,
-					"sponsor" => $user->sponsor,
-					"username" => $user->username,
-					"password" => Hash::make($requestData['password']),
-					"email" => $user->email,
-					"phone" => $user->phone,
-					"tgl_lahir" => $user->tgl_lahir,
-					"jenis_kelamin" => $user->jenis_kelamin,
-					"photo" => $user->foto,
-					"saldo" => $user->saldo,
-					"points" => $user->points,
-					"subdistrict_id" => 307,
-					"ip_address" => $user->ip_address,
-					"last_login" => $user->last_login,
-					"status" => 0,
-					"token" => $user->token,
-					"upline" => $user->upline,
-					"posisi" => $user->posisi,
-					"kota" => $user->kota,
-					"bank" => $user->bank,
-					"norek" => $user->norek,
-					"an" => $user->an,
-					"adminrp" => $user->adminrp,
-					"tgl" => $user->tgl,
-					"tglaktif" => $user->tglaktif,
-					"paket" => $user->paket,
-					"blokir" => $user->blokir,
-					"membership" => $user->membership,
-					"fo" => $user->fo,
-					"stocklist" => $user->stocklist,
-					"reward1" => $user->reward1,
-					"reward2" => $user->reward2,
-					"reward3" => $user->reward3,
-					"reward4" => $user->reward4,
-					"reward5" => $user->reward5,
-					"reward6" => $user->reward6,
-					"jabatan" => $user->jabatan
-				);
+				$userPayload = array();
+				if($user->nama){
+					$userPayload['first_name'] = $user->nama;
+					$userPayload['last_name'] = $user->nama;
+				}
+				if($user->sponsor) {
+					$userPayload['sponsor'] = $user->sponsor;
+				}
+				if($user->username) {
+					$userPayload['username'] = $user->username;
+				}
+				if($user->password) {
+					$userPayload['password'] = Hash::make($requestData['password']);
+				}
+				if($user->email) {
+					$userPayload['email'] = $user->email;
+				}
+				if($user->phone) {
+					$userPayload['phone'] = $user->phone;
+				}
+				if($user->tgl_lahir) {
+					$userPayload['tgl_lahir'] = $user->tgl_lahir;
+				}
+				if($user->jenis_kelamin) {
+					$userPayload['jenis_kelamin'] = $user->jenis_kelamin;
+				}
+				if($user->foto) {
+					$userPayload['foto'] = $user->foto;
+				}
+				if($user->saldo) {
+					$userPayload['saldo'] = $user->saldo;
+				}
+				if($user->points) {
+					$userPayload['points'] = $user->points;
+				}
+				$userPayload['subdistrict_id'] = 307;
+				if($user->ip_address) {
+					$userPayload['ip_address'] = $user->ip_address;
+				}
+				if($user->last_login) {
+					$userPayload['last_login'] = $user->last_login;
+				}
+				$userPayload['status'] = 0;
+				if($user->token) {
+					$userPayload['token'] = $user->token;
+				}
+				if($user->upline) {
+					$userPayload['upline'] = $user->upline;
+				}
+				if($user->posisi) {
+					$userPayload['posisi'] = $user->posisi;
+				}
+				if($user->kota) {
+					$userPayload['kota'] = $user->kota;
+				}
+				if($user->bank) {
+					$userPayload['bank'] = $user->bank;
+				}
+				if($user->norek) {
+					$userPayload['norek'] = $user->norek;
+				}
+				if($user->an) {
+					$userPayload['an'] = $user->an;
+				}
+				if($user->adminrp) {
+					$userPayload['adminrp'] = $user->adminrp;
+				}
+				if($user->tgl) {
+					$userPayload['tgl'] = $user->tgl;
+				}
+				if($user->tglaktif) {
+					$userPayload['tglaktif'] = $user->tglaktif;
+				}
+				if($user->paket) {
+					$userPayload['paket'] = $user->paket;
+				}
+				if($user->blokir) {
+					$userPayload['blokir'] = $user->blokir;
+				}
+				if($user->membership) {
+					$userPayload['membership'] = $user->membership;
+				}
+				if($user->fo) {
+					$userPayload['fo'] = $user->fo;
+				}
+				if($user->stocklist) {
+					$userPayload['stocklist'] = $user->stocklist;
+				}
+				if($user->reward1) {
+					$userPayload['reward1'] = $user->reward1;
+				}
+				if($user->reward2) {
+					$userPayload['reward2'] = $user->reward2;
+				}
+				if($user->reward3) {
+					$userPayload['reward3'] = $user->reward3;
+				}
+				if($user->reward4) {
+					$userPayload['reward4'] = $user->reward4;
+				}
+				if($user->reward5) {
+					$userPayload['reward5'] = $user->reward5;
+				}
+				if($user->reward6) {
+					$userPayload['reward6'] = $user->reward6;
+				}
+				if($user->jabatan) {
+					$userPayload['jabatan'] = $user->jabatan;
+				}
 				$newuser = User::create($userPayload);
 				$arr = array(
 					"api_status" => 1,
