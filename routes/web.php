@@ -23,4 +23,5 @@ Route::get('api/login', 'ApiUserController@login');
 Route::resource('saldo', 'SaldoController');
 Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');
 Route::post('api/buy_product', 'ApiUserController@buyProduct');
+Route::post('api/cart/kurir', 'ApiUserController@addCartKurir');
 Route::post('/saldo/verifikasi/{id}', 'SaldoController@verifikasiTopup');
