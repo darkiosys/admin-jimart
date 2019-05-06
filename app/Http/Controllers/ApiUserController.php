@@ -291,7 +291,7 @@ class ApiUserController extends Controller
 			"waktu" => $req["waktu"],
 			"biaya" => $req["biaya"]
 		);
-		TEcommerce::create($kurirPayload);
-		return "success";
+		$kurir = TEcommerce::create($kurirPayload);
+		return $kurir->id;
 	}
 }
