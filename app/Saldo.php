@@ -25,7 +25,7 @@ class Saldo extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'admin_id', 'saldo', 'jumlah_transfer', 'no_rek', 'status'];
+    protected $fillable = ['user_id', 'admin_id', 'saldo', 'jumlah_transfer', 'no_rek', 'status', 'created_at', 'updated_at'];
 
     
 }
