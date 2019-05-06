@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\OldUser;
 use App\TdEcommerce;
+use App\TEcommerce;
 
 use Illuminate\Http\Request;
 
@@ -278,6 +279,19 @@ class ApiUserController extends Controller
 		);
 
 		TdEcommerce::create($productPayload);
+		return "success";
+	}
+
+	function addCartKurir(Request $request) {
+		$req = $request->all();
+
+		$kurirPayload = array(
+			"store_id" => $req["store_id"],
+			"kurir" => $req["kurir"],
+			"waktu" => $req["waktu"],
+			"biaya" => $req["biaya"]
+		);
+		TEcommerce::create($kurirPayload);
 		return "success";
 	}
 }
