@@ -275,7 +275,7 @@ class ApiUserController extends Controller
 			'subtotal' => $req['subtotal'],
 			'note' => $req['note'],
 			'status_bonus' => $req['status_bonus']
-		)
+		);
 
 		TdEcommerce::create($productPayload);
 		return "success";
