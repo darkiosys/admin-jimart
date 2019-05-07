@@ -85,7 +85,7 @@ class ApiUserController extends Controller
 				return $failedLogin;
 			}
 		} else {
-			$user = OldUser::where('email', '=', $requestData['email'])->where('pass', '=', md5($requestData['password']))->first();
+			$user = OldUser::where('username', '=', $requestData['email'])->where('pass', '=', md5($requestData['password']))->first();
 			if($user) {
 				$userPayload = array();
 				if($user->nama){
