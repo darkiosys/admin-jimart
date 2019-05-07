@@ -19,7 +19,6 @@ class ApiUserController extends Controller
 			"api_message" => "Invalid credentials. Check your username and password."
 		);
 		$user = User::where('email', '=', $requestData['email'])->orWhere('username', '=', $requestData['email'])->first();
-		return $user;
 		if($user){
 			$res = Hash::check($requestData['password'], $user->password);
 			if($res){
