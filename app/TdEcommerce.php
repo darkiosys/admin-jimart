@@ -25,5 +25,5 @@ class TdEcommerce extends Model
      *
      * @var array
      */
-    protected $fillable = ['t_ecommerce_id', 'products_id', 'members_id', 'price', 'weight', 'total_qty', 'total_weight', 'subtotal', 'note', 'status_bonus'];   
+    protected $fillable = ['t_ecommerce_id', 'products_id', 'members_id', 'price', 'weight', 'total_qty', 'total_weight', 'subtotal', 'note', 'status_bonus', 'transaksi_id'];   
 }

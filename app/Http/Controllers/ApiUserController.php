@@ -275,7 +275,8 @@ class ApiUserController extends Controller
 			'total_weight' => $req['total_weight'],
 			'subtotal' => $req['subtotal'],
 			'note' => $req['note'],
-			'status_bonus' => $req['status_bonus']
+			'status_bonus' => $req['status_bonus'],
+			'transaksi_id' => $req['transaksi_id']
 		);
 
 		TdEcommerce::create($productPayload);
