@@ -17,7 +17,6 @@ class ApiTransaksiController extends Controller
 			'member_id' => $req['member_id'],
 			'no_rek' => $req['no_rek'],
 			'total_transfer' => $req['total_transfer'],
-			'bukti_transfer' => $req['bukti_transfer'],
 		);
 
 		$id = Transaksi::create($productPayload);
