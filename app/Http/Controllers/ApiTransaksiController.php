@@ -29,28 +29,28 @@ class ApiTransaksiController extends Controller
 		return Transaksi::where('status', '=', '0')->where('member_id', '=', $request->get('id'))->count();
 	}
 
-	function totalPesananDiProses() {
+	function totalPesananDiProses(Request $request) {
 		return Transaksi::where('status', '=', '1')->where('member_id', '=', $request->get('id'))->count();
 	}
 
-	function totalPesananDikirim() {
+	function totalPesananDikirim(Request $request) {
 		return Transaksi::where('status', '=', '2')->where('member_id', '=', $request->get('id'))->count();
 	}
 
-	function totalPesananTerkirim() {
+	function totalPesananTerkirim(Request $request) {
 		return Transaksi::where('status', '=', '3')->where('member_id', '=', $request->get('id'))->count();
 	}
 
 	// Store
-	function totalMenungguPembayaran() {
+	function totalMenungguPembayaran(Request $request) {
 		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
 	}
 
-	function totalSudahDibayar() {
+	function totalSudahDibayar(Request $request) {
 		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
 	}
 
-	function totalPesanansDikirim() {
+	function totalPesanansDikirim(Request $request) {
 		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
 	}
 
