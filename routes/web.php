@@ -26,3 +26,14 @@ Route::post('api/buy_product', 'ApiUserController@buyProduct');
 Route::post('api/cart/kurir', 'ApiUserController@addCartKurir');
 Route::post('/saldo/verifikasi/{id}', 'SaldoController@verifikasiTopup');
 Route::post('api/transaksi', 'ApiTransaksiController@createTransaksi');
+
+// User
+Route::get('/api/totaltransaksi/konfirmasipembayaran', 'ApiTransaksiController@totalKonfirmasiPembayaran');
+Route::get('/api/totaltransaksi/pesanandiproses', 'ApiTransaksiController@totalPesananDiProses');
+Route::get('/api/totaltransaksi/pesanandikirim', 'ApiTransaksiController@totalPesananDikirim');
+Route::get('/api/totaltransaksi/pesananterkirim', 'ApiTransaksiController@totalPesananTerkirim');
+
+// Store
+Route::get('/api/totaltransaksi/menunggupembayaran', 'ApiTransaksiController@totalMenungguPembayaran');
+Route::get('/api/totaltransaksi/sudahdibayar', 'ApiTransaksiController@totalSudahDibayar');
+Route::get('/api/totaltransaksi/pesananstoredikirim', 'ApiTransaksiController@totalPesanansDikirim');

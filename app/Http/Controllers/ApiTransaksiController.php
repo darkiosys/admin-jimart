@@ -24,6 +24,36 @@ class ApiTransaksiController extends Controller
 		return $id->id;
 	}
 
+	// User
+	function totalKonfirmasiPembayaran(Request $request) {
+		return Transaksi::where('status', '=', '0')->where('member_id', '=', $request->get('id'))->count();
+	}
+
+	function totalPesananDiProses() {
+		return Transaksi::where('status', '=', '1')->where('member_id', '=', $request->get('id'))->count();
+	}
+
+	function totalPesananDikirim() {
+		return Transaksi::where('status', '=', '2')->where('member_id', '=', $request->get('id'))->count();
+	}
+
+	function totalPesananTerkirim() {
+		return Transaksi::where('status', '=', '3')->where('member_id', '=', $request->get('id'))->count();
+	}
+
+	// Store
+	function totalMenungguPembayaran() {
+		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
+	}
+
+	function totalSudahDibayar() {
+		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
+	}
+
+	function totalPesanansDikirim() {
+		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
+	}
+
 	function addCartKurir(Request $request) {
 		$req = $request->all();
 
