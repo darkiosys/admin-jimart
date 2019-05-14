@@ -13,6 +13,7 @@ class ApiTransaksiController extends Controller
 		$req = $request->all();
 
 		$productPayload = array(
+			'id' => $req['id'],
 			'store_id' => $req['store_id'],
 			'member_id' => $req['member_id'],
 			'no_rek' => $req['no_rek'],
