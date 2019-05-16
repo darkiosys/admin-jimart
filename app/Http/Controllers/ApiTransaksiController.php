@@ -91,7 +91,7 @@ class ApiTransaksiController extends Controller
 			ON transaksi.member_id = members.id
 			WHERE transaksi.status = 1
 			AND transaksi_detail.store_id = '.$request->get('store_id').'
-			GROUP BY id, total_transfer, first_name, last_name, created_at
+			GROUP BY transaksi_id, total_transfer, first_name, last_name, created_at
 		');
 		$data = array(
 			"data" => $res
