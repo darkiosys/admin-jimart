@@ -42,3 +42,5 @@ Route::get('/api/totaltransaksi/pesananterkirim', 'ApiTransaksiController@totalP
 Route::get('/api/totaltransaksi/menunggupembayaran', 'ApiTransaksiController@totalMenungguPembayaran');
 Route::get('/api/totaltransaksi/sudahdibayar', 'ApiTransaksiController@totalSudahDibayar');
 Route::get('/api/totaltransaksi/pesananstoredikirim', 'ApiTransaksiController@totalPesanansDikirim');
+
+Route::get('/api/transaksi/sudahdibayar', 'ApiTransaksiController@invoiceSudahDibayar');

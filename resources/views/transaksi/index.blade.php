@@ -77,9 +77,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Kode Transaksi</th>
-                                        <th>Transaksi</th>
                                         <th>Nominal Transfer</th>
                                         <th>Transfer Ke</th>
+                                        <th>Bukti Transfer</th>
 										@if(Auth::user()->role == 1)
 										<th>Actions</th>
 										@else
@@ -92,15 +92,19 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{$item->id}}</td>
-										<td>0</td>
-										<td>0</td>
-										<td>0</td>
+										<td>{{$item->total_transfer}}</td>
+										<td>{{$item->no_rek}}</td>
+                                        @if($item->bukti_transfer)
+                                            <td><a href="http://jimart.store/admin/public/{{$item->bukti_transfer}}" target="_blank">Cek Bukti</a></td>
+                                        @else
+                                            <td>Belum Terlampir</td>
+                                        @endif
 										@if(Auth::user()->role == 1)
                                         <td>
 											@if($item->status == 0)
-												<form method="POST" action="{{ url('/saldo/verifikasi' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">    
+												<form method="POST" action="{{ url('/transaksi/verifikasi' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">    
 													{{ csrf_field() }}
-													<button type="submit" class="btn btn-primary btn-sm" title="Verifikasi" onclick="return confirm(&quot;Verifikasi topup?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Verifikasi</button>
+													<button type="submit" class="btn btn-primary btn-sm" title="Verifikasi" onclick="return confirm(&quot;Verifikasi transaksi?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Verifikasi</button>
 												</form>
 											@elseif($item->status == 1)
 												Sudah Di verifikasi

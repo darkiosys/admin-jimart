@@ -74,6 +74,25 @@ class ApiTransaksiController extends Controller
 		return count($res);
 	}
 
+	function invoiceSudahDibayar(Request $request) {
+		$res = DB::select('
+			SELECT
+				transaksi_detail.transaksi_id,
+				transaksi.total_transfer,
+				members.first_name,
+				members.last_name,
+				transaksi.created_at
+			FROM transaksi
+			INNER JOIN transaksi_detail
+			ON transaksi.id = transaksi_detail.transaksi_id
+			INNER JOIN members
+			ON transaksi.member_id = members.id
+			WHERE transaksi.status = 1
+			AND transaksi_detail.store_id = '.$request->get('store_id').'
+		');
+		return $res;
+	}
+
 	function totalPesanansDikirim(Request $request) {
 		$res = DB::select('
 			SELECT transaksi_detail.transaksi_id FROM transaksi
