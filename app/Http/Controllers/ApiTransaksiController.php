@@ -109,6 +109,7 @@ class ApiTransaksiController extends Controller
 				member_addresses.nama_penerima,
 				member_addresses.alamat,
 				member_addresses.no_penerima,
+				products.price_discount as harga,
 				transaksi.total_transfer,
 				transaksi.created_at
 			FROM transaksi
