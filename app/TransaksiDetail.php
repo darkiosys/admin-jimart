@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaksi extends Model
+class TransaksiDetail extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'transaksi';
+    protected $table = 'transaksi_detail';
 
     /**
     * The database primary key value.
@@ -25,7 +25,7 @@ class Transaksi extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'member_id', 'no_rek', 'total_transfer', 'bukti_transfer'];
+    protected $fillable = ['id','store_id', 'transaksi_id', 'product_id', 'harga', 'qty', 'weight', 'note'];
 
     
 }
