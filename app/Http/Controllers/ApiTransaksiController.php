@@ -114,6 +114,7 @@ class ApiTransaksiController extends Controller
 				transaksi_kurir.kurir,
 				transaksi_kurir.waktu,
 				transaksi_kurir.biaya,
+				transaksi_kurir.store_id,
 				transaksi.created_at
 			FROM transaksi
 			INNER JOIN transaksi_detail
@@ -133,6 +134,7 @@ class ApiTransaksiController extends Controller
 			GROUP BY
 				transaksi_id,
 				product_id,
+				store_id,
 				product_name,
 				qty,
 				note,
