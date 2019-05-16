@@ -111,6 +111,9 @@ class ApiTransaksiController extends Controller
 				member_addresses.no_penerima,
 				products.price_discount as harga,
 				transaksi.total_transfer,
+				transaksi_kurir.kurir,
+				transaksi_kurir.waktu,
+				transaksi_kurir.biaya,
 				transaksi.created_at
 			FROM transaksi
 			INNER JOIN transaksi_detail
@@ -121,9 +124,27 @@ class ApiTransaksiController extends Controller
 			ON members.id = member_addresses.members_id
 			INNER JOIN products
 			ON transaksi_detail.product_id = products.id
+			INNER JOIN transaksi_kurir
+			ON transaksi.id = transaksi_kurir.transaksi_id
 			WHERE transaksi.status = 1
 			AND transaksi_detail.store_id = '.$request->get("store_id").'
+			AND transaksi_kurir.store_id = '.$request->get("store_id").'
 			AND transaksi.id = "'.$request->get('id').'"
+			GROUP BY
+				transaksi_id,
+				product_id,
+				product_name,
+				qty,
+				note,
+				nama_penerima,
+				alamat,
+				no_penerima,
+				harga,
+				total_transfer,
+				kurir,
+				waktu,
+				biaya,
+				created_at
 		');
 		for($i=0; $i<count($res); $i++){
 			$qu = DB::select('
