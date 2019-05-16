@@ -90,7 +90,10 @@ class ApiTransaksiController extends Controller
 			WHERE transaksi.status = 1
 			AND transaksi_detail.store_id = '.$request->get('store_id').'
 		');
-		return $res;
+		$data = array(
+			"data" => $res
+		);
+		return $data;
 	}
 
 	function totalPesanansDikirim(Request $request) {
