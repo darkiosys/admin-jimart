@@ -23,11 +23,18 @@ class TransaksiController extends Controller
      */
     public function getTransaksi(Request $request)
     {
-        $transaksis = DB::table('transaksi')->get();
-        $transaksi = [];
-        for(i=0; i<count($transaksis); i++){
-            
-        }
+        $transaksi = DB::table('transaksi')->get();
         return view('transaksi.index', compact('transaksi'));
+    }
+
+    function verifikasiTransaksi(Request $request, $id)
+    {
+        $requestData = array(
+            "status" => 1,
+        );
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->update($requestData);
+
+        return redirect('transaksi');
     }
 }

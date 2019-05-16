@@ -53,15 +53,36 @@ class ApiTransaksiController extends Controller
 
 	// Store
 	function totalMenungguPembayaran(Request $request) {
-		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
+		$res = DB::select('
+			SELECT transaksi_detail.transaksi_id FROM transaksi
+			INNER JOIN transaksi_detail
+			ON transaksi.id = transaksi_detail.transaksi_id
+			WHERE transaksi.status = 0
+			AND transaksi_detail.store_id = '.$request->get('store_id').'
+		');
+		return count($res);
 	}
 
 	function totalSudahDibayar(Request $request) {
-		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
+		$res = DB::select('
+			SELECT transaksi_detail.transaksi_id FROM transaksi
+			INNER JOIN transaksi_detail
+			ON transaksi.id = transaksi_detail.transaksi_id
+			WHERE transaksi.status = 1
+			AND transaksi_detail.store_id = '.$request->get('store_id').'
+		');
+		return count($res);
 	}
 
 	function totalPesanansDikirim(Request $request) {
-		return Transaksi::where('status', '=', '3')->where('store_id', '=', $request->get('id'))->count();
+		$res = DB::select('
+			SELECT transaksi_detail.transaksi_id FROM transaksi
+			INNER JOIN transaksi_detail
+			ON transaksi.id = transaksi_detail.transaksi_id
+			WHERE transaksi.status = 2
+			AND transaksi_detail.store_id = '.$request->get('store_id').'
+		');
+		return count($res);
 	}
 
 	function addCartKurir(Request $request) {
