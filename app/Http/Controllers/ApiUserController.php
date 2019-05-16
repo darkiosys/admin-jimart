@@ -264,6 +264,7 @@ class ApiUserController extends Controller
 	}
 	public function buyProduct(Request $request)
 	{
+		$req = $request->all();
 		$detailPayload = array(
 			'store_id' => $req['store_id'],
 			'transaksi_id' => $req['transaksi_id'],
