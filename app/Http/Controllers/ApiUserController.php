@@ -263,23 +263,23 @@ class ApiUserController extends Controller
 	}
 	public function buyProduct(Request $request)
 	{
-		$req = $request->all();
+		// $req = $request->all();
 
-		$productPayload = array(
-			't_ecommerce_id' => $req['t_ecommerce_id'],
-			'products_id' => $req['products_id'],
-			'members_id' => $req['members_id'],
-			'price' => $req['price'],
-			'weight' => $req['weight'],
-			'total_qty' => $req['total_qty'],
-			'total_weight' => $req['total_weight'],
-			'subtotal' => $req['subtotal'],
-			'note' => $req['note'],
-			'status_bonus' => $req['status_bonus'],
-			'transaksi_id' => $req['transaksi_id']
-		);
+		// $productPayload = array(
+		// 	't_ecommerce_id' => $req['t_ecommerce_id'],
+		// 	'products_id' => $req['products_id'],
+		// 	'members_id' => $req['members_id'],
+		// 	'price' => $req['price'],
+		// 	'weight' => $req['weight'],
+		// 	'total_qty' => $req['total_qty'],
+		// 	'total_weight' => $req['total_weight'],
+		// 	'subtotal' => $req['subtotal'],
+		// 	'note' => $req['note'],
+		// 	'status_bonus' => $req['status_bonus'],
+		// 	'transaksi_id' => $req['transaksi_id']
+		// );
 
-		TdEcommerce::create($productPayload);
+		// TdEcommerce::create($productPayload);
 		return "success";
 	}
 
