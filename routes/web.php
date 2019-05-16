@@ -27,6 +27,7 @@ Route::post('api/buy_product', 'ApiUserController@buyProduct');
 Route::post('api/cart/kurir', 'ApiUserController@addCartKurir');
 Route::post('/saldo/verifikasi/{id}', 'SaldoController@verifikasiTopup');
 Route::post('api/transaksi', 'ApiTransaksiController@createTransaksi');
+Route::post('api/transaksi/kurir', 'ApiUserController@addKurirTransaksi');
 
 Route::get('api/transaksi', 'ApiTransaksiController@getTransaksi');
 

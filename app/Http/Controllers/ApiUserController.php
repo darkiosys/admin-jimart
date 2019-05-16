@@ -278,6 +278,19 @@ class ApiUserController extends Controller
 		return "success";
 	}
 
+	function addKurirTransaksi(Request $request) {
+		$req = $request->all();
+		$kurirPayload = array(
+			"store_id" => $req["store_id"],
+			"transaksi_id" => $req["transaksi_id"],
+			"kurir" => $req["kurir"],
+			"waktu" => $req["waktu"],
+			"biaya" => $req["biaya"]
+		);
+		$kurir = TransaksiKurir::create($kurirPayload);
+		return "success";
+	}
+
 	function addCartKurir(Request $request) {
 		$req = $request->all();
 
