@@ -21,11 +21,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('api/login', 'ApiUserController@login');
 
 Route::resource('saldo', 'SaldoController');
+Route::get('transaksi', 'TransaksiController@getTransaksi');
 Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');
 Route::post('api/buy_product', 'ApiUserController@buyProduct');
 Route::post('api/cart/kurir', 'ApiUserController@addCartKurir');
 Route::post('/saldo/verifikasi/{id}', 'SaldoController@verifikasiTopup');
 Route::post('api/transaksi', 'ApiTransaksiController@createTransaksi');
+
+Route::get('api/transaksi', 'ApiTransaksiController@getTransaksi');
 
 // User
 Route::get('/api/totaltransaksi/konfirmasipembayaran', 'ApiTransaksiController@totalKonfirmasiPembayaran');

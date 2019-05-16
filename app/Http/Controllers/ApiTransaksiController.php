@@ -5,21 +5,31 @@ use Illuminate\Support\Facades\Hash;
 use App\Transaksi;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApiTransaksiController extends Controller
 {
+	function getTransaksi(Request $request)
+	{
+		$res = DB::select('
+			SELECT td_ecommerce.transaksi_id, products.product_name FROM 
+			RIGHT JOIN td_ecommerce
+			ON products.id = td_ecommerce.products_id
+		');
+		// INNER JOIN transaksi
+		// ON td_ecommerce.transaksi_id = transaksi.id
+		return $res;
+	}
+
 	public function createTransaksi(Request $request)
 	{
 		$req = $request->all();
-
 		$productPayload = array(
 			'id' => $req['id'],
-			'store_id' => $req['store_id'],
 			'member_id' => $req['member_id'],
 			'no_rek' => $req['no_rek'],
 			'total_transfer' => $req['total_transfer'],
 		);
-
 		$id = Transaksi::create($productPayload);
 		return $id->id;
 	}

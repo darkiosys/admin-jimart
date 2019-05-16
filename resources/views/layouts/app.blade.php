@@ -44,6 +44,9 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="/transaksi">Transaksi</a>
+                            </li>
 							<li class="nav-item">
                                 <a class="nav-link" href="/saldo">Saldo</a>
                             </li>
