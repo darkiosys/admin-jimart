@@ -44,3 +44,4 @@ Route::get('/api/totaltransaksi/sudahdibayar', 'ApiTransaksiController@totalSuda
 Route::get('/api/totaltransaksi/pesananstoredikirim', 'ApiTransaksiController@totalPesanansDikirim');
 
 Route::get('/api/transaksi/sudahdibayar', 'ApiTransaksiController@invoiceSudahDibayar');
+Route::get('/api/transaksi/detailsudahdibayar', 'ApiTransaksiController@detailInvoiceSudahDibayar');

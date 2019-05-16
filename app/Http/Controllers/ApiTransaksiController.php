@@ -59,6 +59,7 @@ class ApiTransaksiController extends Controller
 			ON transaksi.id = transaksi_detail.transaksi_id
 			WHERE transaksi.status = 0
 			AND transaksi_detail.store_id = '.$request->get('store_id').'
+			GROUP BY transaksi_id
 		');
 		return count($res);
 	}
@@ -70,6 +71,7 @@ class ApiTransaksiController extends Controller
 			ON transaksi.id = transaksi_detail.transaksi_id
 			WHERE transaksi.status = 1
 			AND transaksi_detail.store_id = '.$request->get('store_id').'
+			GROUP BY transaksi_id
 		');
 		return count($res);
 	}
@@ -77,7 +79,7 @@ class ApiTransaksiController extends Controller
 	function invoiceSudahDibayar(Request $request) {
 		$res = DB::select('
 			SELECT
-				transaksi_detail.transaksi_id,
+				transaksi.id,
 				transaksi.total_transfer,
 				members.first_name,
 				members.last_name,
@@ -89,7 +91,40 @@ class ApiTransaksiController extends Controller
 			ON transaksi.member_id = members.id
 			WHERE transaksi.status = 1
 			AND transaksi_detail.store_id = '.$request->get('store_id').'
+			GROUP BY id, total_transfer, first_name, last_name, created_at
 		');
+		$data = array(
+			"data" => $res
+		);
+		return $data;
+	}
+	function detailInvoiceSudahDibayar(Request $request) {
+		$res = DB::select('
+			SELECT
+				transaksi.id,
+				products.id as product_id,
+				products.product_name,
+				transaksi_detail.qty,
+				transaksi_detail.note,
+				member_addresses.nama_penerima,
+				member_addresses.alamat,
+				member_addresses.no_penerima,
+				transaksi.total_transfer,
+				transaksi.created_at
+			FROM transaksi
+			INNER JOIN transaksi_detail
+			ON transaksi.id = transaksi_detail.transaksi_id
+			INNER JOIN members
+			ON transaksi.member_id = members.id
+			INNER JOIN member_addresses
+			ON members.id = member_addresses.members_id
+			INNER JOIN products
+			ON transaksi_detail.product_id = products.id
+			WHERE transaksi.status = 1
+			AND transaksi_detail.store_id = '.$request->get("store_id").'
+			AND transaksi.id = "'.$request->get('id').'"
+		');
+
 		$data = array(
 			"data" => $res
 		);
@@ -103,6 +138,7 @@ class ApiTransaksiController extends Controller
 			ON transaksi.id = transaksi_detail.transaksi_id
 			WHERE transaksi.status = 2
 			AND transaksi_detail.store_id = '.$request->get('store_id').'
+			GROUP BY transaksi_id
 		');
 		return count($res);
 	}
