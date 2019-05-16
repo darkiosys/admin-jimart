@@ -125,7 +125,15 @@ class ApiTransaksiController extends Controller
 			AND transaksi_detail.store_id = '.$request->get("store_id").'
 			AND transaksi.id = "'.$request->get('id').'"
 		');
-
+		for($i=0; $i<count($res); $i++){
+			$qu = DB::select('
+			SELECT
+				image_url
+			FROM product_images
+			WHERE products_id = '.$res[$i]->product_id.'
+		');
+			$res[$i]->image = $qu[0]->image_url;
+		}
 		$data = array(
 			"data" => $res
 		);
