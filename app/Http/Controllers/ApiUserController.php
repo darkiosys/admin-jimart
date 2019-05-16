@@ -7,6 +7,7 @@ use App\OldUser;
 use App\TdEcommerce;
 use App\TEcommerce;
 use App\TransaksiDetail;
+use App\TransaksiKurir;
 
 use Illuminate\Http\Request;
 
