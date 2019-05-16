@@ -108,6 +108,10 @@
 												</form>
 											@elseif($item->status == 1)
 												Sudah Di verifikasi
+                                            @elseif($item->status == 2)
+												Sudah Di kirim oleh penjual
+                                            @elseif($item->status == 3)
+												Sudah Di terima oleh pembeli
 											@endif
                                         </td>
 										@else
