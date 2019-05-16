@@ -79,7 +79,7 @@ class ApiTransaksiController extends Controller
 	function invoiceSudahDibayar(Request $request) {
 		$res = DB::select('
 			SELECT
-				transaksi.id,
+				transaksi.id as transaksi_id,
 				transaksi.total_transfer,
 				members.first_name,
 				members.last_name,
@@ -101,7 +101,7 @@ class ApiTransaksiController extends Controller
 	function detailInvoiceSudahDibayar(Request $request) {
 		$res = DB::select('
 			SELECT
-				transaksi.id,
+				transaksi.id as transaksi_id,
 				products.id as product_id,
 				products.product_name,
 				transaksi_detail.qty,
