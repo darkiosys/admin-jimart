@@ -32,7 +32,6 @@ class ApiTransaksiController extends Controller
 			'jenis_transfer' => $req['jenis_transfer'],
 			'total_transfer' => $req['total_transfer'],
 		);
-		$id = Transaksi::create($productPayload);
 		if($req['jenis_transfer'] == "1") {
 			$member = User::findOrFail(159);
 			$pay = $member->saldo - (int)$req['total_transfer'];
@@ -40,7 +39,9 @@ class ApiTransaksiController extends Controller
 				'saldo' => $pay
 			);
 			$member->update($payload);
+			$productPayload['status'] = 1;
 		}
+		$id = Transaksi::create($productPayload);
 		return $id->id;
 	}
 
