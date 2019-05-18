@@ -11,7 +11,7 @@ class OldUser extends Model
      *
      * @var string
      */
-    protected $table = 'old_member';
+    protected $table = 'oke_member';
 
     /**
      * The attributes that are mass assignable.
