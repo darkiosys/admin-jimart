@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Transaksi;
+use App\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,14 @@ class ApiTransaksiController extends Controller
 			'total_transfer' => $req['total_transfer'],
 		);
 		$id = Transaksi::create($productPayload);
+		if($req['jenis_transfer'] == "1") {
+			$member = User::findOrFail(159);
+			$pay = $member->saldo - (int)$req['total_transfer'];
+			$payload = array(
+				'saldo' => $pay
+			);
+			$member->update($payload);
+		}
 		return $id->id;
 	}
 
