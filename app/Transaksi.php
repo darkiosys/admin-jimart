@@ -25,7 +25,7 @@ class Transaksi extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'member_id', 'no_rek', 'total_transfer', 'bukti_transfer', 'status'];
+    protected $fillable = ['id', 'member_id', 'no_rek', 'total_transfer', 'bukti_transfer', 'status', 'jenis_transfer'];
 
     
 }
