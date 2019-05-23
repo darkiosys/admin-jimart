@@ -33,8 +33,8 @@ class ApiTransaksiController extends Controller
 			'total_transfer' => $req['total_transfer'],
 		);
 		if($req['jenis_transfer'] == "1") {
-			$member = User::findOrFail(159);
-			$pay = $member->saldo - (int)$req['total_transfer'];
+			$member = User::findOrFail($req['member_id']);
+			$pay = $member->saldo - $req['total_transfer'];
 			$payload = array(
 				'saldo' => $pay
 			);
