@@ -20,6 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('api/login', 'ApiUserController@login');
 
+Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
+
 Route::resource('saldo', 'SaldoController');
 Route::get('transaksi', 'TransaksiController@getTransaksi');
 Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');
