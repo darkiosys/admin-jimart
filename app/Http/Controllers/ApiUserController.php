@@ -32,9 +32,9 @@ class ApiUserController extends Controller
 				$m->from('admin@starpreneur.co.id', 'Reset Password');
 				$m->to($username['email'], 'Acep Hasanudin')->subject('New Password');
 			});
-			return "success";
+			return array("message" => "success");
 		} else {
-			return "failed";
+			return array("message" => "failed");
 		}
 	}
 
