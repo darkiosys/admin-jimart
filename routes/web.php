@@ -20,6 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('api/login', 'ApiUserController@login');
 
+Route::get('api/forgot_password', 'ApiUserController@forgotPassword');
+
 Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
 Route::resource('saldo', 'SaldoController');
