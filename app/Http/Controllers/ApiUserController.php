@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Mail;
 use Illuminate\Support\Facades\Hash;
 use App\User;
@@ -15,16 +16,18 @@ use Illuminate\Http\Request;
 
 class ApiUserController extends Controller
 {
-	function slider(Request $request) {
+	function slider(Request $request)
+	{
 		return array("data" => Slider::get());
 	}
 
-	public function forgotPassword(Request $request) {
+	public function forgotPassword(Request $request)
+	{
 		$req = $request->all();
 		$login = $req['login'];
 		$user = User::where('username', '=', $login)->orWhere('email', '=', $login)->first();
-		if($user) {
-			$rand = rand(10000,99999);
+		if ($user) {
+			$rand = rand(10000, 99999);
 			$username = array(
 				"first_name" => $user->first_name,
 				"last_name" => $user->last_name,
@@ -32,7 +35,7 @@ class ApiUserController extends Controller
 				"newpass" => $rand
 			);
 			$user->update(array('password' => Hash::make($rand)));
-			Mail::send('emails.reminder', $username, function ($m) use($username) {
+			Mail::send('emails.reminder', $username, function ($m) use ($username) {
 				$m->from('admin@starpreneur.co.id', 'Reset Password');
 				$m->to($username['email'], 'Acep Hasanudin')->subject('New Password');
 			});
@@ -50,9 +53,10 @@ class ApiUserController extends Controller
 			"api_message" => "Invalid credentials. Check your username and password."
 		);
 		$user = User::where('email', '=', $requestData['email'])->orWhere('username', '=', $requestData['email'])->first();
-		if($user){
+
+		if ($user) {
 			$res = Hash::check($requestData['password'], $user->password);
-			if($res){
+			if ($res) {
 				$arr = array(
 					"api_status" => 1,
 					"api_message" => "success",
@@ -117,114 +121,114 @@ class ApiUserController extends Controller
 			}
 		} else {
 			$user = OldUser::where('username', '=', $requestData['email'])->where('pass', '=', md5($requestData['password']))->first();
-			if($user) {
+			if ($user) {
 				$userPayload = array();
-				if($user->nama){
+				if ($user->nama) {
 					$userPayload['first_name'] = $user->nama;
 					$userPayload['last_name'] = $user->nama;
 				}
-				if($user->sponsor) {
+				if ($user->sponsor) {
 					$userPayload['sponsor'] = $user->sponsor;
 				}
-				if($user->username) {
+				if ($user->username) {
 					$userPayload['username'] = $user->username;
 				}
-				if($requestData['password']) {
+				if ($requestData['password']) {
 					$userPayload['password'] = Hash::make($requestData['password']);
 				}
-				if($user->email) {
+				if ($user->email) {
 					$userPayload['email'] = $user->email;
 				}
-				if($user->phone) {
+				if ($user->phone) {
 					$userPayload['phone'] = $user->phone;
 				}
-				if($user->tgl_lahir) {
+				if ($user->tgl_lahir) {
 					$userPayload['tgl_lahir'] = $user->tgl_lahir;
 				}
-				if($user->jenis_kelamin) {
+				if ($user->jenis_kelamin) {
 					$userPayload['jenis_kelamin'] = $user->jenis_kelamin;
 				}
-				if($user->foto) {
+				if ($user->foto) {
 					$userPayload['foto'] = $user->foto;
 				}
-				if($user->saldo) {
+				if ($user->saldo) {
 					$userPayload['saldo'] = $user->saldo;
 				}
-				if($user->points) {
+				if ($user->points) {
 					$userPayload['points'] = $user->points;
 				}
 				$userPayload['subdistrict_id'] = 307;
-				if($user->ip_address) {
+				if ($user->ip_address) {
 					$userPayload['ip_address'] = $user->ip_address;
 				}
-				if($user->last_login) {
+				if ($user->last_login) {
 					$userPayload['last_login'] = $user->last_login;
 				}
 				$userPayload['status'] = 0;
-				if($user->token) {
+				if ($user->token) {
 					$userPayload['token'] = $user->token;
 				}
-				if($user->upline) {
+				if ($user->upline) {
 					$userPayload['upline'] = $user->upline;
 				}
-				if($user->posisi) {
+				if ($user->posisi) {
 					$userPayload['posisi'] = $user->posisi;
 				}
-				if($user->kota) {
+				if ($user->kota) {
 					$userPayload['kota'] = $user->kota;
 				}
-				if($user->bank) {
+				if ($user->bank) {
 					$userPayload['bank'] = $user->bank;
 				}
-				if($user->norek) {
+				if ($user->norek) {
 					$userPayload['norek'] = $user->norek;
 				}
-				if($user->an) {
+				if ($user->an) {
 					$userPayload['an'] = $user->an;
 				}
-				if($user->adminrp) {
+				if ($user->adminrp) {
 					$userPayload['adminrp'] = $user->adminrp;
 				}
-				if($user->tgl) {
+				if ($user->tgl) {
 					$userPayload['tgl'] = $user->tgl;
 				}
-				if($user->tglaktif) {
+				if ($user->tglaktif) {
 					$userPayload['tglaktif'] = $user->tglaktif;
 				}
-				if($user->paket) {
+				if ($user->paket) {
 					$userPayload['paket'] = $user->paket;
 				}
-				if($user->blokir) {
+				if ($user->blokir) {
 					$userPayload['blokir'] = $user->blokir;
 				}
-				if($user->membership) {
+				if ($user->membership) {
 					$userPayload['membership'] = $user->membership;
 				}
-				if($user->fo) {
+				if ($user->fo) {
 					$userPayload['fo'] = $user->fo;
 				}
-				if($user->stocklist) {
+				if ($user->stocklist) {
 					$userPayload['stocklist'] = $user->stocklist;
 				}
-				if($user->reward1) {
+				if ($user->reward1) {
 					$userPayload['reward1'] = $user->reward1;
 				}
-				if($user->reward2) {
+				if ($user->reward2) {
 					$userPayload['reward2'] = $user->reward2;
 				}
-				if($user->reward3) {
+				if ($user->reward3) {
 					$userPayload['reward3'] = $user->reward3;
 				}
-				if($user->reward4) {
+				if ($user->reward4) {
 					$userPayload['reward4'] = $user->reward4;
 				}
-				if($user->reward5) {
+				if ($user->reward5) {
 					$userPayload['reward5'] = $user->reward5;
 				}
-				if($user->reward6) {
+				if ($user->reward6) {
 					$userPayload['reward6'] = $user->reward6;
 				}
-				if($user->jabatan) {
+				if ($user->jabatan) {
 					$userPayload['jabatan'] = $user->jabatan;
 				}
 				$newuser = User::create($userPayload);
@@ -292,7 +296,8 @@ class ApiUserController extends Controller
 		return "success";
 	}
 
-	function addKurirTransaksi(Request $request) {
+	function addKurirTransaksi(Request $request)
+	{
 		$req = $request->all();
 		$kurirPayload = array(
 			"store_id" => $req["store_id"],
@@ -305,7 +310,8 @@ class ApiUserController extends Controller
 		return "success";
 	}
 
-	function addCartKurir(Request $request) {
+	function addCartKurir(Request $request)
+	{
 		$req = $request->all();
 
 		$kurirPayload = array(
