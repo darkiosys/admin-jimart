@@ -59,7 +59,18 @@ class ApiTransaksiController extends Controller
 	}
 
 	function totalPesananTerkirim(Request $request) {
+
 		return Transaksi::where('status', '=', '3')->where('member_id', '=', $request->get('id'))->count();
+	}
+
+	function generasi($username) {
+		$date = date("Y-m-d H:i:s");
+		for ($i=0; $i < 10; $i++) { 
+			$member = User::where('sponsor', '=', $username);
+			if($member) {
+				// 
+			}
+		}
 	}
 
 	// Store
