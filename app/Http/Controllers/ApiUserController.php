@@ -9,11 +9,15 @@ use App\TdEcommerce;
 use App\TEcommerce;
 use App\TransaksiDetail;
 use App\TransaksiKurir;
+use App\Slider;
 
 use Illuminate\Http\Request;
 
 class ApiUserController extends Controller
 {
+	function slider(Request $request) {
+		return array("data" => Slider::get());
+	}
 
 	public function forgotPassword(Request $request) {
 		$req = $request->all();
