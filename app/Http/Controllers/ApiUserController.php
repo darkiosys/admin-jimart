@@ -23,7 +23,7 @@ class ApiUserController extends Controller
 
 	function getProfile(Request $request) {
 		$req = $request->all();
-		return array("data" => User::where('id', '=', $req['id'])->get());
+		return array("data" => User::where('id', '=', $req['id'])->first());
 	}
 
 	public function forgotPassword(Request $request)
