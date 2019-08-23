@@ -21,6 +21,11 @@ class ApiUserController extends Controller
 		return array("data" => Slider::get());
 	}
 
+	function getProfile(Request $request) {
+		$req = $request->all();
+		return array("data" => User::where('id', '=', $req['id']));
+	}
+
 	public function forgotPassword(Request $request)
 	{
 		$req = $request->all();
