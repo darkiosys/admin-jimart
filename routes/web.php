@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('api/v1/login', 'ApiUserController@login');
 Route::get('/api/v1/slider', 'ApiUserController@slider');
+Route::get('/api/v1/profile', 'ApiTransaksiController@getProfile');
 
 Route::get('api/forgot_password', 'ApiUserController@forgotPassword');
 
