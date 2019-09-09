@@ -211,5 +211,22 @@ class SaldoController extends Controller
 
         return redirect('saldo')->with('flash_message', 'Saldo deleted!');
     }
-	
+    
+    public function memberSaldo() {
+        $members = DB::table('members')
+        ->orderBy('saldo', 'desc')
+        ->get();
+        return view('saldo.membersaldo', compact('members'));
+    }
+
+    public function hapusMember($id) {
+        User::destroy($id);
+        return redirect('/member-saldo');
+    }
+
+    public function kosongSaldo($id) {
+        $saldo = User::findOrFail($id);
+        $saldo->update(array('saldo' => 0));
+        return redirect('/member-saldo');
+    }
 }

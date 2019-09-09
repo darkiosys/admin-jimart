@@ -45,6 +45,9 @@
                             </li>
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="/member-saldo">Member Saldo</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="/transaksi">Transaksi</a>
                             </li>
 							<li class="nav-item">

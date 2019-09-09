@@ -28,6 +28,7 @@ Route::get('api/forgot_password', 'ApiUserController@forgotPassword');
 Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
 Route::resource('saldo', 'SaldoController');
+Route::get('/member-saldo', 'SaldoController@memberSaldo');
 Route::get('transaksi', 'TransaksiController@getTransaksi');
 Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');
 Route::post('api/buy_product', 'ApiUserController@buyProduct');
@@ -38,6 +39,9 @@ Route::post('api/transaksi', 'ApiTransaksiController@createTransaksi');
 Route::post('api/transaksi/kurir', 'ApiUserController@addKurirTransaksi');
 
 Route::get('api/transaksi', 'ApiTransaksiController@getTransaksi');
+
+Route::get('/api/hapusmember/{id}', 'SaldoController@hapusMember');
+Route::get('/api/hapussaldomember/{id}', 'SaldoController@kosongSaldo');
 
 // User
 Route::get('/api/totaltransaksi/konfirmasipembayaran', 'ApiTransaksiController@totalKonfirmasiPembayaran');
