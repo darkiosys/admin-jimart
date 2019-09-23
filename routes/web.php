@@ -22,7 +22,7 @@ Route::get('/api/v1/inquiry', 'ApiTopupController@inquiryPasca');
 Route::get('/api/v1/inquiry/pay', 'ApiTopupController@inquiryPay');
 Route::get('/api/v1/prepaid/callback', 'ApiTopupController@callback');
 
-Route::geT('/api/v2/topup', 'ApiTopupController@topupRelease');
+Route::geT('/api/v1/pay', 'ApiTopupController@pay');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('api/login', 'ApiUserController@login');
