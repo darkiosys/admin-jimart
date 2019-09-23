@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/api/v1/topup', 'ApiTopupController@index');
 Route::get('/api/v1/inquiry', 'ApiTopupController@inquiryPasca');
 Route::get('/api/v1/inquiry/pay', 'ApiTopupController@inquiryPay');
+Route::get('/api/v1/prepaid/callback', 'ApiTopupController@callback');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('api/login', 'ApiUserController@login');
