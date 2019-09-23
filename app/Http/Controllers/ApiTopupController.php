@@ -47,6 +47,22 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
+		$username   = "089687271843";
+		$apiKey   = "6845d79e9afc378c";
+		$ref_id  = uniqid('');
+		$code = $req['code'];
+		$signature  = md5($username.$apiKey.$ref_id);
+
+		$json = '{
+				"commands"    : "topup",
+				"username"    : "089687271843",
+				"ref_id"      : "'.$ref_id.'",
+				"hp"          : "'.$req['hp'].'",
+				"pulsa_code"  : "'.$code.'",
+				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
+				}';
+
+		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
@@ -163,12 +179,12 @@ class ApiTopupController extends Controller
 			$tp = array(
 				'member_id' => $members_id,
 				'log_id' => '0',
-				'target' => $req['target'],
-				'reff_id' => $req['reffid'],
-				'prodname' => $req['prod'],
+				'target' => $req['code'],
+				'reff_id' => $ref_id,
+				'prodname' => $req['hp'],
 				'amount' => 0,
 				'status' => 'FAILED',
-				'message' => 'Saldo tidak cukup',
+				'message' => 'Insufficient balance',
 				'time' => date('Y-m-d H:i:s'),
 				'payload' => json_encode($payload)
 			);
@@ -186,22 +202,6 @@ class ApiTopupController extends Controller
 				}
 			}';
 		}
-		$username   = "089687271843";
-		$apiKey   = "6845d79e9afc378c";
-		$ref_id  = uniqid('');
-		$code = $req['code'];
-		$signature  = md5($username.$apiKey.$ref_id);
-
-		$json = '{
-				"commands"    : "topup",
-				"username"    : "089687271843",
-				"ref_id"      : "'.$ref_id.'",
-				"hp"          : "'.$req['hp'].'",
-				"pulsa_code"  : "'.$code.'",
-				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
-				}';
-
-		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
 
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
