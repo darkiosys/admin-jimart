@@ -186,7 +186,7 @@ class ApiTopupController extends Controller
 				'status' => 'FAILED',
 				'message' => 'Insufficient balance',
 				'time' => date('Y-m-d H:i:s'),
-				'payload' => json_encode($payload)
+				'payload' => json_encode($json)
 			);
 			T_transaction::create($tp);
 			return '{
