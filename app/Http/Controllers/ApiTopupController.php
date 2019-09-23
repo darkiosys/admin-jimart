@@ -8,6 +8,36 @@ use Illuminate\Http\Request;
 
 class ApiTopupController extends Controller
 {
+	function topupRelease(Request $request) {
+		$req = $request->all();
+		$username   = "089687271843";
+		$apiKey   = "7285d8726bcde318728";
+		$ref_id  = uniqid('');
+		$code = $req['code'];
+		$signature  = md5($username.$apiKey.$ref_id);
+
+		$json = '{
+				"commands"    : "topup",
+				"username"    : "089687271843",
+				"ref_id"      : "'.$ref_id.'",
+				"hp"          : "'.$req['hp'].'",
+				"pulsa_code"  : "'.$code.'",
+				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
+				}';
+
+		$url = "https://api.mobilepulsa.net/v1/legacy/index";
+
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return $data;
+	}
 	function callback(Request $request) {
 		$data = file_get_contents('php://input');
 		$my_file = 'callback.txt';
