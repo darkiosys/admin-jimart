@@ -229,66 +229,6 @@ class ApiTopupController extends Controller
 			'payload' => json_encode($json)
 		);
 		T_transaction::create($tp);
-
-		// DOUBLE DELIGHT
-		// $ha = $fee_admin * (25/100);
-		// $vshare = $fee_admin - $ha;
-		// $v10 = $vshare * (10/100);
-		// $v15 = $vshare * (15/100);
-		// $v5 = $vshare * (5/100);
-		// // CASHBACK
-		// $cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
-		// // LEVEL 1
-		// $cm1 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$member[0]->sponsor]);
-		// if(count($cm1) > 0) {
-		// 	$cb1 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v15,$cm1[0]->sponsor]);
-		// 	// LEVEL 2
-		// 	$cm2 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm1[0]->sponsor]);
-		// 	if(count($cm2) > 0) {
-		// 		$cb2 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v15,$cm2[0]->sponsor]);
-		// 		// LEVEL 3
-		// 		$cm3 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm2[0]->sponsor]);
-		// 		if(count($cm3) > 0) {
-		// 			$cb3 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm3[0]->sponsor]);
-		// 			// LEVEL 4
-		// 			$cm4 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm3[0]->sponsor]);
-		// 			if(count($cm4) > 0) {
-		// 				$cb4 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm4[0]->sponsor]);
-		// 				// LEVEL 5
-		// 				$cm5 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm4[0]->sponsor]);
-		// 				if(count($cm5) > 0) {
-		// 					$cb5 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm5[0]->sponsor]);
-		// 					// LEVEL 6
-		// 					$cm6 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm5[0]->sponsor]);
-		// 					if(count($cm6) > 0) {
-		// 						$cb6 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm6[0]->sponsor]);
-		// 						// LEVEL 7
-		// 						$cm7 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm6[0]->sponsor]);
-		// 						if(count($cm7) > 0) {
-		// 							$cb7 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm7[0]->sponsor]);
-		// 							// LEVEL 8
-		// 							$cm8 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm7[0]->sponsor]);
-		// 							if(count($cm8) > 0) {
-		// 								$cb8 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm8[0]->sponsor]);
-		// 								// LEVEL 9
-		// 								$cm9 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm8[0]->sponsor]);
-		// 								if(count($cm9) > 0) {
-		// 									$cb9 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm9[0]->sponsor]);
-		// 									// LEVEL 10
-		// 									$cm10 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm9[0]->sponsor]);
-		// 									if(count($cm10) > 0) {
-		// 										$cb10 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm10[0]->sponsor]);
-		// 									}
-		// 								}
-		// 							}
-		// 						}
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// }
-		// 
 		$data = '{"data":{
 			"ref_id":"'.$ref_id.'",
 			"status":1,
@@ -300,10 +240,6 @@ class ApiTopupController extends Controller
 			"tr_id":"'.$ref_id.'",
 			"rc":"0001"
 		}}';
-		$mp = $actualprice;
-		$ns = $member[0]->saldo - $mp;
-		$xusr = User::where('id', '=', $member[0]->id)->first();
-		$xusr->update(array('saldo' => $ns));
 		return $data;
 	}
 	function pay(Request $request) {
