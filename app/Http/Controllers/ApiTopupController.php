@@ -222,7 +222,7 @@ class ApiTopupController extends Controller
 			'status' => 'SUCCESS',
 			'message' => 'Pembelian Pulsa Berhasil',
 			'time' => date('Y-m-d H:i:s'),
-			'payload' => json_encode($payload)
+			'payload' => json_encode($json)
 		);
 		T_transaction::create($tp);
 		return $data;
