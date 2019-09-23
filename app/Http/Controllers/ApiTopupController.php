@@ -301,8 +301,9 @@ class ApiTopupController extends Controller
 			"rc":"0001"
 		}}';
 		$mp = $actualprice;
-		$ns = $member->saldo - $mp;
-		$member->update(array('saldo' => $ns));
+		$ns = $member[0]->saldo - $mp;
+		$xusr = User::where('id', '=', $member[0]->id)->first();
+		$xusr->update(array('saldo' => $ns));
 		return $data;
 	}
 	function inquiryPasca(Request $request) {
