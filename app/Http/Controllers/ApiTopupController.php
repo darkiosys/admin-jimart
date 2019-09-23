@@ -300,7 +300,6 @@ class ApiTopupController extends Controller
 			"tr_id":"'.$ref_id.'",
 			"rc":"0001"
 		}}';
-		return $req['hp'];
 		$mp = $actualprice;
 		$ns = $member->saldo - $mp;
 		$member->update(array('saldo' => $ns));
