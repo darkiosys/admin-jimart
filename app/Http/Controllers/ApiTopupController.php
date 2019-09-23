@@ -225,7 +225,8 @@ class ApiTopupController extends Controller
 			'payload' => json_encode($json)
 		);
 		T_transaction::create($tp);
-		return $data['price'];
+		$rd = json_decode($data);
+		return $rd->price;
 		return $data;
 	}
 	function inquiryPasca(Request $request) {
