@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
 use App\Saldo;
 use App\User;
 use App\T_transaction;
