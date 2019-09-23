@@ -128,6 +128,19 @@ class ApiTopupController extends Controller
 
 		$data = curl_exec($ch);
 		curl_close($ch);
+		$tp = array(
+			'member_id' => $members_id,
+			'log_id' => '0',
+			'target' => $req['hp'],
+			'reff_id' => $ref_id,
+			'prodname' => $code,
+			'amount' => 0,
+			'status' => 'SUCCESS',
+			'message' => 'Pembelian Pulsa Berhasil',
+			'time' => date('Y-m-d H:i:s'),
+			'payload' => json_encode($payload)
+		);
+		T_transaction::create($tp);
 		return $data;
 	}
 	function inquiryPasca(Request $request) {
