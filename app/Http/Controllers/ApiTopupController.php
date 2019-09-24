@@ -560,7 +560,7 @@ class ApiTopupController extends Controller
 			[
 				'members_id' => $members_id,
 				'trx_id' => $ref_id,
-				'trx_date' => Date.now(),
+				'trx_date' => Date(),
 				'trx_name' => "PULSA",
 				'no_hp' => $req['hp'],
 				'tagihan' => $lamount[$req['code']], 
