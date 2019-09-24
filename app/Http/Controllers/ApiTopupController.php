@@ -556,6 +556,22 @@ class ApiTopupController extends Controller
 		$ns = $member[0]->saldo - $mp;
 		$xusr = User::where('id', '=', $member[0]->id)->first();
 		$xusr->update(array('saldo' => $ns));
+		DB::table('t_ppob')->insert(
+			[
+				'members_id' => $members_id,
+				'trx_id' => $ref_id,
+				'trx_date' => Date.now(),
+				'trx_name' => "PULSA",
+				'no_hp' => $req['hp'],
+				'tagihan' => $lamount[$req['code']], 
+				'fee_admin' => 1000,
+				'total_tagihan' => $actualprice,
+				'ending_saldo' => $ns,
+				'product_code' => $code,
+				'status' => "Berhasil",
+				'status_bonus' => '0'
+			]
+		);
 		return $data;
 	}
 	function inquiryPasca(Request $request) {
