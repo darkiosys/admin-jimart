@@ -238,7 +238,7 @@ class ApiTopupController extends Controller
 		$members_id = $req['member_id'];
 		$password = $req['password'];
 		$username   = "089687271843";
-		$apiKey   = "6845d79e9afc378c";
+		$apiKey   = "7285d8726bcde318728";
 		$ref_id  = $req['reff_id'];
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
@@ -250,7 +250,7 @@ class ApiTopupController extends Controller
 				"pulsa_code"  : "'.$code.'",
 				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
-		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
+		$url = "https://api.mobilepulsa.net/v1/legacy/index";
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
