@@ -205,17 +205,6 @@ class ApiTopupController extends Controller
 				}
 			}';
 		}
-
-		// $ch  = curl_init();
-		// curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-		// curl_setopt($ch, CURLOPT_URL, $url);
-		// curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-		// curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-		// $data = curl_exec($ch);
-		// curl_close($ch);
-		// $rd = json_decode($data);
 		$tp = array(
 			'member_id' => $members_id,
 			'log_id' => '0',
@@ -248,7 +237,7 @@ class ApiTopupController extends Controller
 		$password = $req['password'];
 		$username   = "089687271843";
 		$apiKey   = "6845d79e9afc378c";
-		$ref_id  = uniqid('');
+		$ref_id  = $req['reff_id'];
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
