@@ -779,14 +779,23 @@ class ApiTopupController extends Controller
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
-				"commands"    : "topup",
-				"username"    : "089687271843",
-				"ref_id"      : "'.$ref_id.'",
-				"hp"          : "'.$req['hp'].'",
-				"pulsa_code"  : "'.$code.'",
-				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
-				}';
+			"commands"    : "inquiry_pln",
+			"username"    : "089687271843",
+			"hp"          : "'.$req['hp'].'",
+			"sign"        : "'.md5($username.$apiKey.$req['hp']).'"
+		}';
 		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$data = curl_exec($ch);
+		curl_close($ch);
+		$rd = json_decode($data);
+		return $rd;
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
@@ -817,87 +826,6 @@ class ApiTopupController extends Controller
 			}';
 		}
 		$lamount = array(
-			"htelkomsel1000" => array(1000,1900, 1000),
-			"htelkomsel2000" => array(2000, 3200, 1000),
-			"htelkomsel3000" => array(3000, 4800, 1000), 
-			"htelkomsel5000" => array(5000, 5900, 1000),
-			"htelkomsel10000" => array(10000, 10850, 1000),
-			"htelkomsel15000" => array(15000, 15500, 1000),
-			"htelkomsel20000" => array(20000, 20500, 1000),
-			"htelkomsel25000" => array(25000, 25000, 1000),
-			"htelkomsel40000" => array(40000, 40000, 1000),
-			"htelkomsel50000" => array(50000, 49750, 1000),
-			"htelkomsel100000" => array(100000, 98500, 1000),
-			"htelkomsel150000" => array(150000, 148750, 1000),
-			"htelkomsel200000" => array(200000, 198000, 1000),
-			"htelkomsel300000" => array(300000, 297500, 1000),
-			"htelkomsel500000" => array(500000, 495000, 1000),
-			"htelkomsel1000000" => array(1000000, 987500, 1000),
-			"hindosat5000" => array(5000, 5990, 1000),
-			"hindosat10000" => array(10000, 10990, 1000),
-			"hindosat12000" => array(12000, 12500, 1000),
-			"hindosat20000" => array(20000, 20200, 1000),
-			"hindosat25000" => array(25000, 24900, 1000),
-			"hindosat30000" => array(30000, 30550, 1000),
-			"hindosat50000" => array(50000, 49250, 1000),
-			"hindosat60000" => array(60000, 58800, 1000),
-			"hindosat80000" => array(80000, 78000, 1000),
-			"hindosat100000" => array(100000, 98000, 1000),
-			"hindosat150000" => array(150000, 143000, 1000),
-			"hindosat200000" => array(200000, 185500, 1000),
-			"hindosat250000" => array(250000, 232000, 1000),
-			"hindosat500000" => array(500000, 463000, 1000),
-			"hindosat1000000" => array(1000000, 926000, 1000),
-			"xld5000" => array(5000, 5800, 1000),
-			"xld10000" => array(10000, 10800, 1000),
-			"xld15000" => array(15000, 15300, 1000),
-			"xld25000" => array(25000, 24900, 1000),
-			"xld30000" => array(30000, 29900, 1000),
-			"xld50000" => array(50000, 49700, 1000),
-			"xld100000" => array(100000, 99250, 1000),
-			"xld150000" => array(150000, 150000, 1000),
-			"xld200000" => array(200000, 198500, 1000),
-			"xld300000" => array(300000, 298500, 1000),
-			"xld500000" => array(500000, 495000, 1000),
-			"xld1000000" => array(1000000, 990000, 1000),
-			"haxis5000" => array(5000, 5800, 1000),
-			"haxis10000" => array(10000, 10800, 1000),
-			"haxis15000" => array(15000, 14925, 1000),
-			"haxis25000" => array(25000, 24900, 1000),
-			"haxis50000" => array(50000, 49700, 1000),
-			"haxis100000" => array(100000, 99250, 1000),
-			"haxis200000" => array(200000, 198500, 1000),
-			"hthree1000"  => array(1000, 1300, 1000),
-			"hthree2000"  => array(2000, 2250, 1000),
-			"hthree3000"  => array(3000, 3450, 1000),
-			"hthree5000"  => array(5000, 5400, 1000),
-			"hthree10000"  => array(10000, 10400, 1000),
-			"hthree15000"  => array(15000, 15000, 1000),
-			"hthree20000"  => array(20000, 19700, 1000),
-			"hthree25000"  => array(25000, 24625, 1000),
-			"hthree30000"  => array(30000, 30000, 1000),
-			"hthree50000"  => array(50000, 49000, 1000),
-			"hthree100000"  => array(100000, 98500, 1000),
-			"hthree150000"  => array(150000, 148500, 1000),
-			"hthree200000"  => array(200000, 199000, 1000),
-			"hthree300000"  => array(300000, 297000, 1000),
-			"hthree500000"  => array(500000, 495000, 1000),
-			"hthree1000000"  => array(1000000, 990000, 1000),
-			"hsmart5000" => array(5000, 5175, 1000),
-			"hsmart10000" => array(10000, 10100, 1000),
-			"hsmart20000" => array(20000, 19800, 1000),
-			"hsmart25000" => array(25000, 24800, 1000),
-			"hsmart50000" => array(50000, 49500, 1000),
-			"hsmart60000" => array(60000, 60000, 1000),
-			"hsmart100000" => array(100000, 97550, 1000),
-			"hsmart150000" => array(150000, 147000, 1000),
-			"hsmart200000" => array(200000, 196000, 1000),
-			"hsmart300000" => array(300000, 294000, 1000),
-			"hsmart500000" => array(500000, 490000, 1000),
-			"hsmart1000000" => array(1000000, 980000, 1000),
-			"hceria50000" => array(50000, 50000, 1000),
-			"hceria100000" => array(100000, 100000, 1000),
-			"hceria200000" => array(200000, 200000, 1000),
 			"hpln20000" =>	array(20000, 20500, 2500),
 			"hpln50000" =>  array(50000,50500, 2500),
 			"hpln100000" => array(100000, 100500, 2500),
@@ -921,7 +849,7 @@ class ApiTopupController extends Controller
 				'time' => date('Y-m-d H:i:s'),
 				'payload' => json_encode($json)
 			);
-			T_transaction::create($tp);
+			// T_transaction::create($tp);
 			return '{
 				"data": {
 					"trx_id": "",
@@ -947,7 +875,7 @@ class ApiTopupController extends Controller
 			'time' => date('Y-m-d H:i:s'),
 			'payload' => json_encode($json)
 		);
-		T_transaction::create($tp);
+		// T_transaction::create($tp);
 		$data = '{"data":{
 			"ref_id":"'.$ref_id.'",
 			"status":1,
@@ -972,11 +900,9 @@ class ApiTopupController extends Controller
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
-				"commands"    : "topup",
+				"commands"    : "inquiry_pln",
 				"username"    : "089687271843",
-				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
-				"pulsa_code"  : "'.$code.'",
 				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
 		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
@@ -1010,87 +936,6 @@ class ApiTopupController extends Controller
 			}';
 		}
 		$lamount = array(
-			"htelkomsel1000" => array(1000,1900, 1000),
-			"htelkomsel2000" => array(2000, 3200, 1000),
-			"htelkomsel3000" => array(3000, 4800, 1000), 
-			"htelkomsel5000" => array(5000, 5900, 1000),
-			"htelkomsel10000" => array(10000, 10850, 1000),
-			"htelkomsel15000" => array(15000, 15500, 1000),
-			"htelkomsel20000" => array(20000, 20500, 1000),
-			"htelkomsel25000" => array(25000, 25000, 1000),
-			"htelkomsel40000" => array(40000, 40000, 1000),
-			"htelkomsel50000" => array(50000, 49750, 1000),
-			"htelkomsel100000" => array(100000, 98500, 1000),
-			"htelkomsel150000" => array(150000, 148750, 1000),
-			"htelkomsel200000" => array(200000, 198000, 1000),
-			"htelkomsel300000" => array(300000, 297500, 1000),
-			"htelkomsel500000" => array(500000, 495000, 1000),
-			"htelkomsel1000000" => array(1000000, 987500, 1000),
-			"hindosat5000" => array(5000, 5990, 1000),
-			"hindosat10000" => array(10000, 10990, 1000),
-			"hindosat12000" => array(12000, 12500, 1000),
-			"hindosat20000" => array(20000, 20200, 1000),
-			"hindosat25000" => array(25000, 24900, 1000),
-			"hindosat30000" => array(30000, 30550, 1000),
-			"hindosat50000" => array(50000, 49250, 1000),
-			"hindosat60000" => array(60000, 58800, 1000),
-			"hindosat80000" => array(80000, 78000, 1000),
-			"hindosat100000" => array(100000, 98000, 1000),
-			"hindosat150000" => array(150000, 143000, 1000),
-			"hindosat200000" => array(200000, 185500, 1000),
-			"hindosat250000" => array(250000, 232000, 1000),
-			"hindosat500000" => array(500000, 463000, 1000),
-			"hindosat1000000" => array(1000000, 926000, 1000),
-			"xld5000" => array(5000, 5800, 1000),
-			"xld10000" => array(10000, 10800, 1000),
-			"xld15000" => array(15000, 15300, 1000),
-			"xld25000" => array(25000, 24900, 1000),
-			"xld30000" => array(30000, 29900, 1000),
-			"xld50000" => array(50000, 49700, 1000),
-			"xld100000" => array(100000, 99250, 1000),
-			"xld150000" => array(150000, 150000, 1000),
-			"xld200000" => array(200000, 198500, 1000),
-			"xld300000" => array(300000, 298500, 1000),
-			"xld500000" => array(500000, 495000, 1000),
-			"xld1000000" => array(1000000, 990000, 1000),
-			"haxis5000" => array(5000, 5800, 1000),
-			"haxis10000" => array(10000, 10800, 1000),
-			"haxis15000" => array(15000, 14925, 1000),
-			"haxis25000" => array(25000, 24900, 1000),
-			"haxis50000" => array(50000, 49700, 1000),
-			"haxis100000" => array(100000, 99250, 1000),
-			"haxis200000" => array(200000, 198500, 1000),
-			"hthree1000"  => array(1000, 1300, 1000),
-			"hthree2000"  => array(2000, 2250, 1000),
-			"hthree3000"  => array(3000, 3450, 1000),
-			"hthree5000"  => array(5000, 5400, 1000),
-			"hthree10000"  => array(10000, 10400, 1000),
-			"hthree15000"  => array(15000, 15000, 1000),
-			"hthree20000"  => array(20000, 19700, 1000),
-			"hthree25000"  => array(25000, 24625, 1000),
-			"hthree30000"  => array(30000, 30000, 1000),
-			"hthree50000"  => array(50000, 49000, 1000),
-			"hthree100000"  => array(100000, 98500, 1000),
-			"hthree150000"  => array(150000, 148500, 1000),
-			"hthree200000"  => array(200000, 199000, 1000),
-			"hthree300000"  => array(300000, 297000, 1000),
-			"hthree500000"  => array(500000, 495000, 1000),
-			"hthree1000000"  => array(1000000, 990000, 1000),
-			"hsmart5000" => array(5000, 5175, 1000),
-			"hsmart10000" => array(10000, 10100, 1000),
-			"hsmart20000" => array(20000, 19800, 1000),
-			"hsmart25000" => array(25000, 24800, 1000),
-			"hsmart50000" => array(50000, 49500, 1000),
-			"hsmart60000" => array(60000, 60000, 1000),
-			"hsmart100000" => array(100000, 97550, 1000),
-			"hsmart150000" => array(150000, 147000, 1000),
-			"hsmart200000" => array(200000, 196000, 1000),
-			"hsmart300000" => array(300000, 294000, 1000),
-			"hsmart500000" => array(500000, 490000, 1000),
-			"hsmart1000000" => array(1000000, 980000, 1000),
-			"hceria50000" => array(50000, 50000, 1000),
-			"hceria100000" => array(100000, 100000, 1000),
-			"hceria200000" => array(200000, 200000, 1000),
 			"hpln20000" =>	array(20000, 20500, 2500),
 			"hpln50000" =>  array(50000,50500, 2500),
 			"hpln100000" => array(100000, 100500, 2500),
