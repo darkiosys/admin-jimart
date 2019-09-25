@@ -794,7 +794,7 @@ class ApiTopupController extends Controller
 
 		$data = curl_exec($ch);
 		curl_close($ch);
-		$rd = json_decode($data);
+		$rd = json_encode($data);
 		return $rd;
 		if($members_id == "" || $members_id == null) {
 			return '{
