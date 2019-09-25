@@ -17,12 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/api/v1/topuptest', 'ApiTopupController@indextest');
+Route::get('/api/v1/paytest', 'ApiTopupController@paytest');
+
 Route::get('/api/v1/topup', 'ApiTopupController@index');
 Route::get('/api/v1/inquiry', 'ApiTopupController@inquiryPasca');
+Route::get('/api/v1/pln/postpaid/inquiry', 'ApiTopupController@plnPostpaidInquiry');
+Route::get('/api/v1/pln/postpaid/pay', 'ApiTopupController@plnPostpaidPay');
 Route::get('/api/v1/inquiry/pay', 'ApiTopupController@inquiryPay');
 Route::get('/api/v1/prepaid/callback', 'ApiTopupController@callback');
 
-Route::geT('/api/v1/pay', 'ApiTopupController@pay');
+Route::get('/api/v1/pay', 'ApiTopupController@pay');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('api/login', 'ApiUserController@login');
