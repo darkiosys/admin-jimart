@@ -779,11 +779,13 @@ class ApiTopupController extends Controller
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
-			"commands"    : "inquiry_pln",
+			"commands"    : "topup",
 			"username"    : "089687271843",
+			"ref_id"      : "'.$ref_id.'",
 			"hp"          : "'.$req['hp'].'",
-			"sign"        : "'.md5($username.$apiKey.$req['hp']).'"
-		}';
+			"pulsa_code"  : "'.$code.'",
+			"sign"        : "'.md5($username.$apiKey.$ref_id).'"
+			}';
 		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
