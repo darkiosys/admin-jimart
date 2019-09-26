@@ -26,6 +26,7 @@ Route::get('/api/v1/pln/postpaid/inquiry', 'ApiTopupController@plnPostpaidInquir
 Route::get('/api/v1/pln/postpaid/pay', 'ApiTopupController@plnPostpaidPay');
 Route::get('/api/v1/inquiry/pay', 'ApiTopupController@inquiryPay');
 Route::get('/api/v1/prepaid/callback', 'ApiTopupController@callback');
+Route::post('/api/v1/prepaid/callback', 'ApiTopupController@callback');
 
 Route::get('/api/v1/pay', 'ApiTopupController@pay');
 
