@@ -801,7 +801,7 @@ class ApiTopupController extends Controller
 			"smartdataVOL60" => array(59100, 59100)
 		);
 
-		$actualprice = $lamount[$req['code']] + 1000;
+		$actualprice = $lamount[$req['code']][1] + 1000;
 
 		if($member[0]->saldo < $actualprice) {
 			$tp = array(
@@ -1000,7 +1000,7 @@ class ApiTopupController extends Controller
 				'trx_date' => Date('Y-m-d H:i:s'),
 				'trx_name' => "PULSA",
 				'no_hp' => $req['hp'],
-				'tagihan' => $lamount[$req['code']], 
+				'tagihan' => $lamount[$req['code']][1], 
 				'fee_admin' => 1000,
 				'total_tagihan' => $actualprice,
 				'ending_saldo' => $ns,
