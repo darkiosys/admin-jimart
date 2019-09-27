@@ -1564,10 +1564,10 @@ class ApiTopupController extends Controller
 		$json = '{
 				"commands"    : "pay-pasca",
 				"username"    : "089687271843",
-				"tr_id"          : "'.$req['tr_id'].'",
-				"sign"        : "'.md5($username.$apiKey.$req['tr_id']).'"
+				"tr_id"          : "'.$tr_id.'",
+				"sign"        : "'.md5($username.$apiKey.$tr_id).'"
 				}';
-		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
+		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
