@@ -1291,14 +1291,16 @@ class ApiTopupController extends Controller
 		$password = $req['password'];
 		$username   = "089687271843";
 		$apiKey   = "6845d79e9afc378c";
-		$ref_id  = $req['reff_id'];
+		$ref_id  = uniqid('');
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
-				"commands"    : "pay-pasca",
+				"commands"    : "topup",
 				"username"    : "089687271843",
-				"tr_id"          : "'.$req['tr_id'].'",
-				"sign"        : "'.md5($username.$apiKey.$req['tr_id']).'"
+				"ref_id"      : "'.$ref_id.'",
+				"hp"          : "'.$req['hp'].'",
+				"pulsa_code"  : "'.$code.'",
+				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
 		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
 		if($members_id == "" || $members_id == null) {
