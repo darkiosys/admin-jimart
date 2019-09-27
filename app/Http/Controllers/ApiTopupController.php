@@ -12,13 +12,13 @@ use Illuminate\Http\Request;
 class ApiTopupController extends Controller
 {
 	function callback(Request $request) {
+		// DB::table('users')
+		// ->where('id', $user->id)
+		// ->update(['active' => true]);
 		$data = file_get_contents('php://input');
-		// $o = json_decode($dtaa);
-		// $trx = DB::table('t_ppob')->where('trx_id', '=', $o->ref_id)->first();
-		$my_file = 'callback.txt';
-		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
-		fwrite($handle, $data);
-		fclose($handle);
+		$o = json_decode($data);
+		$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $o->data->sn ]);
+		return $o->data->ref_id;
 	}
 	function plnPostpaidInquiry(Request $request) {
 		$req = $request->all();
