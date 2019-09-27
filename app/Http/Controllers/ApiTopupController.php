@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 
 class ApiTopupController extends Controller
 {
+	function callback(Request $request) {
+		$data = file_get_contents('php://input');
+		$o = json_decode($data);
+		$trx = DB::table('t_ppob')->where('trx_id', '=', $o->ref_id)->first();
+		$my_file = 'callback.txt';
+		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
+		fwrite($handle, $data);
+		fclose($handle);
+	}
 	function plnPostpaidInquiry(Request $request) {
 		$req = $request->all();
 		$username   = "089687271843";
@@ -86,14 +95,6 @@ class ApiTopupController extends Controller
 		$data = curl_exec($ch);
 		curl_close($ch);
 		return $data;
-	}
-	function callback(Request $request) {
-		$data = file_get_contents('php://input');
-		$ad = json_decode($data);
-		$my_file = 'callback.txt';
-		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
-		fwrite($handle, $ad['data']);
-		fclose($handle);
 	}
 	function index(Request $request) {
 		$req = $request->all();
