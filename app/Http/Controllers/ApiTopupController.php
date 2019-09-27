@@ -88,7 +88,8 @@ class ApiTopupController extends Controller
 		return $data;
 	}
 	function callback(Request $request) {
-		$data = file_get_contents('php://input');
+		$req = $request->all();
+		$data = $req;
 		$my_file = 'callback.txt';
 		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
 		fwrite($handle, $data);
