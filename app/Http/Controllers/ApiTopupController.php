@@ -1559,7 +1559,7 @@ class ApiTopupController extends Controller
 		$code = 'pln-postpaid';
 		$price = $req['price'];
 		$markup = 3000;
-		$signature  = md5($username.$apiKey.$ref_id);
+		$signature  = md5($username.$apiKey.$tr_id);
 		$json = '{
 				"commands"    : "pay-pasca",
 				"username"    : "089687271843",
