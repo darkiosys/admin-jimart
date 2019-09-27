@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/api/v1/topuptest', 'ApiTopupController@indextest');
 Route::get('/api/v1/paytest', 'ApiTopupController@paytest');
+Route::get('/api/v1/pln/pasca/pay', 'ApiTopupController@plnPascaPay');
 
 Route::get('/api/v1/topup', 'ApiTopupController@index');
 Route::get('/api/v1/inquiry', 'ApiTopupController@inquiryPasca');
