@@ -13,12 +13,12 @@ class ApiTopupController extends Controller
 {
 	function callback(Request $request) {
 		$data = file_get_contents('php://input');
-		$o = json_decode($data);
-		$trx = DB::table('t_ppob')->where('trx_id', '=', $o->ref_id)->first();
-		$my_file = 'callback.txt';
-		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
-		fwrite($handle, $data);
-		fclose($handle);
+		DB::table('t_ppob')->insert(
+			[
+				'data_json' => $data
+			]
+		);
+		return "thank you";
 	}
 	function plnPostpaidInquiry(Request $request) {
 		$req = $request->all();
