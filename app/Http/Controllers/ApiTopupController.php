@@ -1556,6 +1556,7 @@ class ApiTopupController extends Controller
 		$username   = "089687271843";
 		$apiKey   = "6845d79e9afc378c";
 		$tr_id  = $req['tr_id'];
+		$ref_id = $req['ref_id'];
 		$code = 'pln-postpaid';
 		$price = $req['price'];
 		$markup = 3000;
