@@ -92,7 +92,7 @@ class ApiTopupController extends Controller
 		$ad = json_decode($data);
 		$my_file = 'callback.txt';
 		$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
-		fwrite($handle, $ad->data);
+		fwrite($handle, $ad['data']);
 		fclose($handle);
 	}
 	function index(Request $request) {
