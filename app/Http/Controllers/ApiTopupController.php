@@ -1552,230 +1552,229 @@ class ApiTopupController extends Controller
 	function plnPascaPay(Request $request) {
 		$req = $request->all();
 		$members_id = $req['member_id'];
-			$password = $req['password'];
-			$username   = "089687271843";
-			$apiKey   = "6845d79e9afc378c";
-			$tr_id  = $req['tr_id'];
-			$code = 'pln-postpaid';
-			$price = $req['price'];
-			$markup = 3000;
-			$signature  = md5($username.$apiKey.$ref_id);
-			$json = '{
-					"commands"    : "pay-pasca",
-					"username"    : "089687271843",
-					"tr_id"          : "'.$req['tr_id'].'",
-					"sign"        : "'.md5($username.$apiKey.$req['tr_id']).'"
-					}';
-			$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
-			if($members_id == "" || $members_id == null) {
-				return '{
-					"data": {
-						"trx_id": "",
-						"saldo": "",
-						"rc": "0",
-						"desc": "Data members_id kosong, Hubungi Admin!",
-						"bit11": "",
-						"bit12": "",
-						"bit48": "",
-						"bit62": ""
-					}
+		$password = $req['password'];
+		$username   = "089687271843";
+		$apiKey   = "6845d79e9afc378c";
+		$tr_id  = $req['tr_id'];
+		$code = 'pln-postpaid';
+		$price = $req['price'];
+		$markup = 3000;
+		$signature  = md5($username.$apiKey.$ref_id);
+		$json = '{
+				"commands"    : "pay-pasca",
+				"username"    : "089687271843",
+				"tr_id"          : "'.$req['tr_id'].'",
+				"sign"        : "'.md5($username.$apiKey.$req['tr_id']).'"
 				}';
-			}
-			$member = DB::select('SELECT id, saldo, sponsor, username FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
-			if(empty($member)){
-				return '{
-					"data": {
-						"trx_id": "",
-						"saldo": "",
-						"rc": "0",
-						"desc": "Data member tidak terdaftar, Hubungi Admin!",
-						"bit11": "",
-						"bit12": "",
-						"bit48": "",
-						"bit62": ""
-					}
-				}';
-			}
-	
-			$actualprice = $price + $markup;
-	
-			if($member[0]->saldo < $actualprice) {
-				$tp = array(
-					'member_id' => $members_id,
-					'log_id' => '0',
-					'target' => $req['code'],
-					'reff_id' => $ref_id,
-					'prodname' => $req['hp'],
-					'amount' => $actualprice,
-					'status' => 'FAILED',
-					'message' => 'Insufficient balance',
-					'time' => date('Y-m-d H:i:s'),
-					'payload' => json_encode($json)
-				);
-				T_transaction::create($tp);
-				return '{
-					"data": {
-						"trx_id": "",
-						"saldo": "",
-						"rc": "0",
-						"desc": "Saldo Tidak Cukup!",
-						"bit11": "",
-						"bit12": "",
-						"bit48": "",
-						"bit62": ""
-					}
-				}';
-			}
-	
-			$ch  = curl_init();
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	
-			$data = curl_exec($ch);
-			curl_close($ch);
-			$rd = json_decode($data);
+		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
+		if($members_id == "" || $members_id == null) {
+			return '{
+				"data": {
+					"trx_id": "",
+					"saldo": "",
+					"rc": "0",
+					"desc": "Data members_id kosong, Hubungi Admin!",
+					"bit11": "",
+					"bit12": "",
+					"bit48": "",
+					"bit62": ""
+				}
+			}';
+		}
+		$member = DB::select('SELECT id, saldo, sponsor, username FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
+		if(empty($member)){
+			return '{
+				"data": {
+					"trx_id": "",
+					"saldo": "",
+					"rc": "0",
+					"desc": "Data member tidak terdaftar, Hubungi Admin!",
+					"bit11": "",
+					"bit12": "",
+					"bit48": "",
+					"bit62": ""
+				}
+			}';
+		}
+
+		$actualprice = $price + $markup;
+
+		if($member[0]->saldo < $actualprice) {
 			$tp = array(
 				'member_id' => $members_id,
 				'log_id' => '0',
-				'target' => $req['hp'],
+				'target' => $req['code'],
 				'reff_id' => $ref_id,
-				'prodname' => $code,
+				'prodname' => $req['hp'],
 				'amount' => $actualprice,
-				'status' => 'SUCCESS',
-				'message' => 'Pembayaran PLN Pasca Bayar Berhasil',
+				'status' => 'FAILED',
+				'message' => 'Insufficient balance',
 				'time' => date('Y-m-d H:i:s'),
 				'payload' => json_encode($json)
 			);
 			T_transaction::create($tp);
-	
-			$ha = $markup * (25/100);
-			$vshare = $markup - $ha;
-			$v10 = $vshare * (10/100);
-			$v15 = $vshare * (15/100);
-			$v5 = $vshare * (5/100);
-			// CASHBACK
-			$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
-			$pcb = array(
+			return '{
+				"data": {
+					"trx_id": "",
+					"saldo": "",
+					"rc": "0",
+					"desc": "Saldo Tidak Cukup!",
+					"bit11": "",
+					"bit12": "",
+					"bit48": "",
+					"bit62": ""
+				}
+			}';
+		}
+
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$data = curl_exec($ch);
+		curl_close($ch);
+		$rd = json_decode($data);
+		$tp = array(
+			'member_id' => $members_id,
+			'log_id' => '0',
+			'target' => $req['hp'],
+			'reff_id' => $ref_id,
+			'prodname' => $code,
+			'amount' => $actualprice,
+			'status' => 'SUCCESS',
+			'message' => 'Pembayaran PLN Pasca Bayar Berhasil',
+			'time' => date('Y-m-d H:i:s'),
+			'payload' => json_encode($json)
+		);
+		T_transaction::create($tp);
+
+		$ha = $markup * (25/100);
+		$vshare = $markup - $ha;
+		$v10 = $vshare * (10/100);
+		$v15 = $vshare * (15/100);
+		$v5 = $vshare * (5/100);
+		// CASHBACK
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$pcb = array(
+			'reff_id' => $ref_id,
+			'username' => $member[0]->username,
+			'level' => 0,
+			'amount' => $v10
+		);
+		T_bonusgenerasi::create($pcb);
+		// LEVEL 1
+		$cm1 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$member[0]->sponsor]);
+		if(count($cm1) > 0) {
+			$cb1 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v15,$cm1[0]->username]);
+			$pbg1 = array(
 				'reff_id' => $ref_id,
-				'username' => $member[0]->username,
-				'level' => 0,
-				'amount' => $v10
+				'username' => $cm1[0]->username,
+				'level' => 1,
+				'amount' => $v15
 			);
-			T_bonusgenerasi::create($pcb);
-			// LEVEL 1
-			$cm1 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$member[0]->sponsor]);
-			if(count($cm1) > 0) {
-				$cb1 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v15,$cm1[0]->username]);
-				$pbg1 = array(
+			T_bonusgenerasi::create($pbg1);
+			// LEVEL 2
+			$cm2 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm1[0]->sponsor]);
+			if(count($cm2) > 0) {
+				$cb2 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v15,$cm2[0]->username]);
+				$pbg2 = array(
 					'reff_id' => $ref_id,
-					'username' => $cm1[0]->username,
-					'level' => 1,
+					'username' => $cm2[0]->username,
+					'level' => 2,
 					'amount' => $v15
 				);
-				T_bonusgenerasi::create($pbg1);
-				// LEVEL 2
-				$cm2 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm1[0]->sponsor]);
-				if(count($cm2) > 0) {
-					$cb2 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v15,$cm2[0]->username]);
-					$pbg2 = array(
+				T_bonusgenerasi::create($pbg2);
+				// LEVEL 3
+				$cm3 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm2[0]->sponsor]);
+				if(count($cm3) > 0) {
+					$cb3 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm3[0]->username]);
+					$pbg3 = array(
 						'reff_id' => $ref_id,
-						'username' => $cm2[0]->username,
-						'level' => 2,
-						'amount' => $v15
+						'username' => $cm3[0]->username,
+						'level' => 3,
+						'amount' => $v10
 					);
-					T_bonusgenerasi::create($pbg2);
-					// LEVEL 3
-					$cm3 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm2[0]->sponsor]);
-					if(count($cm3) > 0) {
-						$cb3 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm3[0]->username]);
-						$pbg3 = array(
+					T_bonusgenerasi::create($pbg3);
+					// LEVEL 4
+					$cm4 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm3[0]->sponsor]);
+					if(count($cm4) > 0) {
+						$cb4 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm4[0]->username]);
+						$pbg4 = array(
 							'reff_id' => $ref_id,
-							'username' => $cm3[0]->username,
-							'level' => 3,
+							'username' => $cm4[0]->username,
+							'level' => 4,
 							'amount' => $v10
 						);
-						T_bonusgenerasi::create($pbg3);
-						// LEVEL 4
-						$cm4 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm3[0]->sponsor]);
-						if(count($cm4) > 0) {
-							$cb4 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm4[0]->username]);
-							$pbg4 = array(
+						T_bonusgenerasi::create($pbg4);
+						// LEVEL 5
+						$cm5 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm4[0]->sponsor]);
+						if(count($cm5) > 0) {
+							$cb5 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm5[0]->username]);
+							$pbg5 = array(
 								'reff_id' => $ref_id,
-								'username' => $cm4[0]->username,
-								'level' => 4,
+								'username' => $cm5[0]->username,
+								'level' => 5,
 								'amount' => $v10
 							);
-							T_bonusgenerasi::create($pbg4);
-							// LEVEL 5
-							$cm5 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm4[0]->sponsor]);
-							if(count($cm5) > 0) {
-								$cb5 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm5[0]->username]);
-								$pbg5 = array(
+							T_bonusgenerasi::create($pbg5);
+							// LEVEL 6
+							$cm6 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm5[0]->sponsor]);
+							if(count($cm6) > 0) {
+								$cb6 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm6[0]->username]);
+								$pbg6 = array(
 									'reff_id' => $ref_id,
-									'username' => $cm5[0]->username,
-									'level' => 5,
+									'username' => $cm6[0]->username,
+									'level' => 6,
 									'amount' => $v10
 								);
-								T_bonusgenerasi::create($pbg5);
-								// LEVEL 6
-								$cm6 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm5[0]->sponsor]);
-								if(count($cm6) > 0) {
-									$cb6 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$cm6[0]->username]);
-									$pbg6 = array(
+								T_bonusgenerasi::create($pbg6);
+								// LEVEL 7
+								$cm7 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm6[0]->sponsor]);
+								if(count($cm7) > 0) {
+									$cb7 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm7[0]->username]);
+									$pbg7 = array(
 										'reff_id' => $ref_id,
-										'username' => $cm6[0]->username,
-										'level' => 6,
-										'amount' => $v10
+										'username' => $cm7[0]->username,
+										'level' => 7,
+										'amount' => $v5
 									);
-									T_bonusgenerasi::create($pbg6);
-									// LEVEL 7
-									$cm7 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm6[0]->sponsor]);
-									if(count($cm7) > 0) {
-										$cb7 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm7[0]->username]);
-										$pbg7 = array(
+									T_bonusgenerasi::create($pbg7);
+									// LEVEL 8
+									$cm8 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm7[0]->sponsor]);
+									if(count($cm8) > 0) {
+										$cb8 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm8[0]->username]);
+										$pbg8 = array(
 											'reff_id' => $ref_id,
-											'username' => $cm7[0]->username,
-											'level' => 7,
-											'amount' => $v5
+											'username' => $cm8[0]->username,
+											'level' => 8,
+											'amount' => $v10
 										);
-										T_bonusgenerasi::create($pbg7);
-										// LEVEL 8
-										$cm8 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm7[0]->sponsor]);
-										if(count($cm8) > 0) {
-											$cb8 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm8[0]->username]);
-											$pbg8 = array(
+										T_bonusgenerasi::create($pbg8);
+										// LEVEL 9
+										$cm9 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm8[0]->sponsor]);
+										if(count($cm9) > 0) {
+											$cb9 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm9[0]->username]);
+											$pbg9 = array(
 												'reff_id' => $ref_id,
-												'username' => $cm8[0]->username,
-												'level' => 8,
-												'amount' => $v10
+												'username' => $cm9[0]->username,
+												'level' => 9,
+												'amount' => $v5
 											);
-											T_bonusgenerasi::create($pbg8);
-											// LEVEL 9
-											$cm9 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm8[0]->sponsor]);
-											if(count($cm9) > 0) {
-												$cb9 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm9[0]->username]);
-												$pbg9 = array(
+											T_bonusgenerasi::create($pbg9);
+											// LEVEL 10
+											$cm10 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm9[0]->sponsor]);
+											if(count($cm10) > 0) {
+												$cb10 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm10[0]->username]);
+												$pbg10 = array(
 													'reff_id' => $ref_id,
-													'username' => $cm9[0]->username,
-													'level' => 9,
+													'username' => $cm10[0]->username,
+													'level' => 10,
 													'amount' => $v5
 												);
-												T_bonusgenerasi::create($pbg9);
-												// LEVEL 10
-												$cm10 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$cm9[0]->sponsor]);
-												if(count($cm10) > 0) {
-													$cb10 = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v5,$cm10[0]->username]);
-													$pbg10 = array(
-														'reff_id' => $ref_id,
-														'username' => $cm10[0]->username,
-														'level' => 10,
-														'amount' => $v5
-													);
-													T_bonusgenerasi::create($pbg10);
-												}
+												T_bonusgenerasi::create($pbg10);
 											}
 										}
 									}
@@ -1785,27 +1784,27 @@ class ApiTopupController extends Controller
 					}
 				}
 			}
-			$mp = $actualprice;
-			$ns = $member[0]->saldo - $mp;
-			$xusr = User::where('id', '=', $member[0]->id)->first();
-			$xusr->update(array('saldo' => $ns));
-			DB::table('t_ppob')->insert(
-				[
-					'members_id' => $members_id,
-					'trx_id' => $ref_id,
-					'trx_date' => Date('Y-m-d H:i:s'),
-					'trx_name' => "PLN POSTPAID",
-					'no_hp' => $req['hp'],
-					'tagihan' => $price,
-					'fee_admin' => $markup,
-					'total_tagihan' => $actualprice,
-					'ending_saldo' => $ns,
-					'product_code' => $code,
-					'status' => "Berhasil",
-					'status_bonus' => '0'
-				]
-			);
-			return $data;
 		}
+		$mp = $actualprice;
+		$ns = $member[0]->saldo - $mp;
+		$xusr = User::where('id', '=', $member[0]->id)->first();
+		$xusr->update(array('saldo' => $ns));
+		DB::table('t_ppob')->insert(
+			[
+				'members_id' => $members_id,
+				'trx_id' => $ref_id,
+				'trx_date' => Date('Y-m-d H:i:s'),
+				'trx_name' => "PLN POSTPAID",
+				'no_hp' => $req['hp'],
+				'tagihan' => $price,
+				'fee_admin' => $markup,
+				'total_tagihan' => $actualprice,
+				'ending_saldo' => $ns,
+				'product_code' => $code,
+				'status' => "Berhasil",
+				'status_bonus' => '0'
+			]
+		);
+		return $data;
 	}
 }
