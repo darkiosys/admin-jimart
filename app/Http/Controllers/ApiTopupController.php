@@ -17,7 +17,8 @@ class ApiTopupController extends Controller
 		// ->update(['active' => true]);
 		$data = file_get_contents('php://input');
 		$o = json_decode($data);
-		$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $o->data->sn ]);
+		$token = explode("/", $o->data->sn);
+		$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $token[0] ]);
 		return $o->data->ref_id;
 	}
 	function plnPostpaidInquiry(Request $request) {
