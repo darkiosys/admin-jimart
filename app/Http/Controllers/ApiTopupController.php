@@ -1930,7 +1930,7 @@ class ApiTopupController extends Controller
 			"message":"INQUIRY",
 			"balance":0,
 			"tr_id":"'.$ref_id.'",
-			"rc":"0001"
+			"rc":"39"
 		}}';
 		return $data;
 	}
