@@ -41,6 +41,8 @@ Route::get('/api/v1/profile', 'ApiUserController@getProfile');
 
 Route::get('api/forgot_password', 'ApiUserController@forgotPassword');
 
+Route::get('api/createpassword', 'ApiUserController@createpassword');
+
 Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
 Route::resource('saldo', 'SaldoController');

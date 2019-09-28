@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ApiTransaksiController extends Controller
 {
-	function getTransaksi(Request $request)
-	{
+	function getTransaksi(Request $request) {
 		$res = DB::select('
 			SELECT td_ecommerce.transaksi_id, products.product_name FROM 
 			RIGHT JOIN td_ecommerce
@@ -22,8 +21,7 @@ class ApiTransaksiController extends Controller
 		return $res;
 	}
 
-	public function createTransaksi(Request $request)
-	{
+	public function createTransaksi(Request $request) {
 		$req = $request->all();
 		$productPayload = array(
 			'id' => $req['id'],

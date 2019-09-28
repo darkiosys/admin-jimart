@@ -25,6 +25,11 @@ class ApiUserController extends Controller
 		$req = $request->all();
 		return array("data" => array(User::where('id', '=', $req['id'])->first()));
 	}
+	
+	function createpassword(Request $request) {
+		$req = $request->all();
+		return Hash::make($req['pwd']);
+	}
 
 	public function forgotPassword(Request $request)
 	{
