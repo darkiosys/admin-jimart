@@ -2427,7 +2427,7 @@ class ApiTopupController extends Controller
 		// 	'level' => 0,
 		// 	'amount' => $v10
 		// );
-		T_bonusgenerasi::create($pcb);
+		// T_bonusgenerasi::create($pcb);
 		// LEVEL 1
 		// $cm1 = DB::select('SELECT username,sponsor FROM members WHERE username=?', [$member[0]->sponsor]);
 		// if(count($cm1) > 0) {
