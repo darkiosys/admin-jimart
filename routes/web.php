@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::get('/api/v1/toll/inquiry', 'ApiTopupController@tollInqu');
+Route::get('/api/v1/toll/pay', 'ApiTopupController@tollPay');
+
 Route::get('/api/v1/pln/pra/inquiry', 'ApiTopupController@plnPraInqu');
 Route::get('/api/v1/pln/pra/pay', 'ApiTopupController@plnPraPay');
 
