@@ -118,7 +118,7 @@ class SaldoController extends Controller
 		$arr = array("status" => 1);
 		$saldo = Saldo::findOrFail($id);
 		$member = User::findOrFail($saldo->user_id);
-		$arrUser = array("saldo" => $member->saldo + $saldo->saldo);
+		$arrUser = array("saldo" => $member->saldo + $saldo->jumlah_transfer);
 		$member->update($arrUser);
         $saldo->update($arr);
 		return redirect('saldo')->with('flash_message', 'Request saldo terverifikasi!');
