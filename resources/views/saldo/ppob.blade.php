@@ -1,0 +1,46 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Transaksi PPOB</div>
+                    <div class="card-body">
+						<div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama Member</th>
+                                        <th>Transaksi</th>
+                                        <th>Tujuan</th>
+                                        <th>Total Tagihan</th>
+                                        <th>Ending Saldo</th>
+                                        <th>Produk</th>
+                                        <th>Tanggal Transaksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($ppob as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{$item->members_id}}</td>
+                                        <td>{{$item->trx_name}}</td>
+                                        <td>{{$item->no_hp}}</td>
+                                        <td>{{$item->total_tagihan}}</td>
+                                        <td>{{$item->ending_saldo}}</td>
+                                        <td>{{$item->product_code}}</td>
+                                        <td>{{$item->trx_date}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <div class="pagination-wrapper"> {!! $ppob->appends(['search' => Request::get('search')])->render() !!} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

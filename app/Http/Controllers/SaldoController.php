@@ -112,6 +112,14 @@ class SaldoController extends Controller
 
         return view('saldo.index', compact('saldo'));
     }
+
+    function ppob(Request $request) {
+        $keyword = $request->get('search');
+        $perPage = 25;
+        $ppob = DB::table('t_ppob')
+            ->select('*')->orderBy('trx_date', 'desc')->paginate($perPage);
+        return view('saldo.ppob', compact('ppob'));
+    }
 	
 	function verifikasiTopup($id)
 	{
