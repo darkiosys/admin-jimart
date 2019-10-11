@@ -47,8 +47,8 @@ class ApiUserController extends Controller
 		);
 		User::create($memberPayload);
 		return array(
-			status => 1,
-			message => "create member success"
+			"status" => 1,
+			"message" => "create member success"
 		);
 	}
 
