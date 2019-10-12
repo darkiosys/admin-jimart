@@ -27,6 +27,11 @@ class TransaksiController extends Controller
         return view('transaksi.index', compact('transaksi'));
     }
 
+    public function getTransfer(Request $request){
+        $transfers = DB::table('t_transfer_saldo')->orderBy('created_at', 'desc')->paginate(25);
+        return view('saldo.historytransfer', compact('transfers'));
+    }
+
     function verifikasiTransaksi(Request $request, $id)
     {
         $requestData = array(

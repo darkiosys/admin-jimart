@@ -59,6 +59,7 @@ Route::get('ppob', 'SaldoController@ppob');
 Route::get('banner', 'HomeController@banner');
 Route::get('/member-saldo', 'SaldoController@memberSaldo');
 Route::get('transaksi', 'TransaksiController@getTransaksi');
+Route::get('transfer', 'TransaksiController@getTransfer');
 Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');
 Route::post('api/buy_product', 'ApiUserController@buyProduct');
 Route::post('api/cart/kurir', 'ApiUserController@addCartKurir');
