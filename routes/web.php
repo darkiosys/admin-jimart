@@ -87,20 +87,20 @@ Route::get('/api/transaksi/sudahdibayar', 'ApiTransaksiController@invoiceSudahDi
 Route::get('/api/transaksi/detailsudahdibayar', 'ApiTransaksiController@detailInvoiceSudahDibayar');
 
 
-Route::post('/member-edit', function () {
+Route::get('/member-edit', function () {
 
-    $members_id = Request::post('members_id');
-    $username   = Request::post('username');
-    $password   = Request::post('password');
+    $members_id = Request::get('members_id');
+    $username   = Request::get('username');
+    $password   = Request::get('password');
 
-    $first_name         = Request::post('first_name');
-    $last_name          = Request::post('last_name');
-    $photo              = Request::post('photo');
-    $nik                = Request::post('nik');
-    $email              = Request::post('email');
-    $phone              = Request::post('phone');
-    $tgl_lahir          = Request::post('tgl_lahir');
-    $jenis_kelamin      = Request::post('jenis_kelamin');
+    $first_name         = Request::get('first_name');
+    $last_name          = Request::get('last_name');
+    $photo              = Request::get('photo');
+    $nik                = Request::get('nik');
+    $email              = Request::get('email');
+    $phone              = Request::get('phone');
+    $tgl_lahir          = Request::get('tgl_lahir');
+    $jenis_kelamin      = Request::get('jenis_kelamin');
     
     $fileName = null;
     if (Request::hasFile('file')) {
