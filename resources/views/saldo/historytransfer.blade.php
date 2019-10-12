@@ -44,7 +44,7 @@
                                             Rp. {{ number_format($item->ending_saldo, 0, ".", ".")}}
                                         </td>
                                         <td>
-                                            {{$item->tanggal}}
+                                            {{$item->date}}
                                         </td>
                                         <td>
                                             {{$item->status}}
