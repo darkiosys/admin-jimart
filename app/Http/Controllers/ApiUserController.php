@@ -18,7 +18,13 @@ class ApiUserController extends Controller
 {
 	function slider(Request $request)
 	{
-		return array("data" => Slider::get());
+		// return '{"api_status":1,"api_message":"success","api_authorization":"You are in debug mode !","data":[{"id_slider":3,"no_urut":1,"judul_slider":"Abcd","link":"http:\/\/jimart.darkiosys.com\/img\/header4.jpg","foto":"320180208025346","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":167,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:53","modified_by":"azmicolejr"},{"id_slider":3,"no_urut":1,"judul_slider":"Abcd","link":"http:\/\/jimart.darkiosys.com\/img\/header3.jpg","foto":"320180208025346","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":167,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:53","modified_by":"azmicolejr"},{"id_slider":2,"no_urut":2,"judul_slider":"Hat for Men","link":"http:\/\/jimart.darkiosys.com\/img\/header2.jpg","foto":"220180208025208","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":833,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:43","modified_by":"mazmi"},{"id_slider":1,"no_urut":3,"judul_slider":"Eye Liner","link":"http:\/\/jimart.darkiosys.com\/img\/header1.jpg","foto":"120171204051126","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":203,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:49","modified_by":"mazmi"}]}';
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => Slider::get()
+		);
+		return array($ret);
 	}
 
 	function getProfile(Request $request) {

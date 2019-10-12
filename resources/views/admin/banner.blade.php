@@ -28,7 +28,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>No Rek</th><th>Topup Saldo</th><th>Nominal Transfer</th>
+                                        <th>#</th>
+                                        <th>Nama Banner</th>
+                                        <th>Link</th>
+                                        <th></th>
 										@if(Auth::user()->role == 1)
 										<th>Actions</th>
 										@else
