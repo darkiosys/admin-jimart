@@ -51,7 +51,7 @@
                                 <a class="nav-link" href="/transaksi">Transaksi</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/transaksi">Histori Transfer</a>
+                                <a class="nav-link" href="/transfer">Histori Transfer</a>
                             </li>
 							<li class="nav-item">
                                 <a class="nav-link" href="/saldo">Saldo</a>
