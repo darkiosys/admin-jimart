@@ -55,6 +55,7 @@ Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
 Route::resource('saldo', 'SaldoController');
 Route::get('ppob', 'SaldoController@ppob');
+Route::get('banner', 'HomeController@banner');
 Route::get('/member-saldo', 'SaldoController@memberSaldo');
 Route::get('transaksi', 'TransaksiController@getTransaksi');
 Route::post('api/saldo/topup', 'ApiTopupController@topupSaldo');

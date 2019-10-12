@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+    function banner(Request $request) {
+        $banners = DB::table('sliders')->select('*')->paginate(25);
+        return view('admin/banner', compact('banners'));
     }
 }
