@@ -24,7 +24,7 @@ class ApiUserController extends Controller
 			"api_message" => "success",
 			"data" => Slider::get()
 		);
-		return array($ret);
+		return array($ret[0]);
 	}
 
 	function getProfile(Request $request) {
