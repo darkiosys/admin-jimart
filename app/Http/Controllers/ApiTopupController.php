@@ -1524,6 +1524,17 @@ class ApiTopupController extends Controller
 				'message' => "user not found!"
 			);
 		}
+		$pl = array(
+			"members_id" => 569,
+			"sender" => "starpreneur",
+			"receiver" => $req['username'],
+			"nominal" => $req['bonus'],
+			"ending_saldo" => $usr->saldo + (int)$req['bonus'],
+			"date" => date("Y-m-d h:i:s"),
+			"status" => "bonus",
+			"created_at" => date("Y-m-d h:i:s"),
+			"updated_at" => date("Y-m-d h:i:s")
+		);
 		$arrUser = array("saldo" => $usr->saldo + (int)$req['bonus']);
 		$usr->update($arrUser);
 		return array(
