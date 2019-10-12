@@ -1535,6 +1535,7 @@ class ApiTopupController extends Controller
 			"created_at" => date("Y-m-d h:i:s"),
 			"updated_at" => date("Y-m-d h:i:s")
 		);
+		DB::table('t_transfer_saldo')->insert($pl);
 		$arrUser = array("saldo" => $usr->saldo + (int)$req['bonus']);
 		$usr->update($arrUser);
 		return array(
