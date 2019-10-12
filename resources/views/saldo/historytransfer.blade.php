@@ -17,11 +17,12 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama Member</th>
-                                        <th>Sponsor</th>
-                                        <th>Username</th>
-                                        <th>Saldo</th>
-										<th>Actions</th>
+                                        <th>Member</th>
+                                        <th>Receiver</th>
+                                        <th>Nominal</th>
+                                        <th>Ending Saldo</th>
+										<th>Tanggal</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,20 +32,22 @@
                                             {{$item->id}}
                                         </td>
                                         <td>
-                                            {{$item->first_name}} {{$item->last_name}}
+                                            {{$item->members_id}} {{$item->sender}}
                                         </td>
                                         <td>
-                                            {{$item->sponsor}}
+                                            {{$item->receiver}}
                                         </td>
                                         <td>
-                                            {{$item->username}}
+                                            Rp. {{ number_format($item->nominal, 0, ".", ".")}}
                                         </td>
                                         <td>
-                                        Rp. {{ number_format($item->saldo, 0, ".", ".")}}
+                                            Rp. {{ number_format($item->ending_saldo, 0, ".", ".")}}
                                         </td>
                                         <td>
-                                            <a href="/api/hapusmember/{{$item->id}}" onclick="return confirm('Yakin akan hapus member?')" class="btn btn-danger">Hapus Member</a>
-                                            <a href="/api/hapussaldomember/{{$item->id}}" onclick="return confirm('Yakin akan kosongkan saldo member?')" class="btn btn-warning">Kosongkan Saldo</a>
+                                            {{$item->tanggal}}
+                                        </td>
+                                        <td>
+                                            {{$item->status}}
                                         </td>
                                     </tr>
                                 @endforeach
