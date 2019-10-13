@@ -384,7 +384,13 @@ class ApiTopupController extends Controller
 		$data = file_get_contents('php://input');
 		$o = json_decode($data);
 		$token = explode("/", $o->data->sn);
-		$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $token[0] ]);
+		if($o->status == 2) {
+			$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $token[0], 'status' => 'Gagal' ]);
+			$x = DB::select('SELECT * FROM t_ppob WHERE trx_id = '.$o->data->ref_id);
+			DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$x[0]->total_tagihan, $x[0]->members_id]);
+		} else {
+			$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $token[0] ]);
+		}
 		return $o->data->ref_id;
 	}
 	function plnPostpaidInquiry(Request $request) {
