@@ -27,6 +27,7 @@ Route::get('/api/v1/bpjs/inquiry', 'ApiTopupController@bpjsInqu');
 Route::get('/api/v1/bpjs/pay', 'ApiTopupController@bpjsPay');
 Route::get('/api/trans_ppob', 'ApiUserController@transppob');
 Route::get('/api/transfer_saldo', 'ApiUserController@transsaldo');
+Route::get('/api/categories', 'ApiUserController@getcategories');
 
 Route::get('/api/v1/pln/pra/inquiry', 'ApiTopupController@plnPraInqu');
 Route::get('/api/v1/pln/pra/pay', 'ApiTopupController@plnPraPay');

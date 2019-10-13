@@ -98,6 +98,17 @@ class ApiUserController extends Controller
 		return $ret;
 	}
 
+	function getcategories(Request $request) {
+		$req = $request->all();
+		$categories = DB::select('SELECT * FROM product_categories');
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => $categories
+		);
+		return $ret;
+	}
+
 	public function forgotPassword(Request $request)
 	{
 		$req = $request->all();
