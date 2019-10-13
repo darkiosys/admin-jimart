@@ -135,6 +135,17 @@ class ApiUserController extends Controller
 		return (array)$product[0];
 	}
 
+	function productimages(Request $request) {
+		$req = $request->all();
+		$pimage = DB::select('SELECT * FROM product_images WHERE products_id='.$req['products_id']);
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => $pimage
+		);
+		return $ret;
+	}
+
 	public function forgotPassword(Request $request)
 	{
 		$req = $request->all();
