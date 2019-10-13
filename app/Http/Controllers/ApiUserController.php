@@ -11,6 +11,7 @@ use App\TEcommerce;
 use App\TransaksiDetail;
 use App\TransaksiKurir;
 use App\Slider;
+use DB;
 
 use Illuminate\Http\Request;
 
