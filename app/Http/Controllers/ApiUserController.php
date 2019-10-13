@@ -124,9 +124,9 @@ class ApiUserController extends Controller
 			LIMIT 1
 		) LEFT JOIN product_categories ON products.product_categories_id = product_categories.id LEFT JOIN product_category_sub ON products.product_category_sub_id = product_category_sub.id LEFT JOIN product_category_supersub ON products.product_category_supersub_id = product_category_supersub.id LEFT JOIN members ON products.members_id = members.id where product_images.image_url IS NOT NULL');
 
-		// for ($i=0; $i < count($products); $i++) { 
-		// 	$products[$i]->image_url = 'http://jimart.darkiosys.com/'.$products[$i]->image_url;
-		// }
+		for ($i=0; $i < count($products); $i++) { 
+			$products[$i]->image_url = 'http://jimart.darkiosys.com/'.$products[$i]->image_url;
+		}
 		$ret = array(
 			"api_status" => 1,
 			"api_message" => "success",
