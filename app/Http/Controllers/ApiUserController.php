@@ -102,7 +102,7 @@ class ApiUserController extends Controller
 		$req = $request->all();
 		$categories = DB::select('SELECT * FROM product_categories');
 		for ($i=0; $i < count($categories); $i++) { 
-			$categories[$i]['image_url'] = 'http://jimart.darkiosys.com/'.$categories[$i]['image_url'];
+			$categories[$i]->image_url = 'http://jimart.darkiosys.com/'.$categories[$i]->image_url;
 		}
 		$ret = array(
 			"api_status" => 1,
