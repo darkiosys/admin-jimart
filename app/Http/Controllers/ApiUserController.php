@@ -114,7 +114,7 @@ class ApiUserController extends Controller
 
 	function getproducts(Request $request) {
 		$req = $request->all();
-		$products = DB::select('SELECT * FROM products');
+		$products = DB::select('SELECT products.id, products.members_id, products.product_name, products.product_slug, products.keywords, products.description, products.weight, products.rating_avg, products.product_categories_id, products.product_category_sub_id, products.product_category_supersub_id, products.price, products.discount, products.price_discount, products.stock, product_categories.category_name as category, product_category_sub.category_sub_name as category_sub, product_category_supersub.category_supersub_name as category_supersub, members.store_name, product_images.image_url, members.store_image, members.store_address as store_city FROM products INNER JOIN product_images ON products.id = product_images.products_id INNER JOIN product_categories ON products.product_categories_id = product_categories.id INNER JOIN product_category_sub ON products.product_category_sub_id = product_category_sub.id INNER JOIN product_category_supersub ON products.product_category_supersub_id = product_category_supersub.id INNER JOIN members ON products.members_id = members.id');
 		for ($i=0; $i < count($products); $i++) { 
 			$products[$i]->image_url = 'http://jimart.darkiosys.com/'.$products[$i]->image_url;
 		}
