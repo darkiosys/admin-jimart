@@ -1218,9 +1218,12 @@ class ApiTopupController extends Controller
 		$data = curl_exec($ch);
 		curl_close($ch);
 		$rd = json_decode($data);
+		if($rd['status'] == 2){
+			return $data;
+		}
 		$tp = array(
 			'member_id' => $members_id,
-			'log_id' => '0',
+			'log_id' => $rd['status'],
 			'target' => $req['hp'],
 			'reff_id' => $ref_id,
 			'prodname' => $code,
