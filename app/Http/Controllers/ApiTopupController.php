@@ -386,7 +386,7 @@ class ApiTopupController extends Controller
 		$token = explode("/", $o->data->sn);
 		if($o->data->status == 2) {
 			$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $token[0], 'status' => 'Gagal' ]);
-			$x = DB::select('SELECT * FROM t_ppob WHERE trx_id = '.$o->data->ref_id);
+			$x = DB::select('SELECT * FROM t_ppob WHERE trx_id = "'.$o->data->ref_id.'"');
 			DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$x[0]->total_tagihan, $x[0]->members_id]);
 			return "gagal";
 		} else {
