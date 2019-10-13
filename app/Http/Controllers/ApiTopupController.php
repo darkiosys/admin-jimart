@@ -386,16 +386,16 @@ class ApiTopupController extends Controller
 		$token = explode("/", $o->data->sn);
 		DB::table('mb_callback')->insert(
 			[
-				"ref_id" => (string)$o->data->ref_id,
+				"ref_id" => $o->data->ref_id,
 				"status" => $o->data->status,
-				"code" => (string)$o->data->code,
-				"hp" => (string)$o->data->hp,
+				"code" => $o->data->code,
+				"hp" => $o->data->hp,
 				"price" => $o->data->price,
-				"message" => (string)$o->data->message,
-				"sn" => (string)$o->data->sn,
+				"message" => $o->data->message,
+				"sn" => $o->data->sn,
 				"balance" => $o->data->balance,
-				"tr_id" => (string)$o->data->tr_id,
-				"rc" => (string)$o->data->rc
+				"tr_id" => $o->data->tr_id,
+				"rc" => $o->data->rc
 			]
 		);
 		if($o->data->status == 2) {
