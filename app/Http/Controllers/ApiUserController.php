@@ -112,6 +112,20 @@ class ApiUserController extends Controller
 		return $ret;
 	}
 
+	function getproducts(Request $request) {
+		$req = $request->all();
+		$products = DB::select('SELECT * FROM products');
+		for ($i=0; $i < count($products); $i++) { 
+			$products[$i]->image_url = 'http://jimart.darkiosys.com/'.$products[$i]->image_url;
+		}
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => $products
+		);
+		return $ret;
+	}
+
 	public function forgotPassword(Request $request)
 	{
 		$req = $request->all();
