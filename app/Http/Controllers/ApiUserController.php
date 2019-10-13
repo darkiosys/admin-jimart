@@ -138,6 +138,9 @@ class ApiUserController extends Controller
 	function productimages(Request $request) {
 		$req = $request->all();
 		$pimage = DB::select('SELECT * FROM product_images WHERE products_id='.$req['products_id']);
+		for ($i=0; $i < count($pimage); $i++) { 
+			$pimage[$i]->image_url = 'http://jimart.darkiosys.com/'.$pimage[$i]->image_url;
+		}
 		$ret = array(
 			"api_status" => 1,
 			"api_message" => "success",
