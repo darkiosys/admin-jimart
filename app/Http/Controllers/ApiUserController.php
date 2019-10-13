@@ -84,6 +84,20 @@ class ApiUserController extends Controller
 		return $ret;
 	}
 
+	function transsaldo(Request $request) {
+		$req = $request->all();
+		$a = $req['members_id'];
+		$b = $req['username'];
+		$c = $req['password'];
+		$transsaldo = DB::select('SELECT * FROM t_transfer_saldo WHERE members_id = '.$a);
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => $transsaldo
+		);
+		return $ret;
+	}
+
 	public function forgotPassword(Request $request)
 	{
 		$req = $request->all();
