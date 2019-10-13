@@ -72,7 +72,8 @@ class ApiUserController extends Controller
 
 	function transppob(Request $request) {
 		$req = $request->all();
-		$transppob = DB::select('SELECT * FROM t_ppob WHERE members_id ='.$req['members_id'].'AND WHERE username="'.$req['username'].'" AND WHERE password="'.$req['password'].'"');// "'.$o->data->ref_id.'"');
+		$transppob = DB::select(
+			'SELECT * FROM t_ppob WHERE members_id ='.$req['members_id'].' AND WHERE username="'.$req['username'].'" AND WHERE password="'.$req['password'].'"');// "'.$o->data->ref_id.'"');
 		$ret = array(
 			"api_status" => 1,
 			"api_message" => "success",
