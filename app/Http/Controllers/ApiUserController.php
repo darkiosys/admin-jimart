@@ -33,12 +33,9 @@ class ApiUserController extends Controller
 		->where('password', '=', $req['password'])
 		->where('username', '=', $req['username'])
 		->first();
-		$ret = array(
-			"api_status" => 1,
-			"api_message" => "success",
-			$user
-		);
-		return $ret;
+		$user['api_status'] = 1;
+		$user['api_message'] = "success";
+		return $user;
 	}
 
 	function getProfile(Request $request) {
