@@ -19,6 +19,7 @@
                                         <th>Ending Saldo</th>
                                         <th>Produk</th>
                                         <th>Tanggal Transaksi</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,6 +33,7 @@
                                         <td>{{$item->ending_saldo}}</td>
                                         <td>{{$item->product_code}}</td>
                                         <td>{{$item->trx_date}}</td>
+                                        <td>{{$item->status}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
