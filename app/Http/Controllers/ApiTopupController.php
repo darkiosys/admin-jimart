@@ -888,6 +888,14 @@ class ApiTopupController extends Controller
 		if(!empty($banlist)) {
 			$apiKey   = "6845d79e9afc378c";
 			$signature  = md5($username.$apiKey.$ref_id);
+			$json = '{
+				"commands"    : "topup",
+				"username"    : "089687271843",
+				"ref_id"      : "'.$ref_id.'",
+				"hp"          : "'.$req['hp'].'",
+				"pulsa_code"  : "'.$code.'",
+				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
+				}';
 			$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
 		} else {
 			$url = "https://api.mobilepulsa.net/v1/legacy/index";
