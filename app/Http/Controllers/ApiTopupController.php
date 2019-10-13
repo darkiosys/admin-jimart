@@ -885,8 +885,7 @@ class ApiTopupController extends Controller
 				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
 		$banlist = DB::select('SELECT * FROM hp_ban WHERE no='.$req['hp']);
-		if(!empty($member)) {
-			return "test";
+		if(!empty($banlist)) {
 			$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
 		} else {
 			$url = "https://api.mobilepulsa.net/v1/legacy/index";
