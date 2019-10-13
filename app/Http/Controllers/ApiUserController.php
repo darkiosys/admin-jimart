@@ -36,7 +36,7 @@ class ApiUserController extends Controller
 		$ret = array(
 			"api_status" => 1,
 			"api_message" => "success",
-			"api_response_fields" => $user
+			$user
 		);
 		return $ret;
 	}
