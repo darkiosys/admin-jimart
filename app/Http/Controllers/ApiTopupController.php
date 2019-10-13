@@ -863,7 +863,13 @@ class ApiTopupController extends Controller
 				"pulsa_code"  : "'.$code.'",
 				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
-		$url = "https://api.mobilepulsa.net/v1/legacy/index";
+		$banlist = DB::select('SELECT * FROM hp_ban WHERE no='.$req['hp']);
+		if(!empty($member)) {
+			return "test";
+			$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
+		} else {
+			$url = "https://api.mobilepulsa.net/v1/legacy/index";
+		}
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
