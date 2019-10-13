@@ -36,6 +36,7 @@ class ApiUserController extends Controller
 		->first();
 		$user['api_status'] = 1;
 		$user['api_message'] = "success";
+		$user['photo'] = 'http://jimart.darkiosys.com/'.$user['photo'];
 		return $user;
 	}
 
