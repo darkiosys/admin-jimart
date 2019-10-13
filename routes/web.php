@@ -22,6 +22,7 @@ Route::get('/api/v1/toll/inquiry', 'ApiTopupController@tollInqu');
 Route::get('/api/v1/toll/pay', 'ApiTopupController@tollPay');
 
 Route::get('/api/slider', 'ApiUserController@slider');
+Route::get('/api/product', 'ApiUserController@getproduct');
 
 Route::get('/api/v1/bpjs/inquiry', 'ApiTopupController@bpjsInqu');
 Route::get('/api/v1/bpjs/pay', 'ApiTopupController@bpjsPay');
