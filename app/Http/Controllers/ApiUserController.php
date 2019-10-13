@@ -27,6 +27,20 @@ class ApiUserController extends Controller
 		return $ret;
 	}
 
+	function getmember(Request $request) {
+		$req = $request->all();
+		$user = User::where('id', '=', $req['id'])
+		->where('password', '=', $req['password'])
+		->where('username', '=', $req['username'])
+		->first();
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => $user
+		);
+		return $ret;
+	}
+
 	function getProfile(Request $request) {
 		$req = $request->all();
 		return array("data" => array(User::where('id', '=', $req['id'])->first()));

@@ -527,3 +527,5 @@ Route::post('/transfer-saldo', function () {
     }
 
 });
+
+Route::get('/api/member', 'ApiUserController@getmember');
