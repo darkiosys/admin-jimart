@@ -24,6 +24,8 @@ Route::get('/api/v1/toll/pay', 'ApiTopupController@tollPay');
 Route::get('/api/slider', 'ApiUserController@slider');
 Route::get('/api/product', 'ApiUserController@getproduct');
 Route::get('/api/product_images', 'ApiUserController@productimages');
+Route::get('/api/product_wishlists', 'ApiUserController@product_whistlist');
+Route::get('/api/product_carts', 'ApiUserController@product_chart');
 
 Route::get('/api/v1/bpjs/inquiry', 'ApiTopupController@bpjsInqu');
 Route::get('/api/v1/bpjs/pay', 'ApiTopupController@bpjsPay');

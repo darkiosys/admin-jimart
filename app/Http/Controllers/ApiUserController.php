@@ -145,6 +145,23 @@ class ApiUserController extends Controller
 		);
 		return $ret;
 	}
+	function product_whistlist(Request $request) {
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => array()
+		);
+		return $ret;
+	}
+
+	function product_chart(Request $request) {
+		$ret = array(
+			"api_status" => 1,
+			"api_message" => "success",
+			"data" => array()
+		);
+		return $ret;
+	}
 
 	public function forgotPassword(Request $request)
 	{
