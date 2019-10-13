@@ -384,6 +384,20 @@ class ApiTopupController extends Controller
 		$data = file_get_contents('php://input');
 		$o = json_decode($data);
 		$token = explode("/", $o->data->sn);
+		DB::table('mb_callback')->insert(
+			[
+				"ref_id" => $o->data->ref_id,
+				"status" => $o->data->status,
+				"code" => $o->data->code,
+				"hp" => $o->data->hp,
+				"price" => $o->data->price,
+				"message" => $o->data->message,
+				"sn" => $o->data->sn,
+				"balance" => $o->data->balance,
+				"tr_id" => $o->data->tr_id,
+				"rc" => $o->data->rc
+			]
+		);
 		if($o->data->status == 2) {
 			$trx = DB::table('t_ppob')->where('trx_id', '=', $o->data->ref_id)->update(['token'  => $token[0], 'status' => 'Gagal' ]);
 			$x = DB::select('SELECT * FROM t_ppob WHERE trx_id = "'.$o->data->ref_id.'"');
