@@ -76,7 +76,7 @@ class ApiUserController extends Controller
 		$a = $req['members_id'];
 		$b = $req['username'];
 		$c = $req['password'];
-		$transppob = DB::select('SELECT * FROM t_ppob WHERE members_id = '.$a);
+		$transppob = DB::select('SELECT * FROM t_ppob WHERE members_id = '.$a.' ORDER BY trx_date DESC');
 		$ret = array(
 			"api_status" => 1,
 			"api_message" => "success",
@@ -115,16 +115,48 @@ class ApiUserController extends Controller
 
 	function getproducts(Request $request) {
 		$req = $request->all();
-		$products = DB::select('SELECT products.id, products.members_id, products.product_name, products.product_slug, products.keywords, products.description, products.weight, products.rating_avg, products.product_categories_id, products.product_category_sub_id, products.product_category_supersub_id, products.price, products.discount, products.price_discount, products.stock, product_categories.category_name as category, product_category_sub.category_sub_name as category_sub, product_category_supersub.category_supersub_name as category_supersub, members.store_name, product_images.image_url, members.store_image, members.store_address as store_city FROM products
+		$products = DB::select('SELECT
+		products.id,
+		products.members_id,
+		products.product_name,
+		products.product_slug,
+		products.keywords,
+		products.description,
+		products.weight,
+		products.rating_avg,
+		products.product_categories_id,
+		products.product_category_sub_id,
+		products.product_category_supersub_id,
+		products.price,
+		products.discount,
+		products.price_discount,
+		products.stock,
+		product_categories.category_name as category,
+		product_category_sub.category_sub_name as category_sub,
+		product_category_supersub.category_supersub_name as category_supersub,
+		members.store_name,
+		product_images.image_url,
+		members.store_image,
+		members.store_address as store_city
+		FROM products
 		LEFT JOIN product_images ON product_images.products_id = (
 			SELECT products_id
 			FROM product_images AS p2
 			WHERE p2.products_id = products.id
 			LIMIT 1
-		) LEFT JOIN product_categories ON products.product_categories_id = product_categories.id LEFT JOIN product_category_sub ON products.product_category_sub_id = product_category_sub.id LEFT JOIN product_category_supersub ON products.product_category_supersub_id = product_category_supersub.id LEFT JOIN members ON products.members_id = members.id where product_images.image_url IS NOT NULL LIMIT 25');
+		)
+		LEFT JOIN product_categories ON products.product_categories_id = product_categories.id
+		LEFT JOIN product_category_sub ON products.product_category_sub_id = product_category_sub.id
+		LEFT JOIN product_category_supersub ON products.product_category_supersub_id = product_category_supersub.id
+		LEFT JOIN members ON products.members_id = members.id
+		where product_images.image_url IS NOT NULL LIMIT 25');
 
 		for ($i=0; $i < count($products); $i++) { 
 			$products[$i]->image_url = 'http://jimart.darkiosys.com/'.$products[$i]->image_url;
+		}
+		$nodup = array();
+		for ($j=0; $j < $products; $j++) { 
+			
 		}
 		$ret = array(
 			"api_status" => 1,
