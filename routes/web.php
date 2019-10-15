@@ -33,6 +33,7 @@ Route::get('/api/trans_ppob', 'ApiUserController@transppob');
 Route::get('/api/transfer_saldo', 'ApiUserController@transsaldo');
 Route::get('/api/categories', 'ApiUserController@getcategories');
 Route::get('/api/products', 'ApiUserController@getproducts');
+Route::post('/api/new-upload', 'ApiUserController@newupload');
 
 Route::get('/api/v1/pln/pra/inquiry', 'ApiTopupController@plnPraInqu');
 Route::get('/api/v1/pln/pra/pay', 'ApiTopupController@plnPraPay');
