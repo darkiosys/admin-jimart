@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/api/ppob_fee_admin?ppob_slug=transfer-saldo', function() {
+    return '{"api_status":1,"api_message":"success","api_response_fields":["id","name","ppob_slug","fee_admin"],"api_authorization":"You are in debug mode !","id":10,"name":"TRANSFER SALDO ","ppob_slug":"transfer-saldo","fee_admin":1000}';
+});
 
 Route::get('/api/v1/toll/inquiry', 'ApiTopupController@tollInqu');
 Route::get('/api/v1/toll/pay', 'ApiTopupController@tollPay');
