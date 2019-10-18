@@ -86,7 +86,7 @@ class ApiUserController extends Controller
 			"nik" => $req['nik'],
 			"first_name" => $req['first_name'],
 			"last_name" => $req['last_name'],
-			"sponsor" => $req['sponsor'],
+			"sponsor" => "SETIAKU",
 			"username" => $req['username'],
 			"password" => Hash::make($req['password']),
 			"email" => $req['email'],

@@ -59,7 +59,6 @@ Route::get('/api/v1/pln/postpaid/pay', 'ApiTopupController@plnPostpaidPay');
 Route::get('/api/v1/inquiry/pay', 'ApiTopupController@inquiryPay');
 Route::post('/api/v1/prepaid/callback', 'ApiTopupController@callback');
 Route::get('/api/v1/createmember', 'ApiUserController@createmember');
-Route::post('/api/v1/createmember', 'ApiUserController@createmember');
 
 Route::get('/api/v1/pay', 'ApiTopupController@pay');
 
