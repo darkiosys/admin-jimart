@@ -23,6 +23,7 @@ Route::get('/api/ppob_fee_admin', function() {
 
 Route::get('/api/v1/toll/inquiry', 'ApiTopupController@tollInqu');
 Route::get('/api/v1/toll/pay', 'ApiTopupController@tollPay');
+Route::get('/api/v1/checkpassword', 'ApiUserController@checkpassword');
 
 Route::get('/api/slider', 'ApiUserController@slider');
 Route::get('/api/product', 'ApiUserController@getproduct');
@@ -32,6 +33,12 @@ Route::get('/api/product_carts', 'ApiUserController@product_chart');
 
 Route::get('/api/v1/bpjs/inquiry', 'ApiTopupController@bpjsInqu');
 Route::get('/api/v1/bpjs/pay', 'ApiTopupController@bpjsPay');
+Route::get('/api/v1/telkom/inquiry', 'ApiTopupController@telkomInqu');
+Route::get('/api/v1/telkom/pay', 'ApiTopupController@telkomPay');
+Route::get('/api/v1/esamsat/inquiry', 'ApiTopupController@esamsatInqu');
+Route::get('/api/v1/esamsat/pay', 'ApiTopupController@esamsatPay');
+Route::get('/api/v1/hpasca/inquiry', 'ApiTopupController@hpascaInqu');
+Route::get('/api/v1/hpasca/pay', 'ApiTopupController@hpascaPay');
 Route::get('/api/trans_ppob', 'ApiUserController@transppob');
 Route::get('/api/transfer_saldo', 'ApiUserController@transsaldo');
 Route::get('/api/categories', 'ApiUserController@getcategories');

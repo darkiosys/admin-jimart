@@ -12,6 +12,8 @@ use App\TransaksiDetail;
 use App\TransaksiKurir;
 use App\Slider;
 use DB;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 use Illuminate\Http\Request;
 
@@ -232,6 +234,7 @@ class ApiUserController extends Controller
 		if ($user) {
 			$res = Hash::check($requestData['password'], $user->password);
 			if ($res) {
+				$token = md5(date('Y-m-d H:i:s'));
 				$arr = array(
 					"api_status" => 1,
 					"api_message" => "success",
@@ -258,6 +261,7 @@ class ApiUserController extends Controller
 						"store_address",
 						"store_kode_pos",
 						"store_status",
+						"token",
 						"subdistrict_id",
 						"ip_address",
 						"last_login",
@@ -288,8 +292,11 @@ class ApiUserController extends Controller
 					"subdistrict_id" => $user->subdistrict_id,
 					"ip_address" => $user->ip_address,
 					"last_login" => $user->last_login,
+					"token" => $token,
 					"status" => $user->status
 				);
+				$ip = $request->ip();
+				$user->update(array("token" => $token, "ip_address" => $ip));
 				return $arr;
 			} else {
 				return $failedLogin;

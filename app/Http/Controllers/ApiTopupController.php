@@ -13,110 +13,90 @@ class ApiTopupController extends Controller
 {
 	function bpjsInqu(Request $request) {
 		$req = $request->all();
-		$members_id = $req['member_id'];
-		$password = $req['password'];
+		// $members_id = $req['member_id'];
+		// $password = $req['password'];
 		$username   = "089687271843";
 		$apiKey   = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
-		$code = $req['code'];
+		$code = $req['hp'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
-				"commands"    : "topup",
-				"username"    : "089687271843",
-				"ref_id"      : "'.$ref_id.'",
-				"hp"          : "'.$req['hp'].'",
-				"pulsa_code"  : "'.$code.'",
-				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
-				}';
-		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
-		if($members_id == "" || $members_id == null) {
-			return '{
-				"data": {
-					"trx_id": "",
-					"saldo": "",
-					"rc": "0",
-					"desc": "Data members_id kosong, Hubungi Admin!",
-					"bit11": "",
-					"bit12": "",
-					"bit48": "",
-					"bit62": ""
-				}
-			}';
-		}
-		$member = DB::select('SELECT id, saldo FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
-		if(empty($member)){
-			return '{
-				"data": {
-					"trx_id": "",
-					"saldo": "",
-					"rc": "0",
-					"desc": "Data member tidak terdaftar, Hubungi Admin!",
-					"bit11": "",
-					"bit12": "",
-					"bit48": "",
-					"bit62": ""
-				}
-			}';
-		}
-		$lamount = array(
-			"etoll100000" =>	array(100000, 102000, 1000),
-			"etoll200000" =>  array(200000, 202000, 1000)
-		);
-		$actualprice = $lamount[$req['code']][1] + 1000;
+			"commands" : "inq-pasca",
+			"username" : "089687271843",
+			"code"     : "BPJS",
+			"hp"       : "'.$code.'",
+			"ref_id"   : "'.$ref_id.'",
+			"sign"     : "'.md5($username.$apiKey.$ref_id).'",
+			"month"    : "'.$req['month'].'"
+		}';
+		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		// if($members_id == "" || $members_id == null) {
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data members_id kosong, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// $member = DB::select('SELECT id, saldo FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
+		// if(empty($member)){
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data member tidak terdaftar, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// SEND INQUIRY
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-		if($member[0]->saldo < $actualprice) {
-			$tp = array(
-				'member_id' => $members_id,
-				'log_id' => '0',
-				'target' => $req['code'],
-				'reff_id' => $ref_id,
-				'prodname' => $req['hp'],
-				'amount' => $actualprice,
-				'status' => 'FAILED',
-				'message' => 'Insufficient balance',
-				'time' => date('Y-m-d H:i:s'),
-				'payload' => json_encode($json)
-			);
-			T_transaction::create($tp);
-			return '{
-				"data": {
-					"trx_id": "",
-					"saldo": "",
-					"rc": "0",
-					"desc": "Saldo Tidak Cukup!",
-					"bit11": "",
-					"bit12": "",
-					"bit48": "",
-					"bit62": ""
-				}
-			}';
-		}
-		$tp = array(
-			'member_id' => $members_id,
-			'log_id' => '0',
-			'target' => $req['hp'],
-			'reff_id' => $ref_id,
-			'prodname' => $code,
-			'amount' => $actualprice,
-			'status' => 'SUCCESS',
-			'message' => 'Inquiry E-TOLL Berhasil',
-			'time' => date('Y-m-d H:i:s'),
-			'payload' => json_encode($json)
-		);
-		T_transaction::create($tp);
-		$data = '{"data":{
-			"ref_id":"'.$ref_id.'",
-			"status":1,
-			"code":"'.$code.'",
-			"hp":"'.$req['hp'].'",
-			"pulsa": "'.$lamount[$req['code']][0].'",
-			"price": '.$actualprice.',
-			"message":"INQUIRY",
-			"balance":0,
-			"tr_id":"'.$ref_id.'",
-			"rc":"0001"
-		}}';
-		return $data;
+		$retdata = curl_exec($ch);
+		curl_close($ch);
+		$rd = json_decode($retdata);
+		// $tp = array(
+		// 	'member_id' => $members_id,
+		// 	'log_id' => '0',
+		// 	'target' => $req['hp'],
+		// 	'reff_id' => $ref_id,
+		// 	'prodname' => $code,
+		// 	'amount' => $actualprice,
+		// 	'status' => 'SUCCESS',
+		// 	'message' => 'Inquiry BPJS Berhasil',
+		// 	'time' => date('Y-m-d H:i:s'),
+		// 	'payload' => json_encode($json)
+		// );
+		// T_transaction::create($tp);
+		// $data = '{"data":{
+		// 	"ref_id":"'.$ref_id.'",
+		// 	"status":1,
+		// 	"code":"'.$code.'",
+		// 	"hp":"'.$req['hp'].'",
+		// 	"pulsa": "",
+		// 	"price": "",
+		// 	"message":"INQUIRY BPJS",
+		// 	"balance":0,
+		// 	"tr_id":"'.$ref_id.'",
+		// 	"data":'.$retdata.',
+		// 	"rc":"0001"
+		// }}';
+		return $retdata;
 	}
 	function bpjsPay(Request $request) {
 		$req = $request->all();
@@ -135,7 +115,7 @@ class ApiTopupController extends Controller
 				"pulsa_code"  : "'.$code.'",
 				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
-		$url = "https://api.mobilepulsa.net/v1/legacy/index";
+		$url = "https://atestpi.mobilepulsa.net/v1/legacy/index";
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
@@ -379,6 +359,282 @@ class ApiTopupController extends Controller
 			]
 		);
 		return $data;
+	}
+	function telkomInqu(Request $request) {
+		$req = $request->all();
+		// $members_id = $req['member_id'];
+		// $password = $req['password'];
+		$username   = "089687271843";
+		$apiKey   = "6845d79e9afc378c";
+		$ref_id  = uniqid('');
+		$code = $req['code'];
+		$hp = $req['hp'];
+		$signature  = md5($username.$apiKey.$ref_id);
+		$json = '{
+			"commands" : "inq-pasca",
+			"username" : "089687271843",
+			"code"     : "'.$code.'",
+			"hp"       : "'.$hp.'",
+			"ref_id"   : "'.$ref_id.'",
+			"sign"     : "'.md5($username.$apiKey.$ref_id).'"
+		}';
+		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		// if($members_id == "" || $members_id == null) {
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data members_id kosong, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// $member = DB::select('SELECT id, saldo FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
+		// if(empty($member)){
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data member tidak terdaftar, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// SEND INQUIRY
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$retdata = curl_exec($ch);
+		curl_close($ch);
+		$rd = json_decode($retdata);
+		// $tp = array(
+		// 	'member_id' => $members_id,
+		// 	'log_id' => '0',
+		// 	'target' => $req['hp'],
+		// 	'reff_id' => $ref_id,
+		// 	'prodname' => $code,
+		// 	'amount' => $actualprice,
+		// 	'status' => 'SUCCESS',
+		// 	'message' => 'Inquiry BPJS Berhasil',
+		// 	'time' => date('Y-m-d H:i:s'),
+		// 	'payload' => json_encode($json)
+		// );
+		// T_transaction::create($tp);
+		// $data = '{"data":{
+		// 	"ref_id":"'.$ref_id.'",
+		// 	"status":1,
+		// 	"code":"'.$code.'",
+		// 	"hp":"'.$req['hp'].'",
+		// 	"pulsa": "",
+		// 	"price": "",
+		// 	"message":"INQUIRY BPJS",
+		// 	"balance":0,
+		// 	"tr_id":"'.$ref_id.'",
+		// 	"data":'.$retdata.',
+		// 	"rc":"0001"
+		// }}';
+		return $retdata;
+	}
+	function telkomPay(Request $request) {
+
+	}
+	function esamsatInqu(Request $request) {
+		$req = $request->all();
+		// $members_id = $req['member_id'];
+		// $password = $req['password'];
+		$username   = "089687271843";
+		$apiKey   = "6845d79e9afc378c";
+		$ref_id  = uniqid('');
+		$code = $req['code'];
+		$hp = $req['hp'];
+		$signature  = md5($username.$apiKey.$ref_id);
+		$json = '{
+			"commands" : "inq-pasca",
+			"username" : "089687271843",
+			"code"     : "'.$code.'",
+			"hp"       : "'.$hp.'",
+			"ref_id"   : "'.$ref_id.'",
+			"sign"     : "'.md5($username.$apiKey.$ref_id).'"
+		}';
+		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		// if($members_id == "" || $members_id == null) {
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data members_id kosong, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// $member = DB::select('SELECT id, saldo FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
+		// if(empty($member)){
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data member tidak terdaftar, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// SEND INQUIRY
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$retdata = curl_exec($ch);
+		curl_close($ch);
+		$rd = json_decode($retdata);
+		// $tp = array(
+		// 	'member_id' => $members_id,
+		// 	'log_id' => '0',
+		// 	'target' => $req['hp'],
+		// 	'reff_id' => $ref_id,
+		// 	'prodname' => $code,
+		// 	'amount' => $actualprice,
+		// 	'status' => 'SUCCESS',
+		// 	'message' => 'Inquiry BPJS Berhasil',
+		// 	'time' => date('Y-m-d H:i:s'),
+		// 	'payload' => json_encode($json)
+		// );
+		// T_transaction::create($tp);
+		// $data = '{"data":{
+		// 	"ref_id":"'.$ref_id.'",
+		// 	"status":1,
+		// 	"code":"'.$code.'",
+		// 	"hp":"'.$req['hp'].'",
+		// 	"pulsa": "",
+		// 	"price": "",
+		// 	"message":"INQUIRY BPJS",
+		// 	"balance":0,
+		// 	"tr_id":"'.$ref_id.'",
+		// 	"data":'.$retdata.',
+		// 	"rc":"0001"
+		// }}';
+		return $retdata;
+	}
+	function esamsatPay(Request $request) {
+
+	}
+	function hpascaInqu(Request $request) {
+		$req = $request->all();
+		// $members_id = $req['member_id'];
+		// $password = $req['password'];
+		$username   = "089687271843";
+		$apiKey   = "6845d79e9afc378c";
+		$ref_id  = uniqid('');
+		$code = $req['code'];
+		$hp = $req['hp'];
+		$signature  = md5($username.$apiKey.$ref_id);
+		$json = '{
+			"commands" : "inq-pasca",
+			"username" : "089687271843",
+			"code"     : "'.$code.'",
+			"hp"       : "'.$hp.'",
+			"ref_id"   : "'.$ref_id.'",
+			"sign"     : "'.md5($username.$apiKey.$ref_id).'"
+		}';
+		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		// if($members_id == "" || $members_id == null) {
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data members_id kosong, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// $member = DB::select('SELECT id, saldo FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
+		// if(empty($member)){
+		// 	return '{
+		// 		"data": {
+		// 			"trx_id": "",
+		// 			"saldo": "",
+		// 			"rc": "0",
+		// 			"desc": "Data member tidak terdaftar, Hubungi Admin!",
+		// 			"bit11": "",
+		// 			"bit12": "",
+		// 			"bit48": "",
+		// 			"bit62": ""
+		// 		}
+		// 	}';
+		// }
+		// SEND INQUIRY
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$retdata = curl_exec($ch);
+		curl_close($ch);
+		$rd = json_decode($retdata);
+		// $tp = array(
+		// 	'member_id' => $members_id,
+		// 	'log_id' => '0',
+		// 	'target' => $req['hp'],
+		// 	'reff_id' => $ref_id,
+		// 	'prodname' => $code,
+		// 	'amount' => $actualprice,
+		// 	'status' => 'SUCCESS',
+		// 	'message' => 'Inquiry BPJS Berhasil',
+		// 	'time' => date('Y-m-d H:i:s'),
+		// 	'payload' => json_encode($json)
+		// );
+		// T_transaction::create($tp);
+		// $data = '{"data":{
+		// 	"ref_id":"'.$ref_id.'",
+		// 	"status":1,
+		// 	"code":"'.$code.'",
+		// 	"hp":"'.$req['hp'].'",
+		// 	"pulsa": "",
+		// 	"price": "",
+		// 	"message":"INQUIRY BPJS",
+		// 	"balance":0,
+		// 	"tr_id":"'.$ref_id.'",
+		// 	"data":'.$retdata.',
+		// 	"rc":"0001"
+		// }}';
+		return $retdata;
+	}
+	function hpascaPay(Request $request) {
+
+	}
+	function pdamInqu(Request $request) {
+
+	}
+	function pdamPay(Request $request) {
+
 	}
 	function callback(Request $request) {
 		$data = file_get_contents('php://input');
