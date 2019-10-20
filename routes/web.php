@@ -344,207 +344,106 @@ Route::post('/carts-edit', function () {
     }
 });
 
-Route::post('/tranfer-saldo', function () {
+// Route::post('/tranfer-saldo', function () {
 
-    $members_id = Request::post('members_id');
-    $username   = Request::post('username');
-    $password   = Request::post('password');
+//     $members_id = Request::post('members_id');
+//     $username   = Request::post('username');
+//     $password   = Request::post('password');
     
-    $usernameTujuan = Request::post('tujuan');
-    $nominal    = Request::post('nominal');
-    $trx_date   = date("YmdHis");
+//     $usernameTujuan = Request::post('tujuan');
+//     $nominal    = Request::post('nominal');
+//     $trx_date   = date("YmdHis");
     
-    $data_admin = DB::table('ppob_fee_admin')->select('fee_admin') ->where('ppob_slug', '=', 'transfer-saldo')->get();
-    $fee_admin = (int) $data_admin[0]->fee_admin;
+//     $data_admin = DB::table('ppob_fee_admin')->select('fee_admin') ->where('ppob_slug', '=', 'transfer-saldo')->get();
+//     $fee_admin = (int) $data_admin[0]->fee_admin;
     
-    $memberTujuan = DB::select('SELECT id FROM members WHERE username=?', [$usernameTujuan]);
-    $member = DB::select('SELECT id,username,saldo,password FROM members WHERE id=?', [$members_id]);
-    $saldoMember = (int) $member[0]->saldo;
-    $hashedPassword = $member[0]->password;
+//     $memberTujuan = DB::select('SELECT id FROM members WHERE username=?', [$usernameTujuan]);
+//     $member = DB::select('SELECT id,username,saldo,password FROM members WHERE id=?', [$members_id]);
+//     $saldoMember = (int) $member[0]->saldo;
+//     $hashedPassword = $member[0]->password;
     
-    if(empty($member)){
-        return '{
-            "api_status": 0,
-            "api_message": "Member belum terdaftar,\nsilahkan coba kembali!" 
-        }';
-    }
-    else if(empty($memberTujuan)){
-        return '{
-            "api_status": 0,
-            "api_message": "Member tujuan belum terdaftar,\nsilahkan masukan username lainnya!" 
-        }';
-    }
-    else if($saldoMember < (int)($nominal + $fee_admin)){
-        return '{
-            "api_status": 0,
-            "api_message": "Saldo tidak cukup.\n\nSaat ini saldo anda :\nRp. '.number_format($saldoMember).'.\nSilahkan lakukan topup saldo!" 
-        }';
-    }
+//     if(empty($member)){
+//         return '{
+//             "api_status": 0,
+//             "api_message": "Member belum terdaftar,\nsilahkan coba kembali!" 
+//         }';
+//     }
+//     else if(empty($memberTujuan)){
+//         return '{
+//             "api_status": 0,
+//             "api_message": "Member tujuan belum terdaftar,\nsilahkan masukan username lainnya!" 
+//         }';
+//     }
+//     else if($saldoMember < (int)($nominal + $fee_admin)){
+//         return '{
+//             "api_status": 0,
+//             "api_message": "Saldo tidak cukup.\n\nSaat ini saldo anda :\nRp. '.number_format($saldoMember).'.\nSilahkan lakukan topup saldo!" 
+//         }';
+//     }
     
-    if (!Hash::check($password, $hashedPassword)) {
-        if(md5($password) != $hashedPassword){
-            return '{
-                "api_status": 0,
-                "api_message": "Password salah, silahkan coba kembali!" 
-            }';
-        }
-    }
+//     if (!Hash::check($password, $hashedPassword)) {
+//         if(md5($password) != $hashedPassword){
+//             return '{
+//                 "api_status": 0,
+//                 "api_message": "Password salah, silahkan coba kembali!" 
+//             }';
+//         }
+//     }
 
         
-    try{
-        $affected = DB::update('UPDATE members AS mem_dari, members AS mem_tujuan 
-                                SET mem_dari.saldo=mem_dari.saldo-?, mem_tujuan.saldo=mem_tujuan.saldo+? 
-                                WHERE mem_dari.id=? AND mem_tujuan.username=?', 
-                                [($nominal+$fee_admin),$nominal,$members_id,$usernameTujuan,]);
+//     try{
+//         $affected = DB::update('UPDATE members AS mem_dari, members AS mem_tujuan 
+//                                 SET mem_dari.saldo=mem_dari.saldo-?, mem_tujuan.saldo=mem_tujuan.saldo+? 
+//                                 WHERE mem_dari.id=? AND mem_tujuan.username=?', 
+//                                 [($nominal+$fee_admin),$nominal,$members_id,$usernameTujuan,]);
                     
         
-        if( $affected >= 1){
-            $sender = DB::select('SELECT id,username,saldo FROM members WHERE id=?', [$members_id]);
-            $usernameSender =       $sender[0]->username;
-            $saldoSender    = (int) $sender[0]->saldo;
+//         if( $affected >= 1){
+//             $sender = DB::select('SELECT id,username,saldo FROM members WHERE id=?', [$members_id]);
+//             $usernameSender =       $sender[0]->username;
+//             $saldoSender    = (int) $sender[0]->saldo;
             
-            $receiver = DB::select('SELECT id,username,saldo FROM members WHERE username=?', [$usernameTujuan]);
-            $idReceiver         = (int) $receiver[0]->id;
-            $usernameReceiver   =       $receiver[0]->username;
-            $saldoReceiver      = (int) $receiver[0]->saldo;
+//             $receiver = DB::select('SELECT id,username,saldo FROM members WHERE username=?', [$usernameTujuan]);
+//             $idReceiver         = (int) $receiver[0]->id;
+//             $usernameReceiver   =       $receiver[0]->username;
+//             $saldoReceiver      = (int) $receiver[0]->saldo;
 
-            DB::table('t_transfer_saldo')->insert(
-                [
-                    'members_id' => $members_id, 'sender' => $usernameSender,'receiver' => $usernameReceiver,'nominal' => ($nominal+$fee_admin), 'ending_saldo' => $saldoSender,
-                     'date' => $trx_date,'status' => "Keluar",
-                ]
-            );
+//             DB::table('t_transfer_saldo')->insert(
+//                 [
+//                     'members_id' => $members_id, 'sender' => $usernameSender,'receiver' => $usernameReceiver,'nominal' => ($nominal+$fee_admin), 'ending_saldo' => $saldoSender,
+//                      'date' => $trx_date,'status' => "Keluar",
+//                 ]
+//             );
             
-            DB::table('t_transfer_saldo')->insert(
-                [
-                    'members_id' => $idReceiver, 'sender' => $usernameSender,'receiver' => $usernameReceiver,'nominal' => $nominal, 'ending_saldo' => $saldoReceiver,
-                     'date' => $trx_date,'status' => "Masuk",
-                ]
-            );
+//             DB::table('t_transfer_saldo')->insert(
+//                 [
+//                     'members_id' => $idReceiver, 'sender' => $usernameSender,'receiver' => $usernameReceiver,'nominal' => $nominal, 'ending_saldo' => $saldoReceiver,
+//                      'date' => $trx_date,'status' => "Masuk",
+//                 ]
+//             );
             
-            return '{
-                "api_status": 1,
-                "api_message": "Tranfer saldo berhasil!" 
-            }';
-        }
-        else{ return '{
-                "api_status": 0,
-                "api_message": "Tranfer saldo gagal, coba beberapa saat lagi!" 
-            }'; }
-    } catch(TimeoutException $e) {
-           return '{
-                "api_status": 0,
-                "api_message": "TimeoutException = '.$e.'" 
-            }';
+//             return '{
+//                 "api_status": 1,
+//                 "api_message": "Tranfer saldo berhasil!" 
+//             }';
+//         }
+//         else{ return '{
+//                 "api_status": 0,
+//                 "api_message": "Tranfer saldo gagal, coba beberapa saat lagi!" 
+//             }'; }
+//     } catch(TimeoutException $e) {
+//            return '{
+//                 "api_status": 0,
+//                 "api_message": "TimeoutException = '.$e.'" 
+//             }';
             
-    } catch(Exception $e){
-        return '{
-            "api_status": 0,
-            "api_message": "Error = '.$e.'" 
-        }';
-    }
+//     } catch(Exception $e){
+//         return '{
+//             "api_status": 0,
+//             "api_message": "Error = '.$e.'" 
+//         }';
+//     }
 
-});
-Route::post('/transfer-saldo', function () {
-
-    $members_id = Request::post('members_id');
-    $username   = Request::post('username');
-    $password   = Request::post('password');
-    
-    $usernameTujuan = Request::post('tujuan');
-    $nominal    = Request::post('nominal');
-    $trx_date   = date("YmdHis");
-    
-    $data_admin = DB::table('ppob_fee_admin')->select('fee_admin') ->where('ppob_slug', '=', 'transfer-saldo')->get();
-    $fee_admin = (int) $data_admin[0]->fee_admin;
-    
-    $memberTujuan = DB::select('SELECT id FROM members WHERE username=?', [$usernameTujuan]);
-    $member = DB::select('SELECT id,username,saldo,password FROM members WHERE id=?', [$members_id]);
-    $saldoMember = (int) $member[0]->saldo;
-    $hashedPassword = $member[0]->password;
-    
-    if(empty($member)){
-        return '{
-            "api_status": 0,
-            "api_message": "Member belum terdaftar,\nsilahkan coba kembali!" 
-        }';
-    }
-    else if(empty($memberTujuan)){
-        return '{
-            "api_status": 0,
-            "api_message": "Member tujuan belum terdaftar,\nsilahkan masukan username lainnya!" 
-        }';
-    }
-    else if($saldoMember < (int)($nominal + $fee_admin)){
-        return '{
-            "api_status": 0,
-            "api_message": "Saldo tidak cukup.\n\nSaat ini saldo anda :\nRp. '.number_format($saldoMember).'.\nSilahkan lakukan topup saldo!" 
-        }';
-    }
-    
-    if (!Hash::check($password, $hashedPassword)) {
-        if(md5($password) != $hashedPassword){
-            return '{
-                "api_status": 0,
-                "api_message": "Password salah, silahkan coba kembali!" 
-            }';
-        }
-    }
-
-        
-    try{
-        $affected = DB::update('UPDATE members AS mem_dari, members AS mem_tujuan 
-                                SET mem_dari.saldo=mem_dari.saldo-?, mem_tujuan.saldo=mem_tujuan.saldo+? 
-                                WHERE mem_dari.id=? AND mem_tujuan.username=?', 
-                                [($nominal+$fee_admin),$nominal,$members_id,$usernameTujuan,]);
-                    
-        
-        if( $affected >= 1){
-            $sender = DB::select('SELECT id,username,saldo FROM members WHERE id=?', [$members_id]);
-            $usernameSender =       $sender[0]->username;
-            $saldoSender    = (int) $sender[0]->saldo;
-            
-            $receiver = DB::select('SELECT id,username,saldo FROM members WHERE username=?', [$usernameTujuan]);
-            $idReceiver         = (int) $receiver[0]->id;
-            $usernameReceiver   =       $receiver[0]->username;
-            $saldoReceiver      = (int) $receiver[0]->saldo;
-
-            DB::table('t_transfer_saldo')->insert(
-                [
-                    'members_id' => $members_id, 'sender' => $usernameSender,'receiver' => $usernameReceiver,'nominal' => ($nominal+$fee_admin), 'ending_saldo' => $saldoSender,
-                     'date' => $trx_date,'status' => "Keluar",
-                ]
-            );
-            
-            DB::table('t_transfer_saldo')->insert(
-                [
-                    'members_id' => $idReceiver, 'sender' => $usernameSender,'receiver' => $usernameReceiver,'nominal' => $nominal, 'ending_saldo' => $saldoReceiver,
-                     'date' => $trx_date,'status' => "Masuk",
-                ]
-            );
-            
-            return '{
-                "api_status": 1,
-                "api_message": "Tranfer saldo berhasil!" 
-            }';
-        }
-        else{ return '{
-                "api_status": 0,
-                "api_message": "Tranfer saldo gagal, coba beberapa saat lagi!" 
-            }'; }
-    } catch(TimeoutException $e) {
-           return '{
-                "api_status": 0,
-                "api_message": "TimeoutException = '.$e.'" 
-            }';
-            
-    } catch(Exception $e){
-        return '{
-            "api_status": 0,
-            "api_message": "Error = '.$e.'" 
-        }';
-    }
-
-});
+// });
 
 Route::get('/api/member', 'ApiUserController@getmember');

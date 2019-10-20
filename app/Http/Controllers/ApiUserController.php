@@ -82,19 +82,21 @@ class ApiUserController extends Controller
 
 	function createmember(Request $request) {
 		$req = $request->all();
-		$memberPayload = array(
-			"nik" => $req['nik'],
-			"first_name" => $req['first_name'],
-			"last_name" => $req['last_name'],
-			"sponsor" => "SETIAKU",
-			"username" => $req['username'],
-			"password" => Hash::make($req['password']),
-			"email" => $req['email'],
-			"phone" => $req['phone'],
-			"tgl_lahir" => $req['tgl_lahir'],
-			"jenis_kelamin" => $req['jenis_kelamin'],
-		);
-		User::create($memberPayload);
+		if($req['key'] == 'starp321%#^GRyhEAW5') {
+			$memberPayload = array(
+				"nik" => $req['nik'],
+				"first_name" => $req['first_name'],
+				"last_name" => $req['last_name'],
+				"sponsor" => $req['sponsor'],
+				"username" => $req['username'],
+				"password" => Hash::make($req['password']),
+				"email" => $req['email'],
+				"phone" => $req['phone'],
+				"tgl_lahir" => $req['tgl_lahir'],
+				"jenis_kelamin" => $req['jenis_kelamin'],
+			);
+			User::create($memberPayload);
+		}
 		return array(
 			"status" => 1,
 			"message" => "create member success"
