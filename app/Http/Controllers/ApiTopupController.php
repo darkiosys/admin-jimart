@@ -2246,7 +2246,7 @@ class ApiTopupController extends Controller
 				"tr_id"          : "'.$tr_id.'",
 				"sign"        : "'.md5($username.$apiKey.$tr_id).'"
 				}';
-		$url = "https://api.mobilepulsa.net/v1/legacy/index";
+		$url = "https://mobilepulsa.net/api/v1/bill/check";
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
