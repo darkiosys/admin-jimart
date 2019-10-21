@@ -133,7 +133,7 @@ class ApiUserController extends Controller
 
 	function getcategories(Request $request) {
 		$req = $request->all();
-		$categories = DB::select('SELECT * FROM product_categories');
+		$categories = DB::select('SELECT * FROM product_categories ORDER BY created_at desc');
 		for ($i=0; $i < count($categories); $i++) { 
 			$categories[$i]->image_url = 'http://jimart.darkiosys.com/'.$categories[$i]->image_url;
 		}
