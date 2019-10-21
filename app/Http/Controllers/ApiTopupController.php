@@ -2233,7 +2233,7 @@ class ApiTopupController extends Controller
 		$members_id = $req['member_id'];
 		$password = $req['password'];
 		$username   = "089687271843";
-		$apiKey   = "6845d79e9afc378c";
+		$apiKey   = "7285d8726bcde318728";
 		$tr_id  = $req['tr_id'];
 		$ref_id = $req['ref_id'];
 		$code = 'pln-postpaid';
@@ -2246,7 +2246,7 @@ class ApiTopupController extends Controller
 				"tr_id"          : "'.$tr_id.'",
 				"sign"        : "'.md5($username.$apiKey.$tr_id).'"
 				}';
-		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		$url = "https://api.mobilepulsa.net/v1/legacy/index";
 		if($members_id == "" || $members_id == null) {
 			return '{
 				"data": {
