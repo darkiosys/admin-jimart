@@ -744,8 +744,8 @@ class ApiTopupController extends Controller
 	function PostpaidPay(Request $request) {
 		$req = $request->all();
 		$username   = "089687271843";
-		// $apiKey = "7285d8726bcde318728";
-		$apiKey = "6845d79e9afc378c";
+		$apiKey = "7285d8726bcde318728";
+		// $apiKey = "6845d79e9afc378c";
 		$tr_id  = $req['tr_id'];
 		$signature  = md5($username.$apiKey.$tr_id);
 		$json = '{	
@@ -754,8 +754,8 @@ class ApiTopupController extends Controller
 				"tr_id"			: "'.$tr_id.'",
 				"sign"			: "'.$signature.'"
 				}';
-		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
-		// $url = "https://mobilepulsa.net/api/v1/bill/check";
+		// $url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		$url = "https://mobilepulsa.net/api/v1/bill/check";
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -769,8 +769,8 @@ class ApiTopupController extends Controller
 	function topupRelease(Request $request) {
 		$req = $request->all();
 		$username   = "089687271843";
-		// $apiKey   = "7285d8726bcde318728";
-		$apiKey = "6845d79e9afc378c";
+		$apiKey   = "7285d8726bcde318728";
+		// $apiKey = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
@@ -782,8 +782,8 @@ class ApiTopupController extends Controller
 				"pulsa_code"  : "'.$code.'",
 				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
-		// $url = "https://api.mobilepulsa.net/v1/legacy/index";
-		$url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
+		$url = "https://api.mobilepulsa.net/v1/legacy/index";
+		// $url = "https://testprepaid.mobilepulsa.net/v1/legacy/index";
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
