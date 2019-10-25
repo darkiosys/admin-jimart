@@ -692,6 +692,9 @@ class ApiTopupController extends Controller
 	}
 	function plnPostpaidPay(Request $request) {
 		$req = $request->all();
+		return array(
+			"message" => "Still in development"
+		);
 		$username   = "089687271843";
 		$apiKey = "7285d8726bcde318728";
 		$tr_id  = $req['tr_id'];
