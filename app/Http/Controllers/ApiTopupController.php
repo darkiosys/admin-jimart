@@ -724,7 +724,7 @@ class ApiTopupController extends Controller
 		$apiKey = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$month = "";
-		if($req['month']){
+		if(isset($req['month'])){
 			$month = $req['month'];
 		}
 		$signature  = md5($username.$apiKey.$ref_id);
