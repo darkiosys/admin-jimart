@@ -31,6 +31,9 @@ Route::get('/api/product_images', 'ApiUserController@productimages');
 Route::get('/api/product_wishlists', 'ApiUserController@product_whistlist');
 Route::get('/api/product_carts', 'ApiUserController@product_chart');
 
+Route::get('/api/v1/postpaid/inquiry', 'ApiTopupController@PostpaidInquiry');
+Route::get('/api/v1/postpaid/pay', 'ApiTopupController@PostpaidPay');
+
 Route::get('/api/v1/bpjs/inquiry', 'ApiTopupController@bpjsInqu');
 Route::get('/api/v1/bpjs/pay', 'ApiTopupController@bpjsPay');
 Route::get('/api/v1/telkom/inquiry', 'ApiTopupController@telkomInqu');

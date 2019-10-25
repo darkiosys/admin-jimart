@@ -714,6 +714,58 @@ class ApiTopupController extends Controller
 		curl_close($ch);
 		return $data;
 	}
+	function PostpaidInquiry(Request $request) {
+		$req = $request->all();
+		$username   = "089687271843";
+		// $apiKey = "7285d8726bcde318728";
+		$apiKey = "6845d79e9afc378c";
+		$ref_id  = uniqid('');
+		$signature  = md5($username.$apiKey.$ref_id);
+		$json = '{
+				"commands"    : "inq-pasca",
+				"username"    : "089687271843",
+				"ref_id"      : "'.$ref_id.'",
+				"hp"          : "'.$req['hp'].'",
+				"code"  	  : "'.$req['code'].'",
+				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
+				}';
+		// $url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		$url = "https://mobilepulsa.net/api/v1/bill/check";
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return $data;
+	}
+	function PostpaidPay(Request $request) {
+		$req = $request->all();
+		$username   = "089687271843";
+		// $apiKey = "7285d8726bcde318728";
+		$apiKey = "6845d79e9afc378c";
+		$tr_id  = $req['tr_id'];
+		$signature  = md5($username.$apiKey.$tr_id);
+		$json = '{	
+				"commands"		: "pay-pasca",
+				"username"		: "089687271843",
+				"tr_id"			: "'.$tr_id.'",
+				"sign"			: "'.$signature.'"
+				}';
+		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		// $url = "https://mobilepulsa.net/api/v1/bill/check";
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return $data;
+	}
 	function topupRelease(Request $request) {
 		$req = $request->all();
 		$username   = "089687271843";
