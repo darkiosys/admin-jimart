@@ -720,6 +720,10 @@ class ApiTopupController extends Controller
 		// $apiKey = "7285d8726bcde318728";
 		$apiKey = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
+		$month = "";
+		if($req['month']){
+			$month = $req['month'];
+		}
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "inq-pasca",
@@ -727,7 +731,8 @@ class ApiTopupController extends Controller
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"code"  	  : "'.$req['code'].'",
-				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
+				"sign"        : "'.md5($username.$apiKey.$ref_id).'",
+				"month"		  : "'.$month.'"
 				}';
 		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
 		// $url = "https://mobilepulsa.net/api/v1/bill/check";
