@@ -717,8 +717,8 @@ class ApiTopupController extends Controller
 	function PostpaidInquiry(Request $request) {
 		$req = $request->all();
 		$username   = "089687271843";
-		// $apiKey = "7285d8726bcde318728";
-		$apiKey = "6845d79e9afc378c";
+		$apiKey = "7285d8726bcde318728";
+		// $apiKey = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
@@ -729,8 +729,8 @@ class ApiTopupController extends Controller
 				"code"  	  : "'.$req['code'].'",
 				"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 				}';
-		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
-		// $url = "https://mobilepulsa.net/api/v1/bill/check";
+		// $url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
+		$url = "https://mobilepulsa.net/api/v1/bill/check";
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
