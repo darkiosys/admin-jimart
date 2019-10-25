@@ -43,7 +43,7 @@ class ApiUserController extends Controller
 	}
 	function slider(Request $request)
 	{
-		// return '{"api_status":1,"api_message":"success","api_authorization":"You are in debug mode !","data":[{"id_slider":3,"no_urut":1,"judul_slider":"Abcd","link":"http:\/\/jimart.darkiosys.com\/img\/header4.jpg","foto":"320180208025346","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":167,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:53","modified_by":"azmicolejr"},{"id_slider":3,"no_urut":1,"judul_slider":"Abcd","link":"http:\/\/jimart.darkiosys.com\/img\/header3.jpg","foto":"320180208025346","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":167,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:53","modified_by":"azmicolejr"},{"id_slider":2,"no_urut":2,"judul_slider":"Hat for Men","link":"http:\/\/jimart.darkiosys.com\/img\/header2.jpg","foto":"220180208025208","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":833,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:43","modified_by":"mazmi"},{"id_slider":1,"no_urut":3,"judul_slider":"Eye Liner","link":"http:\/\/jimart.darkiosys.com\/img\/header1.jpg","foto":"120171204051126","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":203,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:49","modified_by":"mazmi"}]}';
+		// return '{"api_status":1,"api_message":"success","api_authorization":"You are in debug mode !","data":[{"id_slider":3,"no_urut":1,"judul_slider":"Abcd","link":"http:\/\/jmart.co.id\/img\/header4.jpg","foto":"320180208025346","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":167,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:53","modified_by":"azmicolejr"},{"id_slider":3,"no_urut":1,"judul_slider":"Abcd","link":"http:\/\/jmart.co.id\/img\/header3.jpg","foto":"320180208025346","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":167,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:53","modified_by":"azmicolejr"},{"id_slider":2,"no_urut":2,"judul_slider":"Hat for Men","link":"http:\/\/jmart.co.id\/img\/header2.jpg","foto":"220180208025208","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":833,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:43","modified_by":"mazmi"},{"id_slider":1,"no_urut":3,"judul_slider":"Eye Liner","link":"http:\/\/jmart.co.id\/img\/header1.jpg","foto":"120171204051126","foto_type":"http:\/\/jimart.store\/admin\/public\/.jpg","foto_size":203,"created":"2017-11-25 08:05:03","created_by":"","modified":"2019-08-23 06:46:49","modified_by":"mazmi"}]}';
 		$ret = array(
 			"api_status" => 1,
 			"api_message" => "success",
@@ -62,10 +62,10 @@ class ApiUserController extends Controller
 		$user['api_message'] = "success";
 		$a = $user['photo'];
 
-		if (strpos($a, 'http://jimart.darkiosys.com/') !== false) {
+		if (strpos($a, 'http://jmart.co.id/') !== false) {
 			$user['photo'] = $user['photo'];
 		} else {
-			$user['photo'] = 'http://jimart.darkiosys.com/'.$user['photo'];
+			$user['photo'] = 'http://jmart.co.id/'.$user['photo'];
 		}
 		return $user;
 	}
@@ -135,7 +135,7 @@ class ApiUserController extends Controller
 		$req = $request->all();
 		$categories = DB::select('SELECT * FROM product_categories ORDER BY created_at desc');
 		for ($i=0; $i < count($categories); $i++) { 
-			$categories[$i]->image_url = 'http://jimart.darkiosys.com/'.$categories[$i]->image_url;
+			$categories[$i]->image_url = 'http://jmart.co.id/'.$categories[$i]->image_url;
 		}
 		$ret = array(
 			"api_status" => 1,
@@ -150,7 +150,7 @@ class ApiUserController extends Controller
 		$products = DB::select('SELECT DISTINCT products.id, products.members_id, products.product_name, products.product_slug, products.keywords, products.description, products.weight, products.rating_avg, products.product_categories_id, products.product_category_sub_id, products.product_category_supersub_id, products.price, products.discount, products.price_discount, products.stock, product_categories.category_name as category, product_category_sub.category_sub_name as category_sub, product_category_supersub.category_supersub_name as category_supersub, members.store_name, members.store_image, members.store_address as store_city FROM products LEFT JOIN product_categories ON products.product_categories_id = product_categories.id LEFT JOIN product_category_sub ON products.product_category_sub_id = product_category_sub.id LEFT JOIN product_category_supersub ON products.product_category_supersub_id = product_category_supersub.id LEFT JOIN members ON products.members_id = members.id LIMIT 10');
 		for ($i=0; $i < count($products); $i++) { 
 			$img = DB::select('SELECT image_url FROM product_images where products_id='.$products[$i]->id.' ORDER BY created_at desc limit 1');
-			$products[$i]->image_url = 'http://jimart.darkiosys.com/'.$img[0]->image_url;
+			$products[$i]->image_url = 'http://jmart.co.id/'.$img[0]->image_url;
 		}
 		$ret = array(
 			"api_status" => 1,
@@ -173,7 +173,7 @@ class ApiUserController extends Controller
 		$req = $request->all();
 		$pimage = DB::select('SELECT * FROM product_images WHERE products_id='.$req['products_id']);
 		for ($i=0; $i < count($pimage); $i++) { 
-			$pimage[$i]->image_url = 'http://jimart.darkiosys.com/'.$pimage[$i]->image_url;
+			$pimage[$i]->image_url = 'http://jmart.co.id/'.$pimage[$i]->image_url;
 		}
 		$ret = array(
 			"api_status" => 1,
