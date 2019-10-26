@@ -952,7 +952,7 @@ class ApiTopupController extends Controller
 				'trx_date' => Date('Y-m-d H:i:s'),
 				'trx_name' => $trxname,
 				'no_hp' => $req['hp'],
-				'tagihan' => $lamount[$req['code']][1], 
+				'tagihan' => (int)$req['price'], 
 				'fee_admin' => 1000,
 				'total_tagihan' => 0,
 				'ending_saldo' => $ns,
