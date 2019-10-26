@@ -768,7 +768,7 @@ class ApiTopupController extends Controller
 		$data = curl_exec($ch);
 		curl_close($ch);
 		$rd = json_decode($data);
-		if($rd->data->status == 2){
+		if($rd->data->response_code != "00"){
 			return $data;
 		}
 		$ha = 3000 * (25/100);
