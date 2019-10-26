@@ -752,6 +752,7 @@ class ApiTopupController extends Controller
 		// $apiKey = "7285d8726bcde318728";
 		$apiKey = "6845d79e9afc378c";
 		$tr_id  = $req['tr_id'];
+		$ref_id  = $req['ref_id'];
 		$signature  = md5($username.$apiKey.$tr_id);
 		$json = '{	
 				"commands"		: "pay-pasca",
