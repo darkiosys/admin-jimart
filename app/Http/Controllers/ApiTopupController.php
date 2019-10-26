@@ -941,7 +941,7 @@ class ApiTopupController extends Controller
 		$ns = $member[0]->saldo - (int)$req['price'];
 		$xusr = User::where('id', '=', $member[0]->id)->first();
 		$xusr->update(array('saldo' => $ns));
-		$trxname = 'Postpaid';
+		$trxname = 'PLN POSTPAID';
 		if(isset($req['trxname'])) {
 			$trxname = $req['trxname'];
 		}
