@@ -747,6 +747,8 @@ class ApiTopupController extends Controller
 	function PostpaidPay(Request $request) {
 		$req = $request->all();
 		$username   = "089687271843";
+		$members_id = $req['member_id'];
+		$password = $req['password'];
 		// $apiKey = "7285d8726bcde318728";
 		$apiKey = "6845d79e9afc378c";
 		$tr_id  = $req['tr_id'];
@@ -759,6 +761,35 @@ class ApiTopupController extends Controller
 				}';
 		$url = "https://testpostpaid.mobilepulsa.net/api/v1/bill/check";
 		// $url = "https://mobilepulsa.net/api/v1/bill/check";
+		if($members_id == "" || $members_id == null) {
+			return '{
+				"data": {
+					"trx_id": "",
+					"saldo": "",
+					"rc": "0",
+					"desc": "Data members_id kosong, Hubungi Admin!",
+					"bit11": "",
+					"bit12": "",
+					"bit48": "",
+					"bit62": ""
+				}
+			}';
+		}
+		$member = DB::select('SELECT id, saldo, sponsor, username FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
+		if(empty($member)){
+			return '{
+				"data": {
+					"trx_id": "",
+					"saldo": "",
+					"rc": "0",
+					"desc": "Data member tidak terdaftar, Hubungi Admin!",
+					"bit11": "",
+					"bit12": "",
+					"bit48": "",
+					"bit62": ""
+				}
+			}';
+		}
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
