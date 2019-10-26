@@ -938,7 +938,7 @@ class ApiTopupController extends Controller
 			}
 		}
 		
-		$ns = $member[0]->saldo - $mp;
+		$ns = $member[0]->saldo - parseInt($req['price']);
 		$xusr = User::where('id', '=', $member[0]->id)->first();
 		$xusr->update(array('saldo' => $ns));
 		$trxname = 'Postpaid';
