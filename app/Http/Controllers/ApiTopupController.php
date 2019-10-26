@@ -953,10 +953,10 @@ class ApiTopupController extends Controller
 				'trx_name' => $trxname,
 				'no_hp' => $req['hp'],
 				'tagihan' => (int)$req['price'], 
-				'fee_admin' => 1000,
-				'total_tagihan' => 0,
+				'fee_admin' => 3000,
+				'total_tagihan' => (int)$req['price']+3000,
 				'ending_saldo' => $ns,
-				'product_code' => "POSTPAID",
+				'product_code' => "PLN POSTPAID",
 				'status' => "Berhasil",
 				'status_bonus' => '0'
 			]
