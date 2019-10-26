@@ -956,7 +956,7 @@ class ApiTopupController extends Controller
 				'fee_admin' => 1000,
 				'total_tagihan' => 0,
 				'ending_saldo' => $ns,
-				'product_code' => $code,
+				'product_code' => "POSTPAID",
 				'status' => "Berhasil",
 				'status_bonus' => '0'
 			]
