@@ -24,7 +24,7 @@ Route::get('/api/ppob_fee_admin', function() {
 Route::get('/api/v1/toll/inquiry', 'ApiTopupController@tollInqu');
 Route::get('/api/v1/toll/pay', 'ApiTopupController@tollPay');
 Route::get('/api/v1/checkpassword', 'ApiUserController@checkpassword');
-Route::get('/admin/member/history_bonus', 'ApiUserController@historyBonus');
+Route::get('/admin/member/history_bonus', 'ApiUserController@shareHistory');
 
 Route::get('/api/slider', 'ApiUserController@slider');
 Route::get('/api/product', 'ApiUserController@getproduct');
