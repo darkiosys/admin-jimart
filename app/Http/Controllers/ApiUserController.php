@@ -75,7 +75,6 @@ class ApiUserController extends Controller
         $perPage = 10;
         $sharehistory = DB::table('t_bonusgeneration')
             ->select('*')->orderBy('created_at', 'desc')->paginate($perPage);
-		// return view('saldo.sharehistory', compact('ppob'));
 		return $sharehistory;
 	}
 
