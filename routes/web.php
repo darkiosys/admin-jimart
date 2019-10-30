@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('https://marketplace.jmart.co.id');
+    return redirect('http://marketplace.jmart.co.id');
 });
 
 Auth::routes();
