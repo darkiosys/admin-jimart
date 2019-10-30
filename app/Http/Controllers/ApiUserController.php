@@ -74,7 +74,7 @@ class ApiUserController extends Controller
 		$keyword = $request->get('search');
         $perPage = 10;
         $sharehistory = DB::table('t_bonusgeneration')
-            ->select('*')->orderBy('created_at', 'desc')->paginate($perPage);
+            ->select('*')->where('username')->orderBy('created_at', 'desc')->paginate($perPage);
 		return $sharehistory;
 	}
 

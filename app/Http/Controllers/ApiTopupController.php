@@ -2713,7 +2713,7 @@ class ApiTopupController extends Controller
 				'members_id' => $members_id,
 				'trx_id' => $ref_id,
 				'trx_date' => Date('Y-m-d H:i:s'),
-				'trx_name' => "PLN PREPAID",
+				'trx_name' => "PLN PRABAYAR",
 				'no_hp' => $req['hp'],
 				'tagihan' => $lamount[$req['code']][1],
 				'fee_admin' => $lamount[$req['code']][2],
