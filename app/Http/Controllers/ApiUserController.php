@@ -71,10 +71,11 @@ class ApiUserController extends Controller
 	}
 
 	function shareHistory(Request $request) {
+		$req = $request->all();
 		$keyword = $request->get('search');
         $perPage = 10;
         $sharehistory = DB::table('t_bonusgeneration')
-            ->select('*')->where('username')->orderBy('created_at', 'desc')->paginate($perPage);
+            ->select('*')->where('username', '=', $req['username'])->orderBy('created_at', 'desc')->paginate($perPage);
 		return $sharehistory;
 	}
 

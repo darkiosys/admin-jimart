@@ -15,6 +15,8 @@ Route::get('/', function () {
     return redirect('http://marketplace.jmart.co.id');
 });
 
+Route::get('/testbonus', 'ApiTopupController@testbonus');
+
 Auth::routes();
 
 Route::get('/api/ppob_fee_admin', function() {
