@@ -86,6 +86,8 @@ Route::get('api/createpassword', 'ApiUserController@createpassword');
 
 Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
+Route::post('/user/changepassword', 'apiUserController@changePasswordAdmin');
+
 Route::resource('saldo', 'SaldoController');
 Route::get('ppob', 'SaldoController@ppob');
 Route::get('banner', 'HomeController@banner');

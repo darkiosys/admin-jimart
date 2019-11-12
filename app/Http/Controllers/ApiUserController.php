@@ -255,6 +255,19 @@ class ApiUserController extends Controller
 		}
 	}
 
+	public function changePasswordAdmin(Request $request)
+	{
+		$req = $request->all();
+		$login = $req['id'];
+		$user = User::where('id', '=', $login)->first();
+		if ($user) {
+			$user->update(array('password' => Hash::make($req['password'])));
+			return redirect('/member-saldo');
+		} else {
+			return "failed";
+		}
+	}
+
 	public function login(Request $request)
 	{
 		$requestData = $request->all();

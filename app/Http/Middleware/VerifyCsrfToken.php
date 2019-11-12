@@ -20,6 +20,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'api/*',
-        'tranfer-saldo'
+        'tranfer-saldo',
+        'user/changepassword'
     ];
 }
