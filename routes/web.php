@@ -34,6 +34,8 @@ Route::get('/api/product_images', 'ApiUserController@productimages');
 Route::get('/api/product_wishlists', 'ApiUserController@product_whistlist');
 Route::get('/api/product_carts', 'ApiUserController@product_chart');
 
+Route::get('/api/user/changepassword', 'ApiUserController@changePassword');
+
 Route::get('/api/v1/postpaid/inquiry', 'ApiTopupController@PostpaidInquiry');
 Route::get('/api/v1/postpaid/pay', 'ApiTopupController@PostpaidPay');
 

@@ -233,6 +233,28 @@ class ApiUserController extends Controller
 		}
 	}
 
+	public function changePassword(Request $request)
+	{
+		$req = $request->all();
+		$login = $req['username'];
+		$user = User::where('username', '=', $login)->orWhere('email', '=', $login)->first();
+		if ($user) {
+			if ($user) {
+				$res = Hash::check($req['oldpassword'], $user->password);
+				if ($res) {
+					$user->update(array('password' => Hash::make($req['newpassword'])));
+					return 1;
+				} else {
+					return 0;
+				}
+			} else {
+				return 0;
+			}
+		} else {
+			return 0;
+		}
+	}
+
 	public function login(Request $request)
 	{
 		$requestData = $request->all();
