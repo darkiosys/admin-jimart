@@ -86,7 +86,7 @@ Route::get('api/createpassword', 'ApiUserController@createpassword');
 
 Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
-Route::post('/user/changepassword', 'apiUserController@changePasswordAdmin');
+Route::post('/user/changepassword', 'ApiUserController@changePasswordAdmin');
 
 Route::resource('saldo', 'SaldoController');
 Route::get('ppob', 'SaldoController@ppob');
