@@ -1035,7 +1035,7 @@ class ApiTopupController extends Controller
 				}
 			}';
 		}
-		$chkPwd = Hash::check($password, $member->password);
+		$chkPwd = Hash::check($password, $member[0]->password);
 		if(!$chkPwd) {
 			return '{
 				"data": {
