@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::get('/testbonus', 'ApiTopupController@testbonus');
 
+Route::get('/indotama/login', 'IDTController@Login');
+
 Auth::routes();
 
 Route::get('/api/ppob_fee_admin', function() {
