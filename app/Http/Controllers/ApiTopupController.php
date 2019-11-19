@@ -1042,7 +1042,7 @@ class ApiTopupController extends Controller
 					"trx_id": "",
 					"saldo": "",
 					"rc": "0",
-					"desc": "Password Salah!",
+					"message": "Password Salah!",
 					"bit11": "",
 					"bit12": "",
 					"bit48": "",
