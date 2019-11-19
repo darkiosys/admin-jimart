@@ -6,6 +6,7 @@ use App\Saldo;
 use App\User;
 use App\T_transaction;
 use App\T_bonusgenerasi;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 
