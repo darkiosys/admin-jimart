@@ -16,7 +16,7 @@ class IDTController extends Controller
         $req = $request->all();
 		$signature  = md5('7-3dbf#n4rT');
 
-		$url = "http://36.79.180.2:port/edc/devel/sim_mlm?EDC=LOGIN.SP1911199562.".$signature.".EDC.18#*217#*205#*148";
+		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm?EDC=LOGIN.SP1911199562.".$signature.".EDC.18#*217#*205#*148";
 
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
