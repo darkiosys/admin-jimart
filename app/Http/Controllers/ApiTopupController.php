@@ -1020,7 +1020,7 @@ class ApiTopupController extends Controller
 				}
 			}';
 		}
-		$member = DB::select('SELECT id, saldo, sponsor, username FROM members WHERE id='.$members_id);
+		$member = DB::select('SELECT id, saldo, sponsor, username, password FROM members WHERE id='.$members_id);
 		if(empty($member)){
 			return '{
 				"data": {
