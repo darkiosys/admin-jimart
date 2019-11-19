@@ -1019,7 +1019,7 @@ class ApiTopupController extends Controller
 				}
 			}';
 		}
-		$member = DB::select('SELECT id, saldo, sponsor, username FROM members WHERE id='.$members_id.' AND password ="'.$password.'"');
+		$member = DB::select('SELECT id, saldo, sponsor, username FROM members WHERE id='.$members_id);
 		if(empty($member)){
 			return '{
 				"data": {
@@ -1027,6 +1027,21 @@ class ApiTopupController extends Controller
 					"saldo": "",
 					"rc": "0",
 					"desc": "Data member tidak terdaftar, Hubungi Admin!",
+					"bit11": "",
+					"bit12": "",
+					"bit48": "",
+					"bit62": ""
+				}
+			}';
+		}
+		$chkPwd = Hash::check($password, $member->password);
+		if(!$chkPwd) {
+			return '{
+				"data": {
+					"trx_id": "",
+					"saldo": "",
+					"rc": "0",
+					"desc": "Password Salah!",
 					"bit11": "",
 					"bit12": "",
 					"bit48": "",
