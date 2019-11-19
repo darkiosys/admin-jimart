@@ -211,26 +211,26 @@ class ApiUserController extends Controller
 
 	public function forgotPassword(Request $request)
 	{
-		$req = $request->all();
-		$login = $req['login'];
-		$user = User::where('username', '=', $login)->orWhere('email', '=', $login)->first();
-		if ($user) {
-			$rand = rand(10000, 99999);
-			$username = array(
-				"first_name" => $user->first_name,
-				"last_name" => $user->last_name,
-				"email" => $user->email,
-				"newpass" => $rand
-			);
-			$user->update(array('password' => Hash::make($rand)));
-			Mail::send('emails.reminder', $username, function ($m) use ($username) {
-				$m->from('admin@starpreneur.co.id', 'Reset Password');
-				$m->to($username['email'], 'Acep Hasanudin')->subject('New Password');
-			});
-			return array("message" => "success");
-		} else {
-			return array("message" => "failed");
-		}
+		// $req = $request->all();
+		// $login = $req['login'];
+		// $user = User::where('username', '=', $login)->orWhere('email', '=', $login)->first();
+		// if ($user) {
+		// 	$rand = rand(10000, 99999);
+		// 	$username = array(
+		// 		"first_name" => $user->first_name,
+		// 		"last_name" => $user->last_name,
+		// 		"email" => $user->email,
+		// 		"newpass" => $rand
+		// 	);
+		// 	$user->update(array('password' => Hash::make($rand)));
+		// 	Mail::send('emails.reminder', $username, function ($m) use ($username) {
+		// 		$m->from('admin@starpreneur.co.id', 'Reset Password');
+		// 		$m->to($username['email'], 'Acep Hasanudin')->subject('New Password');
+		// 	});
+		// 	return array("message" => "success");
+		// } else {
+		// 	return array("message" => "failed");
+		// }
 	}
 
 	public function changePassword(Request $request)
