@@ -1380,7 +1380,7 @@ class ApiTopupController extends Controller
 			'prodname' => $code,
 			'amount' => $actualprice,
 			'status' => 'SUCCESS',
-			'message' => 'Pembayaran Pulsa Berhasil',
+			'message' => 'Pembayaran '.$req['trxtype'].' Berhasil',
 			'time' => date('Y-m-d H:i:s'),
 			'payload' => json_encode($json)
 		);
@@ -1525,8 +1525,8 @@ class ApiTopupController extends Controller
 		$xusr = User::where('id', '=', $member[0]->id)->first();
 		$xusr->update(array('saldo' => $ns));
 		$trxname = 'PULSA';
-		if(isset($req['trxname'])) {
-			$trxname = $req['trxname'];
+		if(isset($req['trxtype'])) {
+			$trxname = $req['trxtype'];
 		}
 		DB::table('t_ppob')->insert(
 			[
