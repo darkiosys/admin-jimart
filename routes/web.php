@@ -18,6 +18,10 @@ Route::get('/', function () {
 Route::get('/testbonus', 'ApiTopupController@testbonus');
 
 Route::get('/indotama/login', 'IDTController@Login');
+Route::get('/indotama/listroute', 'IDTController@ListRoute');
+Route::get('/indotama/checkflight', 'IDTNController@CheckFlight');
+Route::get('/indotama/checkprice', 'IDTNController@CheckPrice');
+Route::get('/indotama/bookingticket', 'IDTNController@BookingTicket');
 
 Auth::routes();
 

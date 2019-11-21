@@ -976,6 +976,10 @@ class ApiTopupController extends Controller
 	function pay(Request $request) {
 		$req = $request->all();
 		$members_id = $req['member_id'];
+		$lr = DB::table('t_ppob')->where('trx_date', '=', DB::table('t_ppob'))->where('members_id', '=', $members_id)->first();
+		if(isset($lr)) {
+			return "false";
+		}
 		$password = $req['password'];
 		$username   = "089687271843";
 		$apiKey   = "7285d8726bcde318728";
@@ -1328,9 +1332,7 @@ class ApiTopupController extends Controller
 			"smartdataVOL30" => array(29700, 29700),
 			"smartdataVOL60" => array(59100, 59100)
 		);
-
 		$actualprice = $lamount[$req['code']][1] + 1000;
-
 		if($member[0]->saldo < $actualprice) {
 			$tp = array(
 				'member_id' => $members_id,
@@ -1358,7 +1360,6 @@ class ApiTopupController extends Controller
 				}
 			}';
 		}
-
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
