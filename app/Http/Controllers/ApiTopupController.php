@@ -976,9 +976,9 @@ class ApiTopupController extends Controller
 	function pay(Request $request) {
 		$req = $request->all();
 		$members_id = $req['member_id'];
-		$lr = DB::table('t_ppob')->where('trx_date', 'like', Date('Y-m-d H:i').'%')->where('members_id', '=', $members_id)->count();
-		if($lr > 0) {
-			return "false";
+		$lr = DB::table('t_ppob')->where('members_id', '=', $members_id)->orderBy('trx_date', 'desc')->first();
+		if($lr->trx_date == Date('Y-m-d H:i:s')) {
+			return "{data: {ref_id: '', status: 0, code: '', hp: '', price: '', message: '', balance: '', tr_id: '', rc: }}";
 		}
 		$password = $req['password'];
 		$username   = "089687271843";
