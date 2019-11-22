@@ -87,7 +87,11 @@ class IDTController extends Controller
 
 		$data = curl_exec($ch);
 		curl_close($ch);
-		return $data;
+		return array(
+			"URL" => $url,
+			"request" => $req,
+			"return" => $data
+		);
 	}
 	function IssuedTicket(Request $request) {
 		$req = $request->all();
