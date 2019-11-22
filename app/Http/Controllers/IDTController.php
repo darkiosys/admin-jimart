@@ -75,40 +75,19 @@ class IDTController extends Controller
 	}
 	function BookingTicket(Request $request) {
 		$req = $request->all();
-		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/";
-		$prm = array(
-			"EDC" => "TIKET.AIRLINES.BOOKING.EDC.18%23%2A217%23%2A205%23%2A148.".$req['pin'].".".$req['session'],
-			"FROM" => $req['from'],
-			"TO" => $req['to'],
-			"DATE" => $req['date'],
-			"FLIGHT" => $req['flight'],
-			"ADULT" => $req['adult'],
-			"CHILD" => $req['child'],
-			"INFANT" => $req['infant'],
-			"EMAIL" => $req['email'],
-			"PHONE" => $req['phone'],
-			"PASSENGERNAME" => $req['passangername'],
-			"DATEOFBIRTH" => $req['dateofbirth'],
-			"BAGGAGEVOLUME" => $req['baggagevolume'],
-			"PASSPORTNUMBER" => $req['passportnumber'],
-			"PASSPORTEXPIRED" => $req['passportexpired']
-		);
+		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/?EDC=TIKET.AIRLINES.BOOKING.EDC.18%23%2A217%23%2A205%23%2A148.".$req['pin'].".".$req['session']."&FROM=".$req['from']."&TO=".$req['to']."&DATE=".$req['date']."&FLIGHT=".$req['flight']."&ADULT=".$req['adult']."&CHILD=".$req['child']."&INFANT=".$req['infant']."&EMAIL=".$req['email']."&PHONE=".$req['phone']."&PASSANGERNAME=".$req['passangername']."&DATEOFBIRTH=".$req['dateofbirth']."&BAGGAGEVOLUME=".$req['baggagevolume']."&PASSPORTNUMBER=".$req['passportnumber']."&PASSPORTEXPIRED=".$req['passportexpired'];
+		// return $url;
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
 		// curl_setopt($ch, CURLOPT_POST, 0);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $prm);
+		// curl_setopt($ch, CURLOPT_POSTFIELDS, null);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 		$data = curl_exec($ch);
 		curl_close($ch);
-		$ret = array(
-			"url" => $url,
-			"param" => $prm,
-			"return" => $data
-		);
-		return json_encode($ret);
+		return $data;
 	}
 	function IssuedTicket(Request $request) {
 		$req = $request->all();
