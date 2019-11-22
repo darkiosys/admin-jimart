@@ -108,7 +108,7 @@ class IDTController extends Controller
 			"param" => json_encode($prm),
 			"return" => json_encode($data)
 		);
-		return $data;
+		return $ret;
 	}
 	function IssuedTicket(Request $request) {
 		$req = $request->all();
