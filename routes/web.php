@@ -19,9 +19,11 @@ Route::get('/testbonus', 'ApiTopupController@testbonus');
 
 Route::get('/indotama/login', 'IDTController@Login');
 Route::get('/indotama/listroute', 'IDTController@ListRoute');
-Route::get('/indotama/checkflight', 'IDTNController@CheckFlight');
-Route::get('/indotama/checkprice', 'IDTNController@CheckPrice');
-Route::get('/indotama/bookingticket', 'IDTNController@BookingTicket');
+Route::get('/indotama/checkflight', 'IDTController@CheckFlight');
+Route::get('/indotama/checkprice', 'IDTController@CheckPrice');
+Route::get('/indotama/bookingticket', 'IDTController@BookingTicket');
+Route::get('/indotama/issuedticket', 'IDTController@IssuedTicket');
+
 
 Auth::routes();
 
