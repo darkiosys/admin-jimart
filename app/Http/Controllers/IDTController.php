@@ -76,7 +76,6 @@ class IDTController extends Controller
 	function BookingTicket(Request $request) {
 		$req = $request->all();
 		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/";
-		// return $url;
 		$prm = array(
 			"EDC" => "TIKET.AIRLINES.BOOKING.EDC.18%23%2A217%23%2A205%23%2A148.".$req['pin'].".".$req['session'],
 			"FROM" => $req['from'],
@@ -104,6 +103,11 @@ class IDTController extends Controller
 
 		$data = curl_exec($ch);
 		curl_close($ch);
+		$ret = array(
+			"url" => $url,
+			"param" => json_decode($prm),
+			"return" => json_decode($data)
+		);
 		return $data;
 	}
 	function IssuedTicket(Request $request) {
