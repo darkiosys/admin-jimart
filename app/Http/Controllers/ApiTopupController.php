@@ -978,20 +978,32 @@ class ApiTopupController extends Controller
 		$members_id = $req['member_id'];
 		$lr = DB::table('t_ppob')->where('members_id', '=', $members_id)->orderBy('trx_date', 'desc')->first();
 		return $lr->trx_date;
-		// if($lr->trx_date == Date('Y-m-d H:i:s')) {
+		if($lr->trx_date == Date('Y-m-d H:i:s')) {
 			return '{
 				"data": {
 					"trx_id": "",
 					"saldo": "",
 					"rc": "0",
-					"message": "Sedang Maintenance",
+					"message": "Same",
 					"bit11": "",
 					"bit12": "",
 					"bit48": "",
 					"bit62": ""
 				}
 			}';
-		// }
+		}
+		return '{
+			"data": {
+				"trx_id": "",
+				"saldo": "",
+				"rc": "0",
+				"message": "Sukses",
+				"bit11": "",
+				"bit12": "",
+				"bit48": "",
+				"bit62": ""
+			}
+		}';
 		$password = $req['password'];
 		$username   = "089687271843";
 		$apiKey   = "7285d8726bcde318728";
