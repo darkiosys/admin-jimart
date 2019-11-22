@@ -78,7 +78,7 @@ class IDTController extends Controller
 		$baseurl = "http://36.79.180.2:62455/edc/devel/sim_mlm/?";
 		$param = "EDC=TIKET.AIRLINES.BOOKING.EDC.18%23%2A217%23%2A205%23%2A148.".$req['pin'].".".$req['session']."&FROM=".$req['from']."&TO=".$req['to']."&DATE=".$req['date']."&FLIGHT=".$req['flight']."&ADULT=".$req['adult']."&CHILD=".$req['child']."&INFANT=".$req['infant']."&EMAIL=".$req['email']."&PHONE=".$req['phone']."&PASSANGERNAME=".$req['passangername']."&DATEOFBIRTH=".$req['dateofbirth']."&BAGGAGEVOLUME=".$req['baggagevolume']."&PASSPORTNUMBER=".$req['passportnumber']."&PASSPORTEXPIRED=".$req['passportexpired'];
 		$url = $baseurl.urldecode($param);
-		return $url;
+		// return $url;
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
