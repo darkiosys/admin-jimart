@@ -977,7 +977,7 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$lr = DB::table('t_ppob')->where('members_id', '=', $members_id)->orderBy('trx_date', 'desc')->first();
-		return $lr->trx_date;
+		// return $lr->trx_date;
 		if($lr->trx_date == Date('Y-m-d H:i:s')) {
 			return '{
 				"data": {
