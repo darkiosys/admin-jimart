@@ -2239,19 +2239,19 @@ class ApiTopupController extends Controller
 			}';
 		}
 		$data = "{data: {ref_id: 5dd7b1acc7355, status: 0, code: xld5000, hp: 085952865969, price: 5800, message: PROCESS, balance: 153792, tr_id: 65429161, rc: 39}}";
-		$tp = array(
-			'member_id' => $members_id,
-			'log_id' => $rd->data->status,
-			'target' => $req['hp'],
-			'reff_id' => $ref_id,
-			'prodname' => $code,
-			'amount' => $actualprice,
-			'status' => 'SUCCESS',
-			'message' => 'Pembayaran '.$req['trxtype'].' Berhasil',
-			'time' => date('Y-m-d H:i:s'),
-			'payload' => json_encode($json)
-		);
-		T_transaction::create($tp);
+		// $tp = array(
+		// 	'member_id' => $members_id,
+		// 	'log_id' => $rd->data->status,
+		// 	'target' => $req['hp'],
+		// 	'reff_id' => $ref_id,
+		// 	'prodname' => $code,
+		// 	'amount' => $actualprice,
+		// 	'status' => 'SUCCESS',
+		// 	'message' => 'Pembayaran '.$req['trxtype'].' Berhasil',
+		// 	'time' => date('Y-m-d H:i:s'),
+		// 	'payload' => json_encode($json)
+		// );
+		// T_transaction::create($tp);
 
 		$ha = 1000 * (25/100);
 		$vshare = 1000 - $ha;
