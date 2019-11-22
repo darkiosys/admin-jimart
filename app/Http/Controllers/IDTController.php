@@ -14,7 +14,6 @@ class IDTController extends Controller
 {
 	function Login(Request $request) {
         $req = $request->all();
-		$signature  = md5('7-3dbf#n4rT');
 		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/?EDC=LOGIN.SP1911199562.4de480f38b17e801fc9e22a0e44af051.EDC.18%23%2A217%23%2A205%23%2A148";
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -76,6 +75,7 @@ class IDTController extends Controller
 	}
 	function BookingTicket(Request $request) {
 		$req = $request->all();
+		return $req;
 		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/?EDC=TIKET.AIRLINES.BOOKING.EDC.18%23%2A217%23%2A205%23%2A148.".$req['pin'].".".$req['session']."&FROM=".$req['from']."&TO=".$req['to']."&DATE=".$req['date']."&FLIGHT=".$req['flight']."&ADULT=".$req['adult']."&CHILD=".$req['child']."&INFANT=".$req['infant']."&EMAIL=".$req['email']."&PHONE=".$req['phone']."&PASSANGERNAME=".$req['passangername']."&DATEOFBIRTH=".$req['dateofbirth']."&BAGGAGEVOLUME=".$req['baggagevolume']."&PASSPORTNUMBER=".$req['passportnumber']."&PASSPORTEXPIRED=".$req['passportexpired'];
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
