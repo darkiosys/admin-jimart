@@ -105,8 +105,8 @@ class IDTController extends Controller
 		curl_close($ch);
 		$ret = array(
 			"url" => $url,
-			"param" => json_decode($prm),
-			"return" => json_decode($data)
+			"param" => json_encode($prm),
+			"return" => json_encode($data)
 		);
 		return $data;
 	}
