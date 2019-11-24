@@ -120,6 +120,22 @@ class SaldoController extends Controller
             ->select('*')->orderBy('trx_date', 'desc')->paginate($perPage);
         return view('saldo.ppob', compact('ppob'));
     }
+
+    function ppobdelete(Request $request) {
+        $req = $request->all();
+        DB::table('t_ppob')->where('id', '=', $req['id'])->delete();
+        return redirect('/ppob')->with('flash_message', 'transaksi deleted!');
+    }
+
+    function ppobreturn(Request $request) {
+        $req = $request->all();
+        $ppob = DB::table('t_ppob')->where('id', '=', $req['id'])->first();
+        $user = User::findOrFail($ppob->members_id);
+        DB::table('t_ppob')->where('id', '=', $req['id'])->update(array('status' => "Gagal"));
+        $user->update(array('saldo' => $user->saldo+$ppob->total_tagihan));
+
+        return redirect('/ppob')->with('flash_message', 'transaksi returned!');
+    }
 	
 	function verifikasiTopup($id)
 	{

@@ -20,11 +20,20 @@
                                         <th>Produk</th>
                                         <th>Tanggal Transaksi</th>
                                         <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($ppob as $item)
-                                    <tr>
+                                    <?php
+                                        if($item->status == "Gagal") {
+                                    ?>
+                                    <tr style="background-color: red">
+                                    <?php
+                                        } else {
+                                            echo "<tr>";
+                                        }
+                                    ?>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{$item->members_id}}</td>
                                         <td>{{$item->trx_name}}</td>
@@ -34,6 +43,12 @@
                                         <td>{{$item->product_code}}</td>
                                         <td>{{$item->trx_date}}</td>
                                         <td>{{$item->status}}</td>
+                                        <td>
+                                            <a class="btn btn-info btn-sm"  href="/ppob/delete?id={{$item->id}}" onclick="return confirm(&quot;Hapus Transaksi?&quot;)">delete</a> <br /><br />
+                                            @if($item->status == "Berhasil")
+                                            <a class="btn btn-danger btn-sm"  href="/ppob/return?id={{$item->id}}" onclick="return confirm(&quot;Transaksi Gagal, Kembalikan Saldo?&quot;)">return</a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

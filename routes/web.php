@@ -98,6 +98,8 @@ Route::post('/user/changepassword', 'ApiUserController@changePasswordAdmin');
 
 Route::resource('saldo', 'SaldoController');
 Route::get('ppob', 'SaldoController@ppob');
+Route::get('ppob/delete', 'SaldoController@ppobdelete');
+Route::get('ppob/return', 'SaldoController@ppobreturn');
 Route::get('banner', 'HomeController@banner');
 Route::get('/member-saldo', 'SaldoController@memberSaldo');
 Route::get('transaksi', 'TransaksiController@getTransaksi');
