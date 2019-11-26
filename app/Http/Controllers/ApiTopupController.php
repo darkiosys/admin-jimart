@@ -976,22 +976,6 @@ class ApiTopupController extends Controller
 	function pay(Request $request) {
 		$req = $request->all();
 		$members_id = $req['member_id'];
-		$lr = DB::table('t_ppob')->where('members_id', '=', $members_id)->orderBy('trx_date', 'desc')->first();
-		if(Date('Y-m-d H:i', strtotime($lr->trx_date)) == Date('Y-m-d H:i')) {
-			return '{
-				"data": {
-					"trx_id": "",
-					"saldo": "",
-					"rc": "0",
-					"desc": "Sedang maintenance",
-					"message": "Sedang maintenance",
-					"bit11": "",
-					"bit12": "",
-					"bit48": "",
-					"bit62": ""
-				}
-			}';
-		}
 		$password = $req['password'];
 		$username   = "089687271843";
 		$apiKey   = "7285d8726bcde318728";
