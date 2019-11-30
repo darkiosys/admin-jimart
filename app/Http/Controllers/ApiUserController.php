@@ -71,6 +71,12 @@ class ApiUserController extends Controller
 			)
 		);
 		if(isset($user)) {
+			$ret = array(
+				"data" => array(
+					"status" => 1,
+					"message" => "email sudah terpakai"
+				)
+			);
 			return $ret;
 		}
 		return $ret;
