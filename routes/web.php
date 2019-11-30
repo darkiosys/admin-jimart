@@ -43,6 +43,7 @@ Route::get('/api/product_wishlists', 'ApiUserController@product_whistlist');
 Route::get('/api/product_carts', 'ApiUserController@product_chart');
 
 Route::get('/api/user/changepassword', 'ApiUserController@changePassword');
+Route::post('/api/user/register', 'ApiUserController@userregister');
 
 Route::get('/api/v1/postpaid/inquiry', 'ApiTopupController@PostpaidInquiry');
 Route::get('/api/v1/postpaid/pay', 'ApiTopupController@PostpaidPay');
@@ -293,6 +294,8 @@ Route::post('/store-edit', function () {
         }';
     }
 });
+
+Route::get('/create-store', 'ApiUserController@createstore');
 
 Route::post('/carts-edit', function () {
 
