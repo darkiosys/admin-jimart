@@ -64,21 +64,16 @@ class ApiUserController extends Controller
 	function userregister(Request $request) {
 		$req = $request->all();
 		$user = User::where('email', '=', $req['email'])->first();
+		$ret = array(
+			"data" => array(
+				"status" => 1,
+				"message" => "sukses"
+			)
+		);
 		if(isset($user)) {
-			return '{
-				"data": {
-					"status": 1,
-					"message": "email already exists!"
-				}
-			}';
+			return $ret;
 		}
-		return '{
-			"data": {
-				"status": 1,
-				"message": "Password Benar!",
-				"desc": "Password Benar!",
-			}
-		}';
+		return $ret;
 	}
 	function slider(Request $request)
 	{
