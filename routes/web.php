@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/testbonus', 'ApiTopupController@testbonus');
 
-// Indotama
+// Indotama get key
 Route::get('/api/v2/login', 'IDTController@Login');
 // v2 Pesawat
 Route::get('/api/v2/flight/listroute', 'IDTController@ListRoute');
