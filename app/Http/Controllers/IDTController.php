@@ -6,6 +6,7 @@ use App\Saldo;
 use App\User;
 use App\T_transaction;
 use App\T_bonusgenerasi;
+use App\IdtmKey;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
@@ -27,9 +28,10 @@ class IDTController extends Controller
 		curl_close($ch);
 		$arrd = explode(";",$data);
 		$ret = array(
-			"pin" => $arrd[2],
-			"key" => $arrd[3]
+			"idtm_pin" => $arrd[2],
+			"idtm_key" => $arrd[3]
 		);
+		IdtmKey::create($ret);
 		return $ret;
 	}
 	
