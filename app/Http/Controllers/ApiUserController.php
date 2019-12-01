@@ -63,7 +63,7 @@ class ApiUserController extends Controller
 	}
 	function userregister(Request $request) {
 		$req = $request->all();
-		$user = User::where('email', '=', $req['email'])->first();
+		$user = User::where('phone', '=', $req['phone'])->first();
 		$ret = array(
 			"data" => array(
 				"status" => 1,
@@ -73,12 +73,19 @@ class ApiUserController extends Controller
 		if(isset($user)) {
 			$ret = array(
 				"data" => array(
-					"status" => 1,
+					"status" => 0,
 					"message" => "email sudah terpakai"
 				)
 			);
 			return $ret;
 		}
+		// $newuser = array(
+		// 	"sponsor" => ,
+		// 	"phone" => ,
+		// 	"first_name" => ,
+		// 	"last_name" => ,
+		// 	"password" => ,
+		// );
 		return $ret;
 	}
 	function slider(Request $request)
