@@ -37,7 +37,8 @@ class IDTController extends Controller
 	
 	function ListRoute(Request $request) {
 		$req = $request->all();
-		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/?EDC=TIKET.AIRLINES.EDC.18%23%2A217%23%2A205%23%2A148.".$req['pin'].".".$req['session'];
+		$key = IdtmKey::orderBy('created', 'desc')->first();
+		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/?EDC=TIKET.AIRLINES.EDC.18%23%2A217%23%2A205%23%2A148.".$key->idtm_pin.".".$key->idtm_key;
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_URL, $url);
