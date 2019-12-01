@@ -17,12 +17,14 @@ Route::get('/', function () {
 
 Route::get('/testbonus', 'ApiTopupController@testbonus');
 
-Route::get('/indotama/login', 'IDTController@Login');
-Route::get('/indotama/listroute', 'IDTController@ListRoute');
-Route::get('/indotama/checkflight', 'IDTController@CheckFlight');
-Route::get('/indotama/checkprice', 'IDTController@CheckPrice');
-Route::get('/indotama/bookingticket', 'IDTController@BookingTicket');
-Route::get('/indotama/issuedticket', 'IDTController@IssuedTicket');
+// Indotama
+Route::get('/api/v2/login', 'IDTController@Login');
+// v2 Pesawat
+Route::get('/api/v2/flight/listroute', 'IDTController@ListRoute');
+Route::get('/api/v2/flight/checkflight', 'IDTController@CheckFlight');
+Route::get('/api/v2/flight/checkprice', 'IDTController@CheckPrice');
+Route::get('/api/v2/flight/bookingticket', 'IDTController@BookingTicket');
+Route::get('/api/v2/flight/issuedticket', 'IDTController@IssuedTicket');
 
 
 Auth::routes();

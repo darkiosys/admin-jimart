@@ -25,7 +25,12 @@ class IDTController extends Controller
 
 		$data = curl_exec($ch);
 		curl_close($ch);
-		return $data;
+		$arrd = explode(";",$data);
+		$ret = array(
+			"pin" => $arrd[2],
+			"key" => $arrd[3]
+		);
+		return $ret;
 	}
 	
 	function ListRoute(Request $request) {
