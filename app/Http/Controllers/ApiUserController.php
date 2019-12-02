@@ -60,7 +60,8 @@ class ApiUserController extends Controller
 				"store_kode_pos" => $req['store_kode_pos'],
 				"store_status" => $req['store_status']
 			);
-			$user->update($up);
+			$u = User::findOrFail($user->id);
+			$u->update($up);
 			$res = array(
 				"status" => 1,
 				"message" => "Buat Toko Sukses"
