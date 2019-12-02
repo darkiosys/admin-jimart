@@ -62,8 +62,8 @@ class ApiUserController extends Controller
 			);
 			$user->update($up);
 			$res = array(
-				"status" => 0,
-				"message" => "Gagal"
+				"status" => 1,
+				"message" => "Buat Toko Sukses"
 			);
 			return $res;
 		} else {
