@@ -54,6 +54,9 @@ class IDTController extends Controller
 	function CheckFlight(Request $request) {
 		$req = $request->all();
 		$key = IdtmKey::orderBy('created', 'desc')->first();
+		// FROM : (ex: CGK)
+		// TO : (ex: SUB)
+		// DATE : (ex: 30-05-2015) (dd-mm-yyyy)
 		$url = "http://36.79.180.2:62455/edc/devel/sim_mlm/?EDC=TIKET.AIRLINES.SCHEDULE.EDC.18%23%2A217%23%2A205%23%2A148.".$key->idtm_pin.".".$key->idtm_key."&FROM=".$req['from']."&TO=".$req['to']."&DATE=".$req['date'];
 		$ch  = curl_init();
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));

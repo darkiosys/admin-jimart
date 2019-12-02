@@ -45,21 +45,19 @@ class ApiUserController extends Controller
 		$req = $request->all();
 		$user = User::where('username', '=', $req['username'])->first();
 		$chkPwd = Hash::check($req['password'], $user->password);
+		$res = array(
+			"status" => 0,
+			"message" => "Gagal"
+		);
 		if(!$chkPwd) {
-			return '{
-				"data": {
-					"rc": "0",
-					"message": "Password Salah!",
-					"desc": "Password Salah!",
-				}
-			}';
+			return $res;
+		} else {
+			$res = array(
+				"status" => 1,
+				"message" => "Sukses"
+			);
+			return $res;
 		}
-		return '{
-			"data": {
-				"message": "Password Benar!",
-				"desc": "Password Benar!",
-			}
-		}';
 	}
 	function userregister(Request $request) {
 		$req = $request->all();
