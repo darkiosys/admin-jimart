@@ -61,10 +61,11 @@ class ApiUserController extends Controller
 				"store_status" => $req['store_status']
 			);
 			$u = User::findOrFail($user->id);
-			$u->update($up);
+			$x = $u->update($up);
 			$res = array(
 				"status" => 1,
-				"message" => "Buat Toko Sukses"
+				"message" => "Buat Toko Sukses",
+				"data" => $x
 			);
 			return $res;
 		} else {
