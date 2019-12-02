@@ -44,20 +44,44 @@ class ApiUserController extends Controller
 	function createstore(Request $request) {
 		$req = $request->all();
 		$user = User::where('username', '=', $req['username'])->first();
-		$chkPwd = Hash::check($req['password'], $user->password);
-		$res = array(
-			"status" => 0,
-			"message" => "Gagal"
-		);
-		if(!$chkPwd) {
+		// $chkPwd = Hash::check($req['password'], $user->password);
+		// username=${Session.member.username}
+		// &password=$password
+		// &store_name=$nameStore
+		// &store_address=$addressStore
+		// &store_note=$noteStore
+		// &store_kode_pos=$kodePosStore
+		// &store_status=$storeStatus
+		if(isset($user)) {
+			$up = array(
+				"store_name" => $req['store_name'],
+				"store_address" => $req['store_adress'],
+				"store_note" => $req['store_note'],
+				"store_kode_pos" => $req['store_kode_pos'],
+				"store_status" => $req['store_status']
+			);
+			$user->update($up);
+			$res = array(
+				"status" => 0,
+				"message" => "Gagal"
+			);
 			return $res;
 		} else {
 			$res = array(
-				"status" => 1,
-				"message" => "Sukses"
+				"status" => 0,
+				"message" => "Gagal"
 			);
 			return $res;
 		}
+		// if(!$chkPwd) {
+		// 	return $res;
+		// } else {
+		// 	$res = array(
+		// 		"status" => 1,
+		// 		"message" => "Sukses"
+		// 	);
+		// 	return $res;
+		// }
 	}
 	function userregister(Request $request) {
 		$req = $request->all();
