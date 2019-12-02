@@ -55,7 +55,7 @@ class ApiUserController extends Controller
 		if(isset($user)) {
 			$up = array(
 				"store_name" => $req['store_name'],
-				"store_address" => $req['store_adress'],
+				"store_address" => $req['store_address'],
 				"store_note" => $req['store_note'],
 				"store_kode_pos" => $req['store_kode_pos'],
 				"store_status" => $req['store_status']
