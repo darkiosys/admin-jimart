@@ -11,6 +11,7 @@ use App\TEcommerce;
 use App\TransaksiDetail;
 use App\TransaksiKurir;
 use App\Slider;
+use App\Saldo;
 use DB;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -41,17 +42,15 @@ class ApiUserController extends Controller
 			return 'uploads-mobile'.'/'.$file->getClientOriginalName();
 		}
 	}
+	function get_reqtopup(Request $request) {
+		$req = $request->all();
+		$userid = $req['user_id'];
+		$history = Saldo::where('user_id', '=', $userid)->get();
+		return $history;
+	}
 	function createstore(Request $request) {
 		$req = $request->all();
 		$user = User::where('username', '=', $req['username'])->first();
-		// $chkPwd = Hash::check($req['password'], $user->password);
-		// username=${Session.member.username}
-		// &password=$password
-		// &store_name=$nameStore
-		// &store_address=$addressStore
-		// &store_note=$noteStore
-		// &store_kode_pos=$kodePosStore
-		// &store_status=$storeStatus
 		if(isset($user)) {
 			$up = array(
 				"store_name" => $req['store_name'],

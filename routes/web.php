@@ -297,6 +297,8 @@ Route::post('/store-edit', function () {
     }
 });
 
+Route::get('/api/get_saldo', 'ApiUserController@get_reqtopup');
+
 Route::get('/create-store', 'ApiUserController@createstore');
 
 Route::post('/carts-edit', function () {
