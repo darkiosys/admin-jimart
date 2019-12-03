@@ -42,8 +42,9 @@ class ApiTopupController extends Controller
 	}
 	function PostpaidInquiry(Request $request) {
 		$req = $request->all();
-		$username   = "089687271843";
-		$apiKey = "7285d8726bcde318728";
+		$username   = "085320211111";
+		// $apiKey = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		// $apiKey = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$month = "";
@@ -53,7 +54,7 @@ class ApiTopupController extends Controller
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "inq-pasca",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"code"  	  : "'.$req['code'].'",
@@ -74,17 +75,18 @@ class ApiTopupController extends Controller
 	}
 	function PostpaidPay(Request $request) {
 		$req = $request->all();
-		$username   = "089687271843";
+		$username   = "085320211111";
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$apiKey = "7285d8726bcde318728";
+		// $apiKey = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		// $apiKey = "6845d79e9afc378c";
 		$tr_id  = $req['tr_id'];
 		$ref_id  = $req['ref_id'];
 		$signature  = md5($username.$apiKey.$tr_id);
 		$json = '{	
 				"commands"		: "pay-pasca",
-				"username"		: "089687271843",
+				"username"		: "085320211111",
 				"tr_id"			: "'.$tr_id.'",
 				"sign"			: "'.$signature.'"
 				}';
@@ -293,9 +295,10 @@ class ApiTopupController extends Controller
 	}
 	function PostpaidInquiryDev(Request $request) {
 		$req = $request->all();
-		$username   = "089687271843";
+		$username   = "085320211111";
 		// $apiKey = "7285d8726bcde318728";
-		$apiKey = "6845d79e9afc378c";
+		$apiKey = "7465da2d98412b9f746";
+		// $apiKey = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$month = "";
 		if(isset($req['month'])){
@@ -304,7 +307,7 @@ class ApiTopupController extends Controller
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "inq-pasca",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"code"  	  : "'.$req['code'].'",
@@ -325,14 +328,15 @@ class ApiTopupController extends Controller
 	}
 	function PostpaidPayDev(Request $request) {
 		// $req = $request->all();
-		// $username   = "089687271843";
-		// // $apiKey = "7285d8726bcde318728";
+		// $username   = "085320211111";
+		// $apiKey = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		// $apiKey = "6845d79e9afc378c";
 		// $tr_id  = $req['tr_id'];
 		// $signature  = md5($username.$apiKey.$tr_id);
 		// $json = '{	
 		// 		"commands"		: "pay-pasca",
-		// 		"username"		: "089687271843",
+		// 		"username"		: "085320211111",
 		// 		"tr_id"			: "'.$tr_id.'",
 		// 		"sign"			: "'.$signature.'"
 		// 		}';
@@ -348,17 +352,18 @@ class ApiTopupController extends Controller
 		// curl_close($ch);
 		// return $data;
 		$req = $request->all();
-		$username   = "089687271843";
+		$username   = "085320211111";
 		$members_id = $req['member_id'];
 		$password = $req['password'];
 		$apiKey = "6845d79e9afc378c";
-		// $apiKey = "7285d8726bcde318728"; // prod
+		$apiKey = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746"; // prod
 		$tr_id  = $req['tr_id'];
 		$ref_id  = $req['ref_id'];
 		$signature  = md5($username.$apiKey.$tr_id);
 		$json = '{	
 				"commands"		: "pay-pasca",
-				"username"		: "089687271843",
+				"username"		: "085320211111",
 				"tr_id"			: "'.$tr_id.'",
 				"sign"			: "'.$signature.'"
 				}';
@@ -567,15 +572,16 @@ class ApiTopupController extends Controller
 	}
 	function topupRelease(Request $request) {
 		$req = $request->all();
-		$username   = "089687271843";
+		$username   = "085320211111";
 		// $apiKey   = "7285d8726bcde318728";
-		$apiKey = "6845d79e9afc378c";
+		$apiKey = "7465da2d98412b9f746";
+		// $apiKey = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -597,14 +603,14 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
+		$username   = "085320211111";
 		$apiKey   = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -977,14 +983,15 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
-		$apiKey   = "7285d8726bcde318728";
+		$username   = "085320211111";
+		// $apiKey   = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		$ref_id  = $req['reff_id'];
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -996,7 +1003,7 @@ class ApiTopupController extends Controller
 			$signature  = md5($username.$apiKey.$ref_id);
 			$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -1606,7 +1613,7 @@ class ApiTopupController extends Controller
 				}
 			}';
 		}
-		$username   = "089687271843";
+		$username   = "085320211111";
 		$apiKey   	= "6845d79e9afc378c";
 		$ref_id  	= uniqid('');
 		$signature  = md5($username.$apiKey.$ref_id);
@@ -1639,7 +1646,7 @@ class ApiTopupController extends Controller
 	}
 	function inquiryPay(Request $request) {
 		$req = $request->all();
-		$username   = "089687271843";
+		$username   = "085320211111";
 		$apiKey   	= "6845d79e9afc378c";
 		$tr_id  	= $req['tr_id'];
 		$signature  = md5($username.$apiKey.$tr_id);
@@ -1706,7 +1713,7 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
+		$username   = "085320211111";
 		$apiKey   = "6845d79e9afc378c";
 		$ref_id  = uniqid('');
 		$markup = 0;
@@ -1714,7 +1721,7 @@ class ApiTopupController extends Controller
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 			"commands"    : "topup",
-			"username"    : "089687271843",
+			"username"    : "085320211111",
 			"ref_id"      : "'.$ref_id.'",
 			"hp"          : "'.$req['hp'].'",
 			"pulsa_code"  : "'.$code.'",
@@ -1846,14 +1853,15 @@ class ApiTopupController extends Controller
 			}';
 		}
 		$password = $req['password'];
-		$username   = "089687271843";
-		$apiKey   = "7285d8726bcde318728";
+		$username   = "085320211111";
+		// $apiKey   = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		$ref_id  = $req['reff_id'];
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -1865,7 +1873,7 @@ class ApiTopupController extends Controller
 			$signature  = md5($username.$apiKey.$ref_id);
 			$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -2405,8 +2413,9 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
-		$apiKey   = "7285d8726bcde318728";
+		$username   = "085320211111";
+		// $apiKey   = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		$tr_id  = $req['tr_id'];
 		$ref_id = $req['ref_id'];
 		$code = 'pln-postpaid';
@@ -2415,7 +2424,7 @@ class ApiTopupController extends Controller
 		$signature  = md5($username.$apiKey.$tr_id);
 		$json = '{
 				"commands"    : "pay-pasca",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"tr_id"          : "'.$tr_id.'",
 				"sign"        : "'.md5($username.$apiKey.$tr_id).'"
 				}';
@@ -2664,15 +2673,16 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
-		$apiKey   = "7285d8726bcde318728";
+		$username   = "085320211111";
+		// $apiKey   = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		$ref_id  = uniqid('');
 		$markup = 0;
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 			"commands"    : "inquiry_pln",
-			"username"    : "089687271843",
+			"username"    : "085320211111",
 			"hp"          : "'.$req['hp'].'",
 			"sign"        : "'.md5($username.$apiKey.$ref_id).'"
 			}';
@@ -2787,14 +2797,15 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
-		$apiKey   = "7285d8726bcde318728";
+		$username   = "085320211111";
+		// $apiKey   = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		$ref_id  = uniqid('');
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -3054,14 +3065,15 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
-		$apiKey   = "6845d79e9afc378c";
+		$username   = "085320211111";
+		// $apiKey   = "6845d79e9afc378c";
+		$apiKey = "7465da2d98412b9f746";
 		$ref_id  = uniqid('');
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
@@ -3161,14 +3173,15 @@ class ApiTopupController extends Controller
 		$req = $request->all();
 		$members_id = $req['member_id'];
 		$password = $req['password'];
-		$username   = "089687271843";
-		$apiKey   = "7285d8726bcde318728";
+		$username   = "085320211111";
+		// $apiKey   = "7285d8726bcde318728";
+		$apiKey = "7465da2d98412b9f746";
 		$ref_id  = uniqid('');
 		$code = $req['code'];
 		$signature  = md5($username.$apiKey.$ref_id);
 		$json = '{
 				"commands"    : "topup",
-				"username"    : "089687271843",
+				"username"    : "085320211111",
 				"ref_id"      : "'.$ref_id.'",
 				"hp"          : "'.$req['hp'].'",
 				"pulsa_code"  : "'.$code.'",
