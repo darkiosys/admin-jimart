@@ -236,11 +236,23 @@ class SaldoController extends Controller
         return redirect('saldo')->with('flash_message', 'Saldo deleted!');
     }
     
-    public function memberSaldo() {
-        $members = DB::table('members')
-        ->orderBy('saldo', 'desc')
-        ->get();
+    public function memberSaldo(Request $request) {
+        $keyword = $request->get('search');
+        $perPage = 25;
+
+        if (!empty($keyword)) {
+            $members = DB::table('members')
+            ->where('username', 'like', '%'.$keyword.'%')
+            ->orderBy('saldo', 'desc')
+            ->get();
+        } else {
+            $members = DB::table('members')
+            ->orderBy('saldo', 'desc')
+            ->get();
+        }
         return view('saldo.membersaldo', compact('members'));
+        
+        
     }
 
     public function hapusMember($id) {
