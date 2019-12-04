@@ -100,6 +100,8 @@ Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 Route::post('/user/changepassword', 'ApiUserController@changePasswordAdmin');
 
 Route::resource('saldo', 'SaldoController');
+Route::get('/transfer_saldo', 'SaldoController@transfer_saldo');
+Route::post('/transfer_saldo', 'SaldoController@posttransfer_saldo');
 Route::get('ppob', 'SaldoController@ppob');
 Route::get('ppob/delete', 'SaldoController@ppobdelete');
 Route::get('ppob/return', 'SaldoController@ppobreturn');

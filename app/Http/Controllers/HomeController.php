@@ -26,8 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         if(auth()->user()->role != 1) {
-            Auth::logout();
-            return redirect('/login');
+            return redirect('/transfer_saldo');
         }
         return view('home');
     }

@@ -251,8 +251,39 @@ class SaldoController extends Controller
             ->get();
         }
         return view('saldo.membersaldo', compact('members'));
-        
-        
+    }
+
+    public function transfer_saldo(Request $request) {
+        return view('saldo.transfer_saldo');
+    }
+
+    public function posttransfer_saldo(Request $request) {
+        $req = $request->all();
+        $usr = User::where('username', '=', $req['username'])->first();
+        $sndr = User::where('username', '=', auth()->user()->username)->first();
+		if(!$usr) {
+			return redirect('/transfer_saldo');
+        }
+        if($sndr->saldo < (int)$req['jumlah_transfer']) {
+            return redirect('/transfer_saldo');
+        }
+		$pl = array(
+			"members_id" => auth()->user()->id,
+			"sender" => auth()->user()->username,
+			"receiver" => $req['username'],
+			"nominal" => $req['jumlah_transfer'],
+			"ending_saldo" => $usr->saldo + (int)$req['jumlah_transfer'],
+			"date" => date("Y-m-d h:i:s"),
+			"status" => "transfer saldo",
+			"created_at" => date("Y-m-d h:i:s"),
+			"updated_at" => date("Y-m-d h:i:s")
+		);
+		DB::table('t_transfer_saldo')->insert($pl);
+        $arrUser = array("saldo" => $usr->saldo + (int)$req['jumlah_transfer']);
+        $arrSndr = array("saldo" => $sndr->saldo - (int)$req['jumlah_transfer']);
+        $sndr->update($arrSndr);
+		$usr->update($arrUser);
+		return redirect('/transfer_saldo');
     }
 
     public function hapusMember($id) {
