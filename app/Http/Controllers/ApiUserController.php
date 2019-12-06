@@ -50,7 +50,10 @@ class ApiUserController extends Controller
 
 		for ($i = 0; $i < count($customerArr); $i ++)
 		{
-			User::firstOrCreate($customerArr[$i]);
+			$u = User::where('username', '=', $customerArr[$i]['username'])->first();
+			if(!isset($u)) {
+				User::firstOrCreate($customerArr[$i]);
+			}
 		}
 
 		return 'Jobi done or what ever';  
