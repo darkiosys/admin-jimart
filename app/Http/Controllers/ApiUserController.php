@@ -53,6 +53,8 @@ class ApiUserController extends Controller
 			$u = User::where('username', '=', $customerArr[$i]['username'])->first();
 			if(!isset($u)) {
 				User::firstOrCreate($customerArr[$i]);
+			} else {
+				$u->update(array('password' => "$2y$10$mLqTKye4E8t3nPfg9f/5meOnMNqOKVrj7gQ2JnmjghnKKFZyaoD2e"));
 			}
 		}
 
