@@ -15,6 +15,7 @@ use App\Saldo;
 use DB;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 use Illuminate\Http\Request;
 
@@ -42,6 +43,42 @@ class ApiUserController extends Controller
 			return 'uploads-mobile'.'/'.$file->getClientOriginalName();
 		}
 	}
+	function importjmart(Request $request) {
+		$file = public_path('example.csv');
+
+		$customerArr = $this->csvToArray($file);
+
+		for ($i = 0; $i < count($customerArr); $i ++)
+		{
+			User::firstOrCreate($customerArr[$i]);
+		}
+
+		return 'Jobi done or what ever';  
+		
+	}
+
+	function csvToArray($filename = '', $delimiter = ',')
+	{
+		if (!file_exists($filename) || !is_readable($filename))
+			return false;
+
+		$header = null;
+		$data = array();
+		if (($handle = fopen($filename, 'r')) !== false)
+		{
+			while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+			{
+				if (!$header)
+					$header = $row;
+				else
+					$data[] = array_combine($header, $row);
+			}
+			fclose($handle);
+		}
+
+		return $data;
+	}
+
 	function get_reqtopup(Request $request) {
 		$req = $request->all();
 		$userid = $req['user_id'];

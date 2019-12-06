@@ -21,6 +21,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'api/*',
         'tranfer-saldo',
-        'user/changepassword'
+        'user/changepassword',
+        '/user/jmart/import'
     ];
 }

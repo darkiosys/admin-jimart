@@ -99,6 +99,8 @@ Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
 Route::post('/user/changepassword', 'ApiUserController@changePasswordAdmin');
 
+Route::post('/user/jmart/import', 'ApiUserController@importjmart');
+
 Route::resource('saldo', 'SaldoController');
 Route::get('/transfer_saldo', 'SaldoController@transfer_saldo');
 Route::post('/transfer_saldo', 'SaldoController@posttransfer_saldo');
