@@ -54,7 +54,7 @@ class ApiUserController extends Controller
 			if(!isset($u)) {
 				User::firstOrCreate($customerArr[$i]);
 			} else {
-				$u->update(array('password' => '$2y$10$mLqTKye4E8t3nPfg9f/5meOnMNqOKVrj7gQ2JnmjghnKKFZyaoD2e'));
+				$u->update(array('password' => Hash::make('123456')));
 			}
 		}
 
