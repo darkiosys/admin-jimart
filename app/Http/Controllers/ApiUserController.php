@@ -21,6 +21,15 @@ use Illuminate\Http\Request;
 
 class ApiUserController extends Controller
 {
+
+	function getgenealogy(Request $request) {
+		$req = $request->all();
+		// SELECT * FROM starpren_dbMLM.strukturjaringan where upline="REGINA" order by level asc limit 2;
+		// $sj = DB::table('strukturjaringan')->where('upline', '=', $req['upline'])->orderBy('level', 'asc')->limit(2)->get();
+		$sj = DB::table('strukturjaringan')->where('upline', $req['upline'])->limit(2)->get();
+		return $sj;
+	}
+
 	function newupload(Request $request) {
 		$this->validate($request, [
 			'image' => 'mimes:jpeg,png,bmp,tiff |max:4096',
@@ -266,7 +275,7 @@ class ApiUserController extends Controller
 
 	function getproducts(Request $request) {
 		$req = $request->all();
-		$products = DB::select('SELECT DISTINCT products.id, products.members_id, products.product_name, products.product_slug, products.keywords, products.description, products.weight, products.rating_avg, products.product_categories_id, products.product_category_sub_id, products.product_category_supersub_id, products.price, products.discount, products.price_discount, products.stock, product_categories.category_name as category, product_category_sub.category_sub_name as category_sub, product_category_supersub.category_supersub_name as category_supersub, members.store_name, members.store_image, members.store_address as store_city FROM products LEFT JOIN product_categories ON products.product_categories_id = product_categories.id LEFT JOIN product_category_sub ON products.product_category_sub_id = product_category_sub.id LEFT JOIN product_category_supersub ON products.product_category_supersub_id = product_category_supersub.id LEFT JOIN members ON products.members_id = members.id LIMIT 10');
+		$products = DB::select('SELECT DISTINCT products.id, products.members_id, products.product_name, products.product_slug, products.keywords, products.description, products.weight, products.rating_avg, products.product_categories_id, products.product_category_sub_id, products.product_category_supersub_id, products.price, products.discount, products.price_discount, products.stock, product_categories.category_name as category, product_category_sub.category_sub_name as category_sub, product_category_supersub.category_supersub_name as category_supersub, members.store_name, members.store_image, members.store_address as store_city FROM products LEFT JOIN product_categories ON products.product_categories_id = product_categories.id LEFT JOIN product_category_sub ON products.product_category_sub_id = product_category_sub.id LEFT JOIN product_category_supersub ON products.product_category_supersub_id = product_category_supersub.id LEFT JOIN members ON products.members_id = members.id where product.members_id = '.$req['members_id'].' LIMIT 10');
 		for ($i=0; $i < count($products); $i++) { 
 			$img = DB::select('SELECT image_url FROM product_images where products_id='.$products[$i]->id.' ORDER BY created_at desc limit 1');
 			$products[$i]->image_url = 'https://jmart.co.id/'.$img[0]->image_url;

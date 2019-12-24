@@ -27,6 +27,8 @@ Route::get('/api/v2/flight/bookingticket', 'IDTController@BookingTicket');
 Route::get('/api/v2/flight/issuedticket', 'IDTController@IssuedTicket');
 
 
+Route::get('/api/v1/genealogy', 'ApiUserController@getgenealogy');
+
 Auth::routes();
 
 Route::get('/api/ppob_fee_admin', function() {
