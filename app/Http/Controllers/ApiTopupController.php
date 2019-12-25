@@ -1673,6 +1673,10 @@ class ApiTopupController extends Controller
 	}
 	function topupSaldo(Request $request) {
 		$requestData = $request->all();
+		$isexists = Saldo::where('user_id', '=', $requestData['user_id'])->where('saldo', '=', $requestData['saldo'])->where('jumlah_transfer', '=', $requestData['jumlah_transfer'])->first();
+		if(isset($isexists)) {
+			return array('message' => 'already requested');
+		}
 		$requestData['created_at'] = Date('Y-m-d H:i:s');
 		$requestData['updated_at'] = Date('Y-m-d H:i:s');
 		return Saldo::create($requestData);
