@@ -12,6 +12,7 @@
 							<i class="fa fa-plus" aria-hidden="true"></i> Topup Saldo
                         </a>
 						@endif
+                        <b>Total Saldo : Rp. {{ number_format($totalsaldo, 0, ".", ".")}}</b>
                         <form method="GET" action="{{ url('/member-saldo') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">

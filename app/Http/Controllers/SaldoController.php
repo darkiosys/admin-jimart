@@ -245,6 +245,7 @@ class SaldoController extends Controller
     public function memberSaldo(Request $request) {
         $keyword = $request->get('search');
         $perPage = 25;
+        $totalsaldo = DB::table('members')->select(DB::raw('SUM(saldo) as total_saldo'))->first()->total_saldo;
 
         if (!empty($keyword)) {
             $members = DB::table('members')
@@ -256,7 +257,7 @@ class SaldoController extends Controller
             ->orderBy('saldo', 'desc')
             ->get();
         }
-        return view('saldo.membersaldo', compact('members'));
+        return view('saldo.membersaldo', compact('members', 'totalsaldo'));
     }
 
     public function transfer_saldo(Request $request) {
