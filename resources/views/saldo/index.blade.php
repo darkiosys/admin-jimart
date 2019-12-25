@@ -97,6 +97,10 @@
 													{{ csrf_field() }}
 													<button type="submit" class="btn btn-primary btn-sm" title="Verifikasi" onclick="return confirm(&quot;Verifikasi topup?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Verifikasi</button>
 												</form>
+                                                <form method="POST" action="{{ url('/saldo/delete' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">    
+													{{ csrf_field() }}
+													<button type="submit" class="btn btn-danger btn-sm" title="X" onclick="return confirm(&quot;Hapus Request?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> X</button>
+												</form>
 											@elseif($item->status == 1)
 												Sudah Di verifikasi
 											@endif

@@ -24,8 +24,6 @@ class ApiUserController extends Controller
 
 	function getgenealogy(Request $request) {
 		$req = $request->all();
-		// SELECT * FROM starpren_dbMLM.strukturjaringan where upline="REGINA" order by level asc limit 2;
-		// $sj = DB::table('strukturjaringan')->where('upline', '=', $req['upline'])->orderBy('level', 'asc')->limit(2)->get();
 		$sj = DB::table('strukturjaringan')->where('upline', $req['upline'])->limit(2)->get();
 		return $sj;
 	}

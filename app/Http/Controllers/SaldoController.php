@@ -146,6 +146,12 @@ class SaldoController extends Controller
 		$member->update($arrUser);
         $saldo->update($arr);
 		return redirect('saldo')->with('flash_message', 'Request saldo terverifikasi!');
+    }
+    
+    function deleteTopup($id)
+	{
+		$saldo = Saldo::destroy($id);
+		return redirect('saldo')->with('flash_message', 'Request saldo di hapus!');
 	}
 
     /**
