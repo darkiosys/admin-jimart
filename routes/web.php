@@ -97,6 +97,8 @@ Route::get('api/forgot_password', 'ApiUserController@forgotPassword');
 
 Route::get('api/createpassword', 'ApiUserController@createpassword');
 
+Route::get('api/generatecashback', 'ApiUserController@generatecashback');
+
 Route::post('api/saldo/bonus', 'ApiTopupController@topupBonus');
 
 Route::post('/user/changepassword', 'ApiUserController@changePasswordAdmin');

@@ -28,6 +28,21 @@ class ApiUserController extends Controller
 		return $sj;
 	}
 
+	function generatecashback() {
+		$x = DB::table('t_ppob')->select('fee_admin','members_id')->get();
+		$tot = 0;
+		for ($i=0; $i < count($x); $i++) { 
+			$u = $x[$i]->fee_admin * 25/100;
+			$b = $x[$i]->fee_admin - $u;
+			$share = $b *10/100;
+			$us = User::findOrFail($x[$i]->members_id);
+			if ($us) {
+				$us->update(array('saldo' => $us->saldo+$share));
+			}
+		}
+		return "sukses";
+	}
+
 	function newupload(Request $request) {
 		$this->validate($request, [
 			'image' => 'mimes:jpeg,png,bmp,tiff |max:4096',

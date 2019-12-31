@@ -139,7 +139,7 @@ class ApiTopupController extends Controller
 		$v15 = $vshare * (15/100);
 		$v5 = $vshare * (5/100);
 		// CASHBACK
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		$pcb = array(
 			'reff_id' => $ref_id,
 			'username' => $member[0]->username,
@@ -416,7 +416,7 @@ class ApiTopupController extends Controller
 		$v15 = $vshare * (15/100);
 		$v5 = $vshare * (5/100);
 		// CASHBACK
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		$pcb = array(
 			'reff_id' => $ref_id,
 			'username' => $member[0]->username,
@@ -1399,7 +1399,7 @@ class ApiTopupController extends Controller
 		$v15 = $vshare * (15/100);
 		$v5 = $vshare * (5/100);
 		// CASHBACK
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		$pcb = array(
 			'reff_id' => $ref_id,
 			'username' => $member[0]->username,
@@ -2258,7 +2258,7 @@ class ApiTopupController extends Controller
 		$v15 = $vshare * (15/100);
 		$v5 = $vshare * (5/100);
 		// CASHBACK
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		return $cb;
 		$pcb = array(
 			'reff_id' => $ref_id,
@@ -2523,7 +2523,7 @@ class ApiTopupController extends Controller
 		$v15 = $vshare * (15/100);
 		$v5 = $vshare * (5/100);
 		// CASHBACK
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		$pcb = array(
 			'reff_id' => $ref_id,
 			'username' => $member[0]->username,
@@ -2915,7 +2915,7 @@ class ApiTopupController extends Controller
 		$v15 = $vshare * (15/100);
 		$v5 = $vshare * (5/100);
 		// CASHBACK
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		$pcb = array(
 			'reff_id' => $ref_id,
 			'username' => $member[0]->username,
@@ -3286,7 +3286,7 @@ class ApiTopupController extends Controller
 		$v15 = $vshare * (15/100);
 		$v5 = $vshare * (5/100);
 		// CASHBACK
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		$pcb = array(
 			'reff_id' => $ref_id,
 			'username' => $member[0]->username,
@@ -3448,7 +3448,7 @@ class ApiTopupController extends Controller
 		$v5 = $vshare * (5/100);
 		// CASHBACK
 		$member = DB::select('SELECT username,sponsor FROM members WHERE id=?', [$members_id]);
-		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE id=?', [$v10,$members_id]);
+		$cb = DB::update('UPDATE members SET saldo=saldo+? WHERE username=?', [$v10,$member[0]->username]);
 		$pcb = array(
 			'reff_id' => $ref_id,
 			'username' => $member[0]->username,
