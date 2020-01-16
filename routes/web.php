@@ -127,7 +127,7 @@ Route::post('/transaksi/verifikasi/{id}', 'TransaksiController@verifikasiTransak
 // Route::get('api/transaksi', 'ApiTransaksiController@getTransaksi');
 
 // Route::get('/api/hapusmember/{id}', 'SaldoController@hapusMember');
-// Route::get('/api/hapussaldomember/{id}', 'SaldoController@kosongSaldo');
+Route::get('/api/hapussaldomember/{id}', 'SaldoController@kosongSaldo');
 
 // User
 // Route::get('/api/totaltransaksi/konfirmasipembayaran', 'ApiTransaksiController@totalKonfirmasiPembayaran');
