@@ -1,0 +1,2 @@
+Hi <?php echo e($first_name); ?> <?php echo e($last_name); ?><br />
+Your New Password is <?php echo e($newpass); ?><?php /**PATH /var/www/jmart.co.id/resources/views/emails/reminder.blade.php ENDPATH**/ ?>
